@@ -14,10 +14,10 @@
 
     <ul class="flex flex-wrap items-center justify-center text-gray-900 dark:text-white">
       <li>
-        <a href="/login" class="me-4 hover:underline md:me-6">Login</a>
+        <a href="{{ route('login') }}" class="me-4 hover:underline md:me-6">Login</a>
       </li>
       <li>
-        <a href="/dashboard" class="me-4 hover:underline md:me-6">Dashboard</a>
+        <a href="{{ route('dashboard') }}" class="me-4 hover:underline md:me-6">Dashboard</a>
       </li>
     </ul>
 
