@@ -11,11 +11,13 @@ class Unit extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $guarded = [];
+    protected $primaryKey = 'code';
+    protected $with = 'element';
 
-    public function skema(): BelongsTo
+    public function scheme(): BelongsTo
     {
-        return $this->belongsTo(Skema::class);
+        return $this->belongsTo(Scheme::class);
     }
 
     public function element(): HasMany

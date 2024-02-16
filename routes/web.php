@@ -60,7 +60,7 @@ Route::resources([
 
 // Route::get('/skema', [SkemaController::class, 'index'])->name('skema');
 
-Route::view('/', 'index');
+Route::view('/', 'index')->name('home');
 
 // Route::view('/login', 'auth.login')->name('login');
 Route::get('/login', [LoginController::class, 'login'])->name('login');

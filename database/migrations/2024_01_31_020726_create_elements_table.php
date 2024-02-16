@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('elements', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('unit_id');
+            $table->foreignId('unit_code');
             $table->timestamps();
         });
     }

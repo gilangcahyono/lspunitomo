@@ -165,7 +165,7 @@
       <hr class="border-gray-500">
 
       <li>
-        <a href="/"
+        <a href="{{ route('home') }}"
           class="group flex items-center rounded-lg p-2 text-white hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">
           <svg
             class="h-5 w-5 flex-shrink-0 text-white transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"

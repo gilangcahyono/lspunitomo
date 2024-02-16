@@ -1,9 +1,8 @@
-<footer class="bg-emerald-600 shadow dark:bg-gray-900 sm:ml-[17rem]">
+<footer class="bg-emerald-700 shadow dark:bg-gray-900 sm:ml-[17rem]">
   <div class="mx-auto p-4 md:py-8">
     <div class="sm:flex sm:items-center sm:justify-between">
       <a href="/dashboard" class="mb-4 flex items-center space-x-3 rtl:space-x-reverse sm:mb-0">
-        <img src="https://bnsp.go.id/images/images/aMS0sHwOngpc94F3izoBdtQDUZI5PmqG.png" class="h-8"
-          alt="Flowbite Logo" />
+        <img src="{{ asset('img/logo.png') }}" class="h-8" alt="Flowbite Logo" />
         <span class="self-center whitespace-nowrap text-2xl font-semibold text-gray-50 dark:text-gray-400">Lembaga
           Sertifikasi Profesi
           Universitas Dr.

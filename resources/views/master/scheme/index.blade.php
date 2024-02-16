@@ -5,36 +5,33 @@
 @endsection
 
 @section('content')
-  <section class="mx-1 sm:mx-auto sm:w-full">
+  <h1 class="text-center text-xl font-bold text-gray-900 dark:text-white sm:text-xl">
+    Data Master Skema
+  </h1>
 
-    <h1 class="text-center text-xl font-bold text-gray-900 dark:text-white sm:text-xl">
-      Data Master Skema
-    </h1>
+  <hr class="my-5 h-px border-0 bg-gray-400 dark:bg-gray-700">
 
-    <hr class="my-5 h-px border-0 bg-gray-400 dark:bg-gray-700">
+  @include('master.partials.nav')
 
-    @include('master.partials.nav')
-
-    <div
-      class="block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex lg:mt-1.5">
-      <div class="mb-1 w-full">
-        <div class="block items-center justify-between dark:divide-gray-700 sm:flex md:divide-x md:divide-gray-100">
-          <div class="mb-4 flex items-center sm:mb-0">
-            <form class="sm:pr-3" method="GET">
-              <label for="search" class="sr-only">Search</label>
-              <div class="relative mt-1 w-48 sm:w-64 xl:w-96">
-                <input type="text" name="search" id="search" value="{{ request('search') }}" list="datalists"
-                  autocomplete="off"
-                  class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500 sm:text-sm"
-                  placeholder="Cari Skema">
-                <datalist id="datalists">
-                  @foreach ($datalists as $scheme)
-                    <option value="{{ $scheme->code }}">{{ $scheme->name }}</option>
-                  @endforeach
-                </datalist>
-              </div>
-            </form>
-            {{-- <div class="flex w-full items-center sm:justify-end">
+  <div
+    class="block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex lg:mt-1.5">
+    <div class="mb-1 w-full">
+      <div class="block items-center justify-between dark:divide-gray-700 sm:flex md:divide-x md:divide-gray-100">
+        <div class="mb-4 flex items-center sm:mb-0">
+          <form class="sm:pr-3" method="GET">
+            <label for="search" class="sr-only">Search</label>
+            <div class="relative mt-1 w-48 sm:w-64 xl:w-96">
+              <input type="text" name="search" id="search" value="{{ request('search') }}" autocomplete="off"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500 sm:text-sm"
+                placeholder="Cari Skema">
+              {{-- <datalist id="datalists">
+                @foreach ($datalists as $scheme)
+                  <option value="{{ $scheme->code }}">{{ $scheme->name }}</option>
+                @endforeach
+              </datalist> --}}
+            </div>
+          </form>
+          {{-- <div class="flex w-full items-center sm:justify-end">
               <div class="flex space-x-1 pl-2">
                 <a href="#"
                   class="inline-flex cursor-pointer justify-center rounded p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
@@ -70,112 +67,112 @@
                 </a>
               </div>
             </div> --}}
-          </div>
-          <a href="{{ route('schemes.create') }}"
-            class="rounded-lg bg-emerald-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
-            Tambah Skema
-          </a>
         </div>
+        <a href="{{ route('schemes.create') }}"
+          class="rounded-lg bg-emerald-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
+          Tambah Skema
+        </a>
       </div>
     </div>
+  </div>
 
-    <div class="flex flex-col">
-      <div class="overflow-x-auto">
-        <div class="inline-block min-w-full align-middle">
-          <div class="overflow-hidden shadow">
-            <table class="min-w-full table-fixed divide-y divide-gray-200 dark:divide-gray-600">
-              <thead class="bg-gray-100 dark:bg-gray-700">
-                <tr>
-                  <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
-                    #
-                  </th>
-                  <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
-                    Kode
-                  </th>
-                  <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
-                    Nama
-                  </th>
-                  <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
-                    Fakultas / Prodi
-                  </th>
-                  <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
-                    SKKNI
-                  </th>
-                  <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
-                    Status
-                  </th>
-                  <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
-                    Jenis
-                  </th>
-                  <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
-                    Persyaratan Dasar
-                  </th>
-                  <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
-                    Jumlah Unit
-                  </th>
-                  <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody id="schemeList" class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
-                @foreach ($schemes as $scheme)
-                  <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      {{ $loop->iteration + ($schemes->currentPage() - 1) * $schemes->perPage() }}</td>
-                    <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      {{ $scheme->code }}</td>
-                    <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      {{ $scheme->name }}</td>
-                    <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      {{ $scheme->faculty }} / {{ $scheme->department }}</td>
-                    <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      {{ $scheme->skkni }}</td>
-                    <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      {{ $scheme->status }}</td>
-                    <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      {{ $scheme->type }}</td>
-                    <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      {{ $scheme->basicRequirement }}</td>
-                    <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      {{ $scheme->unit->count() }}</td>
-                    <td class="flex space-x-2 whitespace-nowrap p-4">
-                      <a href="{{ route('schemes.edit', ['scheme' => $scheme]) }}"
-                        class="inline-flex items-center rounded-lg bg-emerald-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
+  <div class="flex flex-col">
+    <div class="overflow-x-auto">
+      <div class="inline-block min-w-full align-middle">
+        <div class="overflow-hidden shadow">
+          <table class="min-w-full table-fixed divide-y divide-gray-200 dark:divide-gray-600">
+            <thead class="bg-gray-100 dark:bg-gray-700">
+              <tr>
+                <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                  #
+                </th>
+                <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                  Kode
+                </th>
+                <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                  Nama
+                </th>
+                <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                  Fakultas / Prodi
+                </th>
+                <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                  SKKNI
+                </th>
+                <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                  Status
+                </th>
+                <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                  Jenis
+                </th>
+                <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                  Persyaratan Dasar
+                </th>
+                <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                  Jumlah Unit
+                </th>
+                <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody id="schemeList" class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
+              @foreach ($schemes as $scheme)
+                <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+                    {{ $loop->iteration + ($schemes->currentPage() - 1) * $schemes->perPage() }}</td>
+                  <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+                    {{ $scheme->code }}</td>
+                  <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+                    {{ $scheme->name }}</td>
+                  <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+                    {{ $scheme->faculty }} / {{ $scheme->department }}</td>
+                  <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+                    {{ $scheme->skkni }}</td>
+                  <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+                    {{ $scheme->status }}</td>
+                  <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+                    {{ $scheme->type }}</td>
+                  <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+                    {{ $scheme->basicRequirement }}</td>
+                  <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+                    {{ $scheme->unit->count() }}</td>
+                  <td class="flex space-x-2 whitespace-nowrap p-4">
+                    <a href="{{ route('schemes.edit', ['scheme' => $scheme]) }}"
+                      class="inline-flex items-center rounded-lg bg-emerald-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
+                      <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
+                        <path fill-rule="evenodd"
+                          d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                    </a>
+                    <form action="{{ route('schemes.destroy', ['scheme' => $scheme]) }}" method="POST"
+                      onclick="return confirm('Are you sure?')">
+                      @method('DELETE')
+                      @csrf
+                      <button type="submit"
+                        class="inline-flex items-center rounded-lg bg-red-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
                         <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
                           <path fill-rule="evenodd"
-                            d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
                             clip-rule="evenodd"></path>
                         </svg>
-                      </a>
-                      <form action="{{ route('schemes.destroy', ['scheme' => $scheme]) }}" method="POST"
-                        onclick="return confirm('Are you sure?')">
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit"
-                          class="inline-flex items-center rounded-lg bg-red-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
-                          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                              d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                              clip-rule="evenodd"></path>
-                          </svg>
-                        </button>
-                      </form>
-                    </td>
-                  </tr>
-                @endforeach
-              </tbody>
-            </table>
-          </div>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
+  </div>
 
-    <div
-      class="sticky bottom-0 right-0 w-full items-center border-t border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex sm:justify-between">
-      <div class="mb-4 flex items-center sm:mb-0">
-        {{-- <a href="#"
+  <div
+    class="sticky bottom-0 right-0 w-full items-center border-t border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex sm:justify-between">
+    <div class="mb-4 flex items-center sm:mb-0">
+      {{-- <a href="#"
           class="inline-flex cursor-pointer justify-center rounded p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-white">
           <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
@@ -191,72 +188,111 @@
               clip-rule="evenodd"></path>
           </svg>
         </a> --}}
-        <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span
-            class="font-semibold text-gray-900 dark:text-white">{{ $schemes->firstItem() ?? $schemes->total() }}-{{ $schemes->lastItem() ?? $schemes->total() }}</span>
-          of <span class="font-semibold text-gray-900 dark:text-white">{{ $schemes->total() }}</span></span>
-      </div>
-      <div class="flex items-center space-x-3">
-        <a href="{{ $schemes->previousPageUrl() }}"
-          class="inline-flex flex-1 items-center justify-center rounded-lg bg-emerald-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
-          <svg class="-ml-1 mr-1 h-5 w-5"" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-              clip-rule="evenodd"></path>
-          </svg>
-          Previous
-        </a>
-        <a href="{{ $schemes->nextPageUrl() }}"
-          class="inline-flex flex-1 items-center justify-center rounded-lg bg-emerald-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
-          Next
-          <svg class="-mr-1 ml-1 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-              clip-rule="evenodd"></path>
-          </svg>
-        </a>
-      </div>
+      <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span
+          class="font-semibold text-gray-900 dark:text-white">{{ $schemes->firstItem() ?? $schemes->total() }}-{{ $schemes->lastItem() ?? $schemes->total() }}</span>
+        of <span class="font-semibold text-gray-900 dark:text-white">{{ $schemes->total() }}</span></span>
     </div>
-
-    {{-- <section id="updateScheme">
-      @include('master.scheme.partials.edit-scheme-drawer')
-    </section> --}}
-
-    <!-- Delete Skema Drawer -->
-    {{-- <div id="drawer-delete-product-default"
-      class="fixed right-0 top-0 z-50 h-screen w-full max-w-md translate-x-full overflow-y-auto bg-white p-4 transition-transform dark:bg-gray-800"
-      tabindex="-1" aria-labelledby="drawer-label" aria-hidden="true">
-      <h5 id="drawer-label"
-        class="inline-flex items-center text-sm font-semibold uppercase text-gray-500 dark:text-gray-400">Delete item
-      </h5>
-      <button type="button" data-drawer-dismiss="drawer-delete-product-default"
-        aria-controls="drawer-delete-product-default"
-        class="absolute right-2.5 top-2.5 inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
-        <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg">
+    <div class="flex items-center space-x-3">
+      <a href="{{ $schemes->previousPageUrl() }}"
+        class="inline-flex flex-1 items-center justify-center rounded-lg bg-emerald-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
+        <svg class="-ml-1 mr-1 h-5 w-5"" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd"
-            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
             clip-rule="evenodd"></path>
         </svg>
-        <span class="sr-only">Close menu</span>
-      </button>
-      <svg class="mb-4 mt-8 h-10 w-10 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-      </svg>
-      <h3 class="mb-6 text-lg text-gray-500 dark:text-gray-400">Are you sure you want to delete this product?</h3>
-      <a href="#"
-        class="mr-2 inline-flex items-center rounded-lg bg-red-600 px-3 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
-        Yes, I'm sure
+        Previous
       </a>
-      <a href="#"
-        class="inline-flex items-center rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-emerald-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
-        data-drawer-hide="drawer-delete-product-default">
-        No, cancel
+      <a href="{{ $schemes->nextPageUrl() }}"
+        class="inline-flex flex-1 items-center justify-center rounded-lg bg-emerald-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
+        Next
+        <svg class="-mr-1 ml-1 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd"
+            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+            clip-rule="evenodd"></path>
+        </svg>
       </a>
-    </div> --}}
+    </div>
+  </div>
+@endsection
 
-    {{-- @include('master.scheme.partials.add-scheme-drawer') --}}
+@section('assetsfoot')
+  <script type="module">
+    $("#search").on("keyup", (e) => {
+      e.preventDefault();
+      // console.log(e.target.value);
+      axios
+        .post(`{{ route('schemes.search') }}`, {
+          // _token: document
+          //     .querySelector('meta[name="csrf-token"]')
+          //     .getAttribute("content"),
+          keyword: e.target.value,
+        })
+        .then((res) => {
+          // console.log(res.data);
+          tableSchemeRow(res.data);
+        })
+        .catch((err) => {
+          // console.log(err);
+        });
+    });
 
-  </section>
+    function tableSchemeRow(schemes) {
+
+      let htmlView = "";
+
+      if (schemes.length <= 0) {
+        htmlView += `<tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+          <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white" colspan="10">Data tidak ditemukan</td>
+      </tr>`;
+      }
+
+      schemes.forEach((scheme, idx) => {
+        htmlView += `<tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+          <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+          ${idx + 1}</td>
+          <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+          ${scheme.code}</td>
+          <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+          ${scheme.name}</td>
+          <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+          ${scheme.faculty} / ${scheme.department}</td>
+          <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+          ${scheme.skkni}</td>
+          <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+          ${scheme.status}</td>
+          <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+          ${scheme.type}</td>
+          <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+          ${scheme.basicRequirement}</td>
+          <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+          ${scheme.unit.length}</td>
+          <td class="flex space-x-2 whitespace-nowrap p-4">
+            <a href="{{ route('schemes.edit', ['scheme' => $scheme]) }}"
+                class="inline-flex items-center rounded-lg bg-emerald-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
+                <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
+                <path fill-rule="evenodd"
+                    d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                    clip-rule="evenodd"></path>
+                </svg>
+            </a>
+            <form action="{{ route('schemes.destroy', ['scheme' => $scheme]) }}" method="POST" onclick="return confirm('Are you sure?')">
+                @method('DELETE')
+                @csrf
+                <button type="submit"
+                class="inline-flex items-center rounded-lg bg-red-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
+                <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                </button>
+            </form>
+            </td>
+        </tr>`;
+      });
+
+      $("#schemeList").html(htmlView);
+    }
+  </script>
 @endsection

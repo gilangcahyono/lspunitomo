@@ -5,34 +5,30 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {{-- <meta name="csrf-token" content="{{ csrf_token() }}" /> --}}
-  <link rel="shortcut icon" href="https://bnsp.go.id/images/images/aMS0sHwOngpc94F3izoBdtQDUZI5PmqG.png"
-    type="image/x-icon">
+  <link rel="shortcut icon" href="{{ asset('img/logo.png') }}" type="image/x-icon">
   <title>@yield('title') - {{ config('app.name') }}</title>
+  <script src="{{ asset('js/checkTheme.js') }}"></script>
+  @yield('assetshead')
   @vite(['resources/css/app.css', 'resources/js/app.js'])
-  <script>
-    if (
-      localStorage.getItem("color-theme") === "dark" ||
-      (!("color-theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  </script>
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-900">
 
-  @include('partials.navbar')
+  @include('layouts.partials.navbar')
 
-  @include('partials.sidebar')
+  @include('layouts.partials.sidebar')
 
   <div class="mt-16 p-4 sm:ml-[17rem]">
-    @yield('content')
+    <div class="mx-1 sm:mx-auto sm:w-full">
+      @yield('content')
+    </div>
   </div>
 
-  {{-- @include('partials.footer') --}}
+  @include('layouts.partials.footer')
+
+  <script src="{{ asset('js/themeToggle.js') }}"></script>
+
+  @yield('assetsfoot')
 
 </body>
 

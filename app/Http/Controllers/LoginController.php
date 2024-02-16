@@ -11,13 +11,13 @@ class LoginController extends Controller
 {
     public function login()
     {
-        session([
-            'key' => 'value'
-        ]);
+        // session([
+        //     'key' => 'value'
+        // ]);
 
-        dd(session()->has('key'));
+        // dd(session()->has('key'));
 
-        dd(request()->session()->all());
+        // dd(request()->session()->all());
 
         return view('auth.login');
     }

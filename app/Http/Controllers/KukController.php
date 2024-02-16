@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Element;
 use App\Models\Kuk;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class KukController extends Controller
 {
@@ -12,23 +14,19 @@ class KukController extends Controller
      */
     public function index()
     {
-
-        if (request('api') == 'api') {
-            # code...
-            return Kuk::latest()->paginate(5);
-        }
-
         return view('master.kuk.index', [
-            'kuks' => Kuk::latest()->paginate(5),
+            'kuks' => Kuk::latest()->paginate(5)->withQueryString(),
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('master.kuk.create', [
+            'elements' => Element::select('id', 'name')->get(),
+        ]);
     }
 
     /**
@@ -36,7 +34,14 @@ class KukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => ['required'],
+            'element_id' => ['required', 'exists:elements,id'],
+        ]);
+
+        Kuk::create($validatedData);
+
+        return redirect(route('kuks.index'))->with('success', 'KUK berhasilt ditambahkan!');
     }
 
     /**
@@ -52,7 +57,10 @@ class KukController extends Controller
      */
     public function edit(Kuk $kuk)
     {
-        //
+        return view('master.kuk.edit', [
+            'kuk' => $kuk,
+            'elements' => Element::select('id', 'name')->get(),
+        ]);
     }
 
     /**
@@ -60,7 +68,14 @@ class KukController extends Controller
      */
     public function update(Request $request, Kuk $kuk)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => ['required'],
+            'element_id' => ['required', 'exists:elements,id'],
+        ]);
+
+        $kuk->update($validatedData);
+
+        return redirect(route('kuks.index'))->with('success', 'KUK berhasil diperbarui!');
     }
 
     /**
@@ -68,6 +83,8 @@ class KukController extends Controller
      */
     public function destroy(Kuk $kuk)
     {
-        //
+        $kuk->delete();
+
+        return redirect(route('kuks.index'))->with('success', 'KUK berhasil dihapus!');
     }
 }

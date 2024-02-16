@@ -12,6 +12,7 @@ class Element extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+    protected $with = 'kuk';
 
     public function unit(): BelongsTo
     {

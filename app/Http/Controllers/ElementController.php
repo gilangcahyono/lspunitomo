@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Element;
+use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ElementController extends Controller
 {
@@ -13,16 +15,18 @@ class ElementController extends Controller
     public function index()
     {
         return view('master.element.index', [
-            'elements' => Element::latest()->with('kuk')->paginate(5),
+            'elements' => Element::latest()->paginate(5)->withQueryString(),
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('master.element.create', [
+            'units' => Unit::select('code', 'name')->get(),
+        ]);
     }
 
     /**
@@ -30,7 +34,14 @@ class ElementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData =  $request->validate([
+            'name' => ['required'],
+            'unit_code' => ['required', 'exists:units,code'],
+        ]);
+
+        Element::create($validatedData);
+
+        return redirect(route('elements.index'))->with('success', 'Elemen berhasil ditambahkan!');
     }
 
     /**
@@ -46,7 +57,10 @@ class ElementController extends Controller
      */
     public function edit(Element $element)
     {
-        //
+        return view('master.element.edit', [
+            'element' => $element,
+            'units' => Unit::select('code', 'name')->get(),
+        ]);
     }
 
     /**
@@ -54,7 +68,14 @@ class ElementController extends Controller
      */
     public function update(Request $request, Element $element)
     {
-        //
+        $validatedData =  $request->validate([
+            'name' => ['required'],
+            'unit_code' => ['required', 'exists:units,code'],
+        ]);
+
+        $element->update($validatedData);
+
+        return redirect(route('elements.index'))->with('success', 'Elemen berhasil diperbarui!');
     }
 
     /**
@@ -62,6 +83,8 @@ class ElementController extends Controller
      */
     public function destroy(Element $element)
     {
-        //
+        $element->delete();
+
+        return redirect(route('elements.index'))->with('success', 'Elemen berhasil dihapus!');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Scheme;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class SchemeController extends Controller
@@ -17,7 +18,7 @@ class SchemeController extends Controller
                 ->where('code', 'like', '%' . request('search') . '%')
                 ->paginate(5)
                 ->withQueryString(),
-            'datalists' => Scheme::select('code', 'name')->latest()->get(),
+            // 'datalists' => Scheme::select('code', 'name')->latest()->get(),
         ]);
     }
 
@@ -32,7 +33,7 @@ class SchemeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validatedData = $request->validate(
             [
@@ -105,11 +106,19 @@ class SchemeController extends Controller
 
     public function search(Request $request)
     {
-        return Scheme::latest('created_at')
-            ->where('name', 'like', "%$request->keyword%")
-            ->orWhere('code', 'like', '%' . $request->keyword . '%')
-            ->with('unit')
-            ->paginate(5);
+        try {
+            return Scheme::latest('created_at')
+                ->where('name', 'like', "%$request->keyword%")
+                ->orWhere('code', 'like', "%$request->keyword%")
+                ->gest();
+        } catch (\Throwable $th) {
+            // throw $th;
+            return response([
+                'success' => false,
+                'message' => 'Internal Server Error',
+            ], 500);
+        }
+
 
 
 

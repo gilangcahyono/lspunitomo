@@ -24,13 +24,13 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Scheme::factory(20)
+        Scheme::factory(100)
             ->has(
-                Unit::factory(rand(1, 5))
+                Unit::factory(rand(2, 5))
                     ->has(
-                        Element::factory(rand(1, 5))
+                        Element::factory(rand(2, 5))
                             ->has(
-                                Kuk::factory(rand(1, 5))
+                                Kuk::factory(rand(2, 5))
                             )
                     )
             )

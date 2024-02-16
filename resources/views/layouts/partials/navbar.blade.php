@@ -14,8 +14,7 @@
           </svg>
         </button>
         <a href="/dashboard" class="ms-2 flex md:me-24">
-          <img src="https://bnsp.go.id/images/images/aMS0sHwOngpc94F3izoBdtQDUZI5PmqG.png" class="me-3 h-8"
-            alt="FlowBite Logo" />
+          <img src="{{ asset('img/logo.png') }}" class="me-3 h-8" alt="FlowBite Logo" />
           <span
             class="hidden self-center whitespace-nowrap text-2xl font-semibold text-white dark:text-white sm:block">Sistem
             Manajemen Sertifikasi Uji Kompetensi LSP Unitomo</span>

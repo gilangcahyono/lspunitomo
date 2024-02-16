@@ -149,7 +149,7 @@
           border-gray-300  dark:border-gray-600 
           @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500">
           <option selected hidden value="">Jenis Skema</option>
-          <option value="SKKNI" {{ $scheme->type === 'SKKNI' ? 'selected' : '' }}>SKKNI</option>
+          <option value="KKNI" {{ $scheme->type === 'KKNI' ? 'selected' : '' }}>KKNI</option>
           <option value="Okupasi" {{ $scheme->type === 'Okupasi' ? 'selected' : '' }}>Okupasi</option>
           <option value="Klaster" {{ $scheme->type === 'Klaster' ? 'selected' : '' }}>Klaster</option>
         </select>
