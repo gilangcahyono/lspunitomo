@@ -8,33 +8,11 @@
   <section class="mx-1 sm:mx-auto sm:w-full">
     <h1 class="text-center text-xl font-bold text-gray-900 dark:text-white sm:text-xl">
       Data Master Unit
-      <br>
-      LSP Universitas Dr. Soetomo Surabaya
     </h1>
 
     <hr class="my-5 h-px border-0 bg-gray-400 dark:bg-gray-700">
 
-    <div
-      class="border-b border-gray-200 text-center text-sm font-medium text-gray-500 dark:border-gray-700 dark:text-gray-400">
-      <ul class="-mb-px flex flex-wrap">
-        <li class="me-2">
-          <a href="{{ route('skemas.index') }}"
-            class="{{ url()->current() === route('skemas.index') ? 'border-emerald-600 p-4 text-emerald-600 dark:border-emerald-500 dark:text-emerald-500' : 'border-transparent p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300' }} inline-block rounded-t-lg border-b-2">Skema</a>
-        </li>
-        <li class="me-2">
-          <a href="{{ route('units.index') }}"
-            class="{{ url()->current() === route('units.index') ? 'border-emerald-600 p-4 text-emerald-600 dark:border-emerald-500 dark:text-emerald-500' : 'border-transparent p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300' }} inline-block rounded-t-lg border-b-2">Unit</a>
-        </li>
-        <li class="me-2">
-          <a href="{{ route('elements.index') }}"
-            class="{{ url()->current() === route('elements.index') ? 'border-emerald-600 p-4 text-emerald-600 dark:border-emerald-500 dark:text-emerald-500' : 'border-transparent p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300' }} inline-block rounded-t-lg border-b-2">Elemen</a>
-        </li>
-        <li class="me-2">
-          <a href="{{ route('kuks.index') }}"
-            class="{{ url()->current() === route('kuks.index') ? 'border-emerald-600 p-4 text-emerald-600 dark:border-emerald-500 dark:text-emerald-500' : 'border-transparent p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300' }} inline-block rounded-t-lg border-b-2">KUK</a>
-        </li>
-      </ul>
-    </div>
+    @include('master.partials.nav')
 
     <div
       class="block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex lg:mt-1.5">

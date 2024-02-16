@@ -1,7 +1,7 @@
 <aside id="logo-sidebar"
-  class="fixed left-0 top-0 z-40 h-screen w-[17rem] -translate-x-full border-r border-gray-200 bg-emerald-600 pt-20 transition-transform dark:border-gray-700 dark:bg-gray-800 sm:translate-x-0"
+  class="fixed left-0 top-0 z-40 h-screen w-[17rem] -translate-x-full border-r border-gray-200 bg-emerald-700 pt-20 transition-transform dark:border-gray-700 dark:bg-gray-800 sm:translate-x-0"
   aria-label="Sidebar">
-  <div class="h-full overflow-y-auto bg-emerald-600 px-3 pb-4 dark:bg-gray-800">
+  <div class="h-full overflow-y-auto bg-emerald-700 px-3 pb-4 dark:bg-gray-800">
     <ul class="space-y-2 font-medium">
       <li>
         <a href="{{ route('dashboard') }}"
@@ -18,10 +18,10 @@
       </li>
       <li>
         <button type="button"
-          class="{{ url()->current() === route('skemas.index') || url()->current() === route('units.index') || url()->current() === route('elements.index') || url()->current() === route('kuks.index') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 text-base text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700"
+          class="{{ request()->is('master/*') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 text-base text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700"
           aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
           <svg
-            class="h-5 w-5 flex-shrink-0 text-white transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            class="{{ request()->is('master/*') ? 'sidebar-active' : '' }} h-5 w-5 flex-shrink-0 text-white transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
             <path
               d="M8 5.625c4.418 0 8-1.063 8-2.375S12.418.875 8 .875 0 1.938 0 3.25s3.582 2.375 8 2.375Zm0 13.5c4.963 0 8-1.538 8-2.375v-4.019c-.052.029-.112.054-.165.082a8.08 8.08 0 0 1-.745.353c-.193.081-.394.158-.6.231l-.189.067c-2.04.628-4.165.936-6.3.911a20.601 20.601 0 0 1-6.3-.911l-.189-.067a10.719 10.719 0 0 1-.852-.34 8.08 8.08 0 0 1-.493-.244c-.053-.028-.113-.053-.165-.082v4.019C0 17.587 3.037 19.125 8 19.125Zm7.09-12.709c-.193.081-.394.158-.6.231l-.189.067a20.6 20.6 0 0 1-6.3.911 20.6 20.6 0 0 1-6.3-.911l-.189-.067a10.719 10.719 0 0 1-.852-.34 8.08 8.08 0 0 1-.493-.244C.112 6.035.052 6.01 0 5.981V10c0 .837 3.037 2.375 8 2.375s8-1.538 8-2.375V5.981c-.052.029-.112.054-.165.082a8.08 8.08 0 0 1-.745.353Z" />
@@ -35,19 +35,19 @@
         <ul id="dropdown-example" class="hidden space-y-2 py-2">
           <li>
             <a href="#"
-              class="group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">SKKNI</a>
+              class="{{ request()->is('master/assseors*') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">SKKNI</a>
           </li>
           <li>
-            <a href="{{ route('skemas.index') }}"
-              class="{{ url()->current() === route('skemas.index') || url()->current() === route('units.index') || url()->current() === route('elements.index') || url()->current() === route('kuks.index') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">Skema</a>
-          </li>
-          <li>
-            <a href="#"
-              class="group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">Asesor</a>
+            <a href="{{ route('schemes.index') }}"
+              class="{{ request()->is('master/schemes*') || request()->is('master/units*') || request()->is('master/elements*') || request()->is('master/kuks*') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">Skema</a>
           </li>
           <li>
             <a href="#"
-              class="group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">Asesi</a>
+              class="{{ request()->is('master/assseors*') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">Asesor</a>
+          </li>
+          <li>
+            <a href="#"
+              class="{{ request()->is('master/accessions*') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">Asesi</a>
           </li>
         </ul>
       </li>
@@ -92,9 +92,9 @@
       </li>
       <li>
         <a href="{{ route('registration.create') }}"
-          class="group flex items-center rounded-lg p-2 text-white hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">
+          class="{{ request()->is('registration*') ? 'sidebar-active' : '' }} group flex items-center rounded-lg p-2 text-white hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">
           <svg
-            class="h-5 w-5 flex-shrink-0 text-white transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            class="{{ request()->is('registration*') ? 'sidebar-active' : '' }} h-5 w-5 flex-shrink-0 text-white transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
             <path
               d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2ZM7 2h4v2H7V2ZM5 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm0-4a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm8 4H8a1 1 0 0 1 0-2h5a1 1 0 0 1 0 2Zm0-4H8a1 1 0 0 1 0-2h5a1 1 0 1 1 0 2Z" />
@@ -106,9 +106,9 @@
       </li>
       <li>
         <a href="{{ route('self-assessment.create') }}"
-          class="group flex items-center rounded-lg p-2 text-white hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">
+          class="{{ request()->is('self-assessment*') ? 'sidebar-active' : '' }} group flex items-center rounded-lg p-2 text-white hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">
           <svg
-            class="h-5 w-5 flex-shrink-0 text-white transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            class="{{ request()->is('self-assessment*') ? 'sidebar-active' : '' }} h-5 w-5 flex-shrink-0 text-white transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
             <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z" />
             <path

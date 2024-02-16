@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\SkemaController;
-use App\Models\Skema;
+use App\Http\Controllers\SchemeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +19,30 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::post('skemas', [SkemaController::class, 'search'])->name('skemas.search');
+Route::post('schemes', [SchemeController::class, 'search'])->name('schemes.search');
+
+// Route::get('students', function (Request $request) {
+//   $students = [];
+
+//   $total = 100;
+
+//   $limit = intval($request->limit ?? 30);
+
+//   if ($limit > $total) {
+//     $limit = $total;
+//   }
+//   // $skip = $request->skip ?? 0;
+
+//   for ($i = 0; $i < $limit; $i++) {
+//     $students[$i]['nim'] = fake()->isbn10();
+//     $students[$i]['pin'] = fake()->password();
+//     $students[$i]['name'] = fake()->name();
+//   }
+
+//   return response([
+//     'data' => $students,
+//     'total' => $total,
+//     // 'skip' => $skip,
+//     'limit' => $limit,
+//   ], 200);
+// });

@@ -6,7 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Element;
 use App\Models\Kuk;
-use App\Models\Skema;
+use App\Models\Scheme;
 use App\Models\Unit;
 use Illuminate\Database\Seeder;
 
@@ -24,13 +24,13 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Skema::factory(20)
+        Scheme::factory(20)
             ->has(
-                Unit::factory(10)
+                Unit::factory(rand(1, 5))
                     ->has(
-                        Element::factory(5)
+                        Element::factory(rand(1, 5))
                             ->has(
-                                Kuk::factory(7)
+                                Kuk::factory(rand(1, 5))
                             )
                     )
             )

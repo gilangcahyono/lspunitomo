@@ -4,9 +4,10 @@ use App\Http\Controllers\ElementController;
 use App\Http\Controllers\KukController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\SchemeController;
 use App\Http\Controllers\SelfAssessmentController;
-use App\Http\Controllers\SkemaController;
 use App\Http\Controllers\UnitController;
+use App\Models\Scheme;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -29,12 +30,23 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::resource('registration', RegistrationController::class);
-Route::resource('skemas', SkemaController::class);
-Route::resource('units', UnitController::class);
-Route::resource('elements', ElementController::class);
-Route::resource('kuks', KukController::class);
-Route::resource('self-assessment', SelfAssessmentController::class);
+Route::prefix('master')->group(function () {
+  Route::resources([
+    'schemes' => SchemeController::class,
+    'units' => UnitController::class,
+    'elements' => ElementController::class,
+    'kuks' => KukController::class
+  ]);
+});
+
+Route::resources([
+  'registration' => RegistrationController::class,
+  'self-assessment' => SelfAssessmentController::class
+]);
+
+// Route::get('skemas', function () {
+//   return Scheme::latest()->paginate(5);
+// });
 
 // Route::controller(LoginController::class)->group(function () {
 //     Route::get('/login', 'login')->name('login');
@@ -50,7 +62,9 @@ Route::resource('self-assessment', SelfAssessmentController::class);
 
 Route::view('/', 'index');
 
-Route::view('/login', 'auth.login')->name('login');
+// Route::view('/login', 'auth.login')->name('login');
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate');
 
 Route::view('/register', 'auth.register')->name('register');
 

@@ -12,7 +12,7 @@ class ElementController extends Controller
      */
     public function index()
     {
-        return view('master.elemen.index', [
+        return view('master.element.index', [
             'elements' => Element::latest()->with('kuk')->paginate(5),
         ]);
     }
