@@ -1,8 +1,4 @@
-@extends('layouts.app')
-
-@section('title')
-  {{ 'Skema' }}
-@endsection
+@extends('layouts.app', ['title' => 'Skema'])
 
 @section('content')
   <h1 class="text-center text-xl font-bold text-gray-900 dark:text-white sm:text-xl">
@@ -20,15 +16,24 @@
         <div class="mb-4 flex items-center sm:mb-0">
           <form class="sm:pr-3" method="GET">
             <label for="search" class="sr-only">Search</label>
-            <div class="relative mt-1 w-48 sm:w-64 xl:w-96">
+            <div class="mt-1 flex w-48 sm:w-64 xl:w-96">
               <input type="text" name="search" id="search" value="{{ request('search') }}" autocomplete="off"
+                list="schemeLists"
                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500 sm:text-sm"
                 placeholder="Cari Skema">
-              {{-- <datalist id="datalists">
-                @foreach ($datalists as $scheme)
+              {{-- <button type="button" class="p-2.5 text-sm">
+                <svg class="h-4 w-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                  fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M6 18 18 6m0 12L6 6" />
+                </svg>
+                <span class="sr-only">Search</span>
+              </button> --}}
+              <datalist id="schemeLists">
+                @foreach ($schemeLists as $scheme)
                   <option value="{{ $scheme->code }}">{{ $scheme->name }}</option>
                 @endforeach
-              </datalist> --}}
+              </datalist>
             </div>
           </form>
           {{-- <div class="flex w-full items-center sm:justify-end">
@@ -172,22 +177,22 @@
   <div
     class="sticky bottom-0 right-0 w-full items-center border-t border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex sm:justify-between">
     <div class="mb-4 flex items-center sm:mb-0">
-      {{-- <a href="#"
-          class="inline-flex cursor-pointer justify-center rounded p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-white">
-          <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-              clip-rule="evenodd"></path>
-          </svg>
-        </a>
-        <a href="#"
-          class="mr-2 inline-flex cursor-pointer justify-center rounded p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-white">
-          <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-              clip-rule="evenodd"></path>
-          </svg>
-        </a> --}}
+      <a href="{{ $schemes->toArray()['first_page_url'] }}"
+        class="inline-flex cursor-pointer justify-center rounded p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-white">
+        <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd"
+            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </a>
+      <a href="{{ $schemes->toArray()['last_page_url'] }}"
+        class="mr-2 inline-flex cursor-pointer justify-center rounded p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-white">
+        <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd"
+            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </a>
       <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span
           class="font-semibold text-gray-900 dark:text-white">{{ $schemes->firstItem() ?? $schemes->total() }}-{{ $schemes->lastItem() ?? $schemes->total() }}</span>
         of <span class="font-semibold text-gray-900 dark:text-white">{{ $schemes->total() }}</span></span>
@@ -215,13 +220,17 @@
   </div>
 @endsection
 
-@section('assetsfoot')
-  <script type="module">
+{{-- @push('scripts')
+  <script type="module" src="{{ asset('assets/js/liveSearchScheme.js') }}"></script>
+@endpush --}}
+
+{{-- @push('scripts') --}}
+{{-- <script type="module"> 
     $("#search").on("keyup", (e) => {
       e.preventDefault();
       // console.log(e.target.value);
       axios
-        .post(`{{ route('schemes.search') }}`, {
+        .post("{{ route('schemes.search') }}", {
           // _token: document
           //     .querySelector('meta[name="csrf-token"]')
           //     .getAttribute("content"),
@@ -242,8 +251,8 @@
 
       if (schemes.length <= 0) {
         htmlView += `<tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-          <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white" colspan="10">Data tidak ditemukan</td>
-      </tr>`;
+            <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white" colspan="10">Data tidak ditemukan</td>
+        </tr>`;
       }
 
       schemes.forEach((scheme, idx) => {
@@ -294,5 +303,5 @@
 
       $("#schemeList").html(htmlView);
     }
-  </script>
-@endsection
+  </script> --}}
+{{-- @endpush --}}

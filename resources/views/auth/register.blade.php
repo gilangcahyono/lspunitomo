@@ -1,8 +1,4 @@
-@extends('layouts.auth')
-
-@section('title')
-  {{ 'Register' }}
-@endsection
+@extends('layouts.auth', ['title' => 'Register'])
 
 @section('content')
   <div class="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">

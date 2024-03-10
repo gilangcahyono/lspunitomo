@@ -1,8 +1,4 @@
-@extends('layouts.app')
-
-@section('title')
-  {{ 'Skema' }}
-@endsection
+@extends('layouts.app', ['title' => 'Skema'])
 
 @section('content')
   <h1 class="text-center text-xl font-bold text-gray-900 dark:text-white sm:text-xl">

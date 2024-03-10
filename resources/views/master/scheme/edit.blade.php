@@ -1,8 +1,4 @@
-@extends('layouts.app')
-
-@section('title')
-  {{ 'Skema' }}
-@endsection
+@extends('layouts.app', ['title' => 'Skema'])
 
 @section('content')
   <section class="mx-1 sm:mx-auto sm:w-full">

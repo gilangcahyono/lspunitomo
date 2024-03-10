@@ -12,8 +12,11 @@ class Scheme extends Model
 
     protected $guarded = [];
     protected $primaryKey = 'code';
-    protected $with = 'unit';
+    // protected $with = ['unit' => [
+    //     'element' => ['kuk'],
+    // ]];
 
+    // protected $with = ['unit'];
 
     public function unit(): HasMany
     {

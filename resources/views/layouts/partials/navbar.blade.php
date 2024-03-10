@@ -1,4 +1,4 @@
-<nav class="fixed top-0 z-50 w-full border-b border-gray-200 bg-emerald-700 dark:border-gray-700 dark:bg-gray-800">
+<nav class="fixed top-0 z-50 w-full border-b border-gray-200 bg-gray-50 shadow-md dark:border-gray-700 dark:bg-gray-800">
   <div class="px-3 py-3 lg:px-5 lg:pl-3">
     <div class="flex items-center justify-between">
       <div class="flex items-center justify-start rtl:justify-end">
@@ -14,9 +14,9 @@
           </svg>
         </button>
         <a href="/dashboard" class="ms-2 flex md:me-24">
-          <img src="{{ asset('img/logo.png') }}" class="me-3 h-8" alt="FlowBite Logo" />
+          <img src="{{ url('/logo.png') }}" class="me-3 h-8" alt="FlowBite Logo" />
           <span
-            class="hidden self-center whitespace-nowrap text-2xl font-semibold text-white dark:text-white sm:block">Sistem
+            class="hidden self-center whitespace-nowrap text-2xl font-semibold text-gray-900 dark:text-white sm:block">Sistem
             Manajemen Sertifikasi Uji Kompetensi LSP Unitomo</span>
         </a>
       </div>
@@ -165,7 +165,7 @@
           </a>
         </div> --}}
         <button id="theme-toggle" type="button"
-          class="rounded-lg p-2.5 text-sm text-gray-50 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+          class="rounded-lg p-2.5 text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
           <svg id="theme-toggle-dark-icon" class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg">
             <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
@@ -193,14 +193,14 @@
             id="dropdown-2">
             <div class="px-4 py-3" role="none">
               <p class="text-sm text-gray-900 dark:text-white" role="none">
-                Neil Sims
+                Gilang Cahyono
               </p>
               <p class="truncate text-sm font-medium text-gray-900 dark:text-gray-300" role="none">
-                neil.sims@flowbite.com
+                gilangcahyono
               </p>
             </div>
             <ul class="py-1" role="none">
-              <li>
+              {{-- <li>
                 <a href="#"
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                   role="menuitem">Dashboard</a>
@@ -214,11 +214,15 @@
                 <a href="#"
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                   role="menuitem">Earnings</a>
-              </li>
+              </li> --}}
               <li>
-                <a href="#"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                  role="menuitem">Sign out</a>
+                <form action="{{ route('logout') }}" method="POST">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit"
+                    class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                    role="menuitem">Logout</button>
+                </form>
               </li>
             </ul>
           </div>

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Scheme;
-use App\Models\SelfAssessment;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
-class SelfAssessmentController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,10 +20,7 @@ class SelfAssessmentController extends Controller
      */
     public function create()
     {
-        // return Scheme::inRandomOrder()->first();
-        return view('self-assesment.create', [
-            'scheme' => Scheme::inRandomOrder()->with('unit.element.kuk')->first(),
-        ]);
+        //
     }
 
     /**
@@ -38,7 +34,7 @@ class SelfAssessmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SelfAssessment $selfAssessment)
+    public function show(Role $role)
     {
         //
     }
@@ -46,7 +42,7 @@ class SelfAssessmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SelfAssessment $selfAssessment)
+    public function edit(Role $role)
     {
         //
     }
@@ -54,7 +50,7 @@ class SelfAssessmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SelfAssessment $selfAssessment)
+    public function update(Request $request, Role $role)
     {
         //
     }
@@ -62,7 +58,7 @@ class SelfAssessmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SelfAssessment $selfAssessment)
+    public function destroy(Role $role)
     {
         //
     }

@@ -2,7 +2,7 @@
   <div class="mx-auto p-4 md:py-8">
     <div class="sm:flex sm:items-center sm:justify-between">
       <a href="/dashboard" class="mb-4 flex items-center space-x-3 rtl:space-x-reverse sm:mb-0">
-        <img src="{{ asset('img/logo.png') }}" class="h-8" alt="Flowbite Logo" />
+        <img src="{{ url('/logo.png') }}" class="h-8" alt="Flowbite Logo" />
         <span class="self-center whitespace-nowrap text-2xl font-semibold text-gray-50 dark:text-gray-400">Lembaga
           Sertifikasi Profesi
           Universitas Dr.

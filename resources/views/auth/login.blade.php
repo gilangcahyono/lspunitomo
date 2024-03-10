@@ -1,8 +1,4 @@
-@extends('layouts.auth')
-
-@section('title')
-  {{ 'Login' }}
-@endsection
+@extends('layouts.auth', ['title' => 'Login'])
 
 @section('content')
   <div class="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
@@ -21,13 +17,16 @@
         <h1 class="text-center text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-2xl">
           Login to your account
         </h1>
-        <form class="space-y-4 md:space-y-6" action="{{ route('authenticate') }}" method="POST">
+        @if (session()->has('loginError'))
+          <h1 class="dark:text-red-500">{{ session('loginError') }}</h1>
+        @endif
+        <form class="space-y-4 md:space-y-6" method="POST">
           @csrf
           <div class="relative">
-            <input type="text" id="identity" name="identity"
+            <input type="text" id="username" name="username"
               class="border-1 peer block w-full appearance-none rounded-lg border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-emerald-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-emerald-500"
-              placeholder=" " required value="{{ old('identity') }}" />
-            <label for="identity"
+              placeholder=" " required value="{{ old('username') }}" />
+            <label for="username"
               class="absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-75 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-emerald-600 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4 dark:bg-gray-800 dark:text-gray-400 peer-focus:dark:text-emerald-500">Username</label>
           </div>
           <div class="relative">

@@ -13,11 +13,10 @@ class UnitController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    { {
-            return view('master.unit.index', [
-                'units' => Unit::latest()->paginate(5)->withQueryString(),
-            ]);
-        }
+    {
+        return view('master.unit.index', [
+            'units' => Unit::latest()->paginate(5)->withQueryString(),
+        ]);
     }
 
     /**

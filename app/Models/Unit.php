@@ -13,7 +13,7 @@ class Unit extends Model
 
     protected $guarded = [];
     protected $primaryKey = 'code';
-    protected $with = 'element';
+    // protected $with = ['element'];
 
     public function scheme(): BelongsTo
     {

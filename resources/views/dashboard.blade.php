@@ -1,8 +1,4 @@
-@extends('layouts.app')
-
-@section('title')
-  {{ 'Dashboard' }}
-@endsection
+@extends('layouts.app', ['title' => 'Dashboard'])
 
 @section('content')
   <div class="rounded-lg border-2 border-dashed border-gray-200 p-4 dark:border-gray-700">

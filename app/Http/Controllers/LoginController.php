@@ -2,53 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
+use Illuminate\View\View;
 
 class LoginController extends Controller
 {
-    public function login()
+    public function create(): View
     {
-        // session([
-        //     'key' => 'value'
-        // ]);
-
-        // dd(session()->has('key'));
-
-        // dd(request()->session()->all());
-
         return view('auth.login');
     }
 
-    public function authenticate(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
-            'identity' => ['required'],
+            'username' => ['required'],
             'password' => ['required'],
         ]);
 
+        $user = User::where('username', $credentials['username'])->where('password', $credentials['password'])->first();
 
+        if ($user) {
 
-        // Auth::attempt(['email' => $email, 'password' => $password]);
+            Auth::login($user);
 
-        $users = Http::get('https://dummyjson.com/users')->json();
+            $request->session()->regenerate();
 
-        foreach ($users as $user) {
-            if (
-                $credentials['identity'] == $user['nim']
-                &&
-                $credentials['password'] == $user['pin']
-            ) {
-                return redirect(route('dashboard'));
-            } else {
-                return response()->json(['message' => 'Failed'], 401);
-            }
+            return redirect()->intended('coeg');
         }
 
-        // dd($user);
+        return back()->with('loginError', 'The provided credentials do not match our records.');
+    }
 
-        // return collect($users);
+    public function destroy(Request $request): RedirectResponse
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return to_route('login');
     }
 }

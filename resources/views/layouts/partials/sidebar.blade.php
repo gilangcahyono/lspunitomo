@@ -70,28 +70,28 @@
         <ul id="dropdown-muk" class="hidden space-y-2 py-2">
           <li>
             <a href="#"
-              class="group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">MAPA
+              class="group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">APL
               01</a>
           </li>
           <li>
             <a href="#"
-              class="group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">MAPA
+              class="group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">APL
               02</a>
           </li>
           <li>
             <a href="#"
-              class="group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">APL
+              class="group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">MAPA
               01</a>
           </li>
           <li>
             <a href="#"
-              class="group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">APL
+              class="group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">MAPA
               02</a>
           </li>
         </ul>
       </li>
       <li>
-        <a href="{{ route('registration.create') }}"
+        <a href="{{ route('assesment-registration.create') }}"
           class="{{ request()->is('registration*') ? 'sidebar-active' : '' }} group flex items-center rounded-lg p-2 text-white hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">
           <svg
             class="{{ request()->is('registration*') ? 'sidebar-active' : '' }} h-5 w-5 flex-shrink-0 text-white transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"

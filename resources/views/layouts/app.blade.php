@@ -5,10 +5,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {{-- <meta name="csrf-token" content="{{ csrf_token() }}" /> --}}
-  <link rel="shortcut icon" href="{{ asset('img/logo.png') }}" type="image/x-icon">
-  <title>@yield('title') - {{ config('app.name') }}</title>
-  <script src="{{ asset('js/checkTheme.js') }}"></script>
-  @yield('assetshead')
+  <link rel="shortcut icon" href="{{ url('/logo.png') }}" type="image/x-icon">
+  <title>{{ $title }} - {{ config('app.name') }}</title>
+  @include('layouts.partials.checkTheme')
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -24,12 +23,9 @@
     </div>
   </div>
 
-  @include('layouts.partials.footer')
+  {{-- @include('layouts.partials.footer') --}}
 
-  <script src="{{ asset('js/themeToggle.js') }}"></script>
-
-  @yield('assetsfoot')
-
+  @stack('scripts')
 </body>
 
 </html>

@@ -3,10 +3,13 @@
 use App\Http\Controllers\ElementController;
 use App\Http\Controllers\KukController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AssesmentRegistrationController;
 use App\Http\Controllers\SchemeController;
 use App\Http\Controllers\SelfAssessmentController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\UserController;
 use App\Models\Scheme;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -29,6 +32,7 @@ use Illuminate\Support\Facades\Route;
 //   Auth::attempt(['email' => $email, 'password' => $password]);
 // });
 
+Route::view('/dashboard', 'dashboard')->name('dashboard');
 
 Route::prefix('master')->group(function () {
   Route::resources([
@@ -40,32 +44,25 @@ Route::prefix('master')->group(function () {
 });
 
 Route::resources([
-  'registration' => RegistrationController::class,
+  'assesment-registration' => AssesmentRegistrationController::class,
   'self-assessment' => SelfAssessmentController::class
 ]);
 
-// Route::get('skemas', function () {
-//   return Scheme::latest()->paginate(5);
-// });
-
-// Route::controller(LoginController::class)->group(function () {
-//     Route::get('/login', 'login')->name('login');
-//     Route::post('/login', 'authenticate');
-// });
-
-// Route::controller(SkemaController::class)->group(function () {
-//   Route::get('/skemas', 'index')->name('skema');
-//   Route::post('/skemas', 'store');
-// });
-
-// Route::get('/skema', [SkemaController::class, 'index'])->name('skema');
-
 Route::view('/', 'index')->name('home');
+// Route::redirect('/', '/dashboard', 301);
 
-// Route::view('/login', 'auth.login')->name('login');
-Route::get('/login', [LoginController::class, 'login'])->name('login');
-Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate');
+Route::controller(LoginController::class)->group(function () {
+  Route::get('/login', 'create')->name('login');
+  Route::post('/login', 'store');
+  Route::delete('/logout', 'destroy')->name('logout');
+});
 
 Route::view('/register', 'auth.register')->name('register');
 
-Route::view('/dashboard', 'dashboard')->name('dashboard');
+// Route::resource('/users', UserController::class);
+// Route::resource('/students', StudentController::class);
+
+Route::get('coeg', function () {
+  // return url('/scripts/coeg.js');
+  return auth()->user();
+})->name('coeg');
