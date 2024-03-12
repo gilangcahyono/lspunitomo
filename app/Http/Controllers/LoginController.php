@@ -17,6 +17,8 @@ class LoginController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        upsertUser();
+
         $credentials = $request->validate([
             'username' => ['required'],
             'password' => ['required'],
@@ -30,7 +32,7 @@ class LoginController extends Controller
 
             $request->session()->regenerate();
 
-            return redirect()->intended('coeg');
+            return redirect()->intended('dashboard');
         }
 
         return back()->with('loginError', 'The provided credentials do not match our records.');

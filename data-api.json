@@ -1,0 +1,106 @@
+{
+  "students": [
+    {
+      "nim": "202011420031",
+      "pin": "1528",
+      "name": "Gilang Cahyono",
+      "semester": 13,
+      "department": "Teknik Informatika",
+      "faculty": "Teknik",
+      "gender": "Female",
+      "nik": "6018391230498719",
+      "address": "09 Northridge Park",
+      "city": "Samparna",
+      "province": "Junction",
+      "lastEducation": "Ashton College",
+      "occupation": "Actuary"
+    },
+    {
+      "nim": "202011420030",
+      "pin": "8235",
+      "name": "Rosco Creus",
+      "semester": 13,
+      "department": "Marketing",
+      "faculty": "Toys",
+      "gender": "Male",
+      "nik": "7864722346682462",
+      "address": "0 Sheridan Center",
+      "city": "Kannabechō-yahiro",
+      "province": "Center",
+      "lastEducation": "Universidad Interamericana de Puerto Rico, San Germán",
+      "occupation": "Statistician II"
+    },
+    {
+      "nim": "536074171526",
+      "pin": "1845",
+      "name": "Erskine Tome",
+      "semester": 10,
+      "department": "Product Management",
+      "faculty": "Music",
+      "gender": "Male",
+      "nik": "4337202233064357",
+      "address": "40 Continental Terrace",
+      "city": "Pisz",
+      "province": "Plaza",
+      "lastEducation": "University of North Texas",
+      "occupation": "Junior Executive"
+    },
+    {
+      "nim": "525583233676",
+      "pin": "9202",
+      "name": "Janifer Deas",
+      "semester": 6,
+      "department": "Business Development",
+      "faculty": "Grocery",
+      "gender": "Female",
+      "nik": "1437881409122104",
+      "address": "744 Melrose Place",
+      "city": "Tanout",
+      "province": "Circle",
+      "lastEducation": "Chodang University",
+      "occupation": "Community Outreach Specialist"
+    },
+    {
+      "nim": "122953418837",
+      "pin": "4519",
+      "name": "Dionysus Instock",
+      "semester": 13,
+      "department": "Services",
+      "faculty": "Jewelry",
+      "gender": "Male",
+      "nik": "5620271678043881",
+      "address": "9887 Loftsgordon Way",
+      "city": "Severnyy",
+      "province": "Circle",
+      "lastEducation": "University Canada West",
+      "occupation": "Automation Specialist II"
+    }
+  ],
+  "lecturers": [
+    {
+      "nidn": "789617031772",
+      "pin": "9732",
+      "name": "Pepillo Dyas"
+    },
+    {
+      "nidn": "120131664378",
+      "pin": "5307",
+      "name": "Marcie Burress"
+    },
+    {
+      "nidn": "855388555792",
+      "pin": "5130",
+      "name": "Mickie Nys"
+    },
+    {
+      "nidn": "452221076263",
+      "pin": "5978",
+      "name": "Alastair Hainsworth"
+    },
+    {
+      "nidn": "991338560455",
+      "pin": "8300",
+      "name": "Chantal Dillistone"
+    }
+  ]
+}

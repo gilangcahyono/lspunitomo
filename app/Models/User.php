@@ -15,19 +15,17 @@ class User extends Authenticatable
 
     // protected $with = ['role'];
     public $timestamps = false;
-    protected $primaryKey = 'username';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    // protected $fillable = [
-    //     'name',
-    //     'email',
-    //     'password',
-    // ];
-    protected $guarded = [];
+    protected $fillable = [
+        'username',
+        'password',
+        'role',
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -49,8 +47,8 @@ class User extends Authenticatable
     //     'password' => 'hashed',
     // ];
 
-    // public function role(): HasOne
-    // {
-    //     return $this->hasOne(Role::class);
-    // }
+    public function role(): HasOne
+    {
+        return $this->hasOne(Role::class);
+    }
 }

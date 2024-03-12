@@ -31,28 +31,28 @@ class AssesmentRegistrationController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nim' => ['required'],
-            'name' => ['required'],
-            'faculty' => ['required'],
-            'department' => ['required'],
-            'gender' => ['required'],
-            'semester' => ['required'],
-            'nik' => ['required'],
-            'address' => ['required'],
-            'city' => ['required'],
-            'province' => ['required'],
-            'lastEducation' => ['required'],
-            'occupation' => ['required'],
-            'phoneNumber' => ['required'],
-            'payment' => ['required'],
-            'ijazah' => ['required'],
-            'transkrip' => ['required'],
-            'ktp' => ['required'],
-            'ktm' => ['required'],
+            'nim' => ['required', 'string'],
+            'name' => ['required', 'string'],
+            'faculty' => ['required', 'string'],
+            'department' => ['required', 'string'],
+            'gender' => ['required', 'string'],
+            'semester' => ['required', 'string'],
+            'nik' => ['required', 'string'],
+            'address' => ['required', 'string'],
+            'city' => ['required', 'string'],
+            'province' => ['required', 'string'],
+            'lastEducation' => ['required', 'string'],
+            'occupation' => ['required', 'string'],
+            'scheme' => ['required', 'string', 'exists:schemes,code'],
+            'phoneNumber' => ['required', 'string'],
+            'ijazah' => ['required', 'image', 'mimes:jpg,jpeg,png', 'max:1048'],
+            'transkrip' => ['required', 'image', 'mimes:jpg,jpeg,png', 'max:1048'],
+            'idCard' => ['required', 'image', 'mimes:jpg,jpeg,png', 'max:1048'],
+            'foto' => ['required', 'image', 'mimes:jpg,jpeg,png', 'max:1048'],
 
         ]);
 
-        return $request->all();
+        return $validatedData;
     }
 
     /**

@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {
     public function __construct()
     {
-        $this->upsertUser();
+        upsertUser();
     }
 
     /**
@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
         return [
-            'users' => User::all(),
+            'users' => User::orderBy('id')->get(),
             'total' => User::count(),
         ];
     }
@@ -70,39 +70,5 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function upsertUser(): void
-    {
-        $res1 = Http::get(url('/api/students'))->json();
-        $res2 = Http::get(url('/api/lecturers'))->json();
-
-        $students = collect($res1)->map(function ($student) {
-            return [
-                'name' => $student['name'],
-                'username' => $student['nim'],
-                'password' => $student['pin'],
-                // 'role' => 'student',
-            ];
-        });
-
-        $lecturers = collect($res2)->map(function ($lecturer) {
-            return [
-                'name' => $lecturer['name'],
-                'username' => $lecturer['nidn'],
-                'password' => $lecturer['pin'],
-                // 'role' => 'lecturer',
-            ];
-        });
-
-        $users = $students->concat($lecturers);
-
-        foreach ($users as $user) {
-            User::updateOrCreate([
-                'name' => $user['name'],
-                'username' => $user['username'],
-                'password' => $user['password'],
-            ]);
-        }
     }
 }

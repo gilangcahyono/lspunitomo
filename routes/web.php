@@ -11,8 +11,10 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Models\Scheme;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,12 +28,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//   $users = DB::connection()->getDatabaseName();
-//   echo $users;
-//   Auth::attempt(['email' => $email, 'password' => $password]);
-// });
-
+Route::redirect('/', '/dashboard', 301)->name('home');
 Route::view('/dashboard', 'dashboard')->name('dashboard');
 
 Route::prefix('master')->group(function () {
@@ -48,9 +45,6 @@ Route::resources([
   'self-assessment' => SelfAssessmentController::class
 ]);
 
-Route::view('/', 'index')->name('home');
-// Route::redirect('/', '/dashboard', 301);
-
 Route::controller(LoginController::class)->group(function () {
   Route::get('/login', 'create')->name('login');
   Route::post('/login', 'store');
@@ -59,10 +53,6 @@ Route::controller(LoginController::class)->group(function () {
 
 Route::view('/register', 'auth.register')->name('register');
 
-// Route::resource('/users', UserController::class);
-// Route::resource('/students', StudentController::class);
-
 Route::get('coeg', function () {
-  // return url('/scripts/coeg.js');
-  return auth()->user();
+  return getUserActive();
 })->name('coeg');

@@ -193,11 +193,11 @@
             id="dropdown-2">
             <div class="px-4 py-3" role="none">
               <p class="text-sm text-gray-900 dark:text-white" role="none">
-                Gilang Cahyono
+                202011420031
               </p>
-              <p class="truncate text-sm font-medium text-gray-900 dark:text-gray-300" role="none">
+              {{-- <p class="truncate text-sm font-medium text-gray-900 dark:text-gray-300" role="none">
                 gilangcahyono
-              </p>
+              </p> --}}
             </div>
             <ul class="py-1" role="none">
               {{-- <li>
