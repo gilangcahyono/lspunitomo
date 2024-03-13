@@ -28,7 +28,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', '/dashboard', 301)->name('home');
+Route::get('/', fn () => to_route('dashboard'));
+
 Route::view('/dashboard', 'dashboard')->name('dashboard');
 
 Route::prefix('master')->group(function () {
@@ -54,5 +55,5 @@ Route::controller(LoginController::class)->group(function () {
 Route::view('/register', 'auth.register')->name('register');
 
 Route::get('coeg', function () {
-  return getUserActive();
+  return getUserActive(auth()->user()->username);
 })->name('coeg');

@@ -21,7 +21,7 @@ class AssesmentRegistrationController extends Controller
     public function create()
     {
         return view('assesment-registration.create', [
-            'schemes' => Scheme::select('code', 'name')->without('unit.element.kuk')->get(),
+            'schemes' => Scheme::select('code', 'name')->without('unit.element.kuk')->get()
         ]);
     }
 

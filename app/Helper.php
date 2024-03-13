@@ -20,12 +20,11 @@ function getUserActive()
 
 function upsertUser()
 {
-  $response = getUsers();
-
-  $users = $response->map(fn ($user) => [
+  $users = getUsers()->map(fn ($user) => ([
     'username' => !Arr::exists($user, 'nim') ? $user['nidn'] : $user['nim'],
     'password' => $user['pin'],
-  ]);
+    'type' => 'internal',
+  ]));
 
   foreach ($users as $user) {
     User::updateOrCreate(
@@ -35,6 +34,7 @@ function upsertUser()
       [
         'username' => $user['username'],
         'password' => $user['password'],
+        'type' => $user['type'],
       ]
     );
   }
