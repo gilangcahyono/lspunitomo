@@ -17,14 +17,16 @@ class SchemeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->sentence(),
             'code' => fake()->unique()->ean13(),
-            'type' => fake()->word(),
-            'skkni' => fake()->ean8(),
-            'faculty' => fake()->word(2),
-            'department' => fake()->word(2),
-            'status' => fake()->word(),
-            'basicRequirement' => fake()->sentence(),
+            'name' => fake()->sentence(),
+            'type' => fake()->randomElement(['KKNI', 'Okupasi', 'Klaster']),
+            'licenseNumber' => fake()->unique()->ean8(),
+            'faculty' => fake()->randomElement(['Teknik', 'Ilmu Komunikasi', 'Sastra', 'Ekonomi dan Bisnis', 'Ilmu Hukum', 'Ilmu Pariwisata']),
+            'department' => fake()->randomElement(['Teknik Informatika', 'Teknik Geomatika', 'Ilmu Komunikasi Sosial', 'Ilmu Pariwisata', 'Ilmu Kesehatan', 'Ekonomi', 'Ilmu Administrasi Negara', 'Ilmu Hukum']),
+            'status' => fake()->randomElement(['Berlaku', 'Tidak Berlaku']),
+            'skkni' => fake()->paragraph(1),
+            'basicRequirements' => implode('', [fake()->paragraph() . ' zzz ', fake()->paragraph() . ' zzz ', fake()->paragraph()]),
+            // 'basicRequirements' => implode(', zzz', [fake()->paragraph() . ', zzz', fake()->paragraph() . ', zzz', fake()->paragraph() . ', zzz']),
         ];
     }
 }

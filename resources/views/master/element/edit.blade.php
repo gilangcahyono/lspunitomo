@@ -1,8 +1,4 @@
-@extends('layouts.app')
-
-@section('title')
-  {{ 'Elemen' }}
-@endsection
+@extends('layouts.app', ['title' => 'Elemen'])
 
 @section('content')
   <h1 class="text-center text-xl font-bold text-gray-900 dark:text-white sm:text-xl">
@@ -11,7 +7,7 @@
 
   <hr class="my-5 h-px border-0 bg-gray-400 dark:bg-gray-700">
 
-  <form class="max-w-sm" action="{{ route('elements.update', ['element' => $element]) }}" method="POST">
+  <form class="w-full" action="{{ route('elements.update', ['element' => $element]) }}" method="POST">
     @method('PUT')
     @csrf
     <div class="mb-5">
@@ -28,22 +24,21 @@
       @enderror
     </div>
     <div class="mb-5">
-      <label for="unit_code" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Kode Unit</label>
-      <input type="text" id="unit_code" name="unit_code" value="{{ $element->unit_code }}" list="units"
-        class="@error('unit_code') 
+      <label for="unit_id" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Unit</label>
+      <select id="unit_id" name="unit_id" required
+        class="@error('unit_id') 
           border-red-500 dark:border-red-500 
           @else 
-          border-gray-300 dark:border-gray-600 
-          @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500"
-        placeholder="Type here" required />
-      @error('unit_code')
+          border-gray-300  dark:border-gray-600 
+          @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500">
+        <option selected hidden value="{{ $element->unit_id }}">{{ $element->unit->name }}</option>
+        @foreach ($units as $unit)
+          <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+        @endforeach
+      </select>
+      @error('unit_id')
         <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
       @enderror
-      <datalist id="units">
-        @foreach ($units as $unit)
-          <option value="{{ $unit->code }}">{{ $unit->name }}</option>
-        @endforeach
-      </datalist>
     </div>
     <div class="mb-5">
       <button type="submit"

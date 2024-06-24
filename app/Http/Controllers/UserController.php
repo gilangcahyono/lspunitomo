@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JobGroup;
+use App\Models\Scheme;
+use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        upsertUser();
-    }
-
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         return [
-            'users' => User::orderBy('id')->get(),
-            'total' => User::count(),
+            'users' => User::with('roles:level')->get(),
+            // 'users' => User::all(),
+            // 'total' => User::count(),
+            // 'jobGroup' => JobGroup::with('unit')->get(),
         ];
     }
 

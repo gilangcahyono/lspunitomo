@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('units', function (Blueprint $table) {
-            // $table->id();
-            $table->string('code')->primary();
+            $table->id();
+            $table->string('code')->unique();
             $table->string('name');
-            $table->foreignId('scheme_code');
-            $table->timestamps();
+            $table->foreignId('scheme_id');
+            $table->foreignId('job_group_id')->nullable();
         });
     }
 

@@ -1,21 +1,59 @@
 <?php
 
-use App\Http\Controllers\ElementController;
-use App\Http\Controllers\KukController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\AssesmentRegistrationController;
-use App\Http\Controllers\SchemeController;
-use App\Http\Controllers\SelfAssessmentController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\UnitController;
-use App\Http\Controllers\UserController;
-use App\Models\Scheme;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AccessionController;
+use App\Http\Controllers\AssessmentScheduleController;
+use App\Http\Controllers\AssessorController;
+use App\Http\Controllers\DashboardController;
+
+Route::middleware('auth')->group(function () {
+
+  Route::get('/', fn () => to_route('dashboard'))->name('home');
+  Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+  Route::resources([
+    '/assessors' => AssessorController::class,
+    '/accessions' => AccessionController::class,
+    '/assessment-schedules' => AssessmentScheduleController::class,
+  ]);
+
+  Route::put('/recommend-accession', [AccessionController::class, 'recommend'])->name('accessions.recommend');
+
+  require __DIR__ . '/master-route.php';
+  require __DIR__ . '/assessment-registration-route.php';
+
+  require __DIR__ . '/self-assessment-route.php';
+});
+
+require __DIR__ . '/login-route.php';
+require __DIR__ . '/testing-route.php';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,33 +65,3 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', fn () => to_route('dashboard'));
-
-Route::view('/dashboard', 'dashboard')->name('dashboard');
-
-Route::prefix('master')->group(function () {
-  Route::resources([
-    'schemes' => SchemeController::class,
-    'units' => UnitController::class,
-    'elements' => ElementController::class,
-    'kuks' => KukController::class
-  ]);
-});
-
-Route::resources([
-  'assesment-registration' => AssesmentRegistrationController::class,
-  'self-assessment' => SelfAssessmentController::class
-]);
-
-Route::controller(LoginController::class)->group(function () {
-  Route::get('/login', 'create')->name('login');
-  Route::post('/login', 'store');
-  Route::delete('/logout', 'destroy')->name('logout');
-});
-
-Route::view('/register', 'auth.register')->name('register');
-
-Route::get('coeg', function () {
-  return getUserActive(auth()->user()->username);
-})->name('coeg');

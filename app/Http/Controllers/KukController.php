@@ -12,10 +12,15 @@ class KukController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $kuks = Kuk::where('name', 'like', "%$request->search%")
+            ->paginate($request->show ?? 5)
+            ->withQueryString();
+
         return view('master.kuk.index', [
-            'kuks' => Kuk::latest()->paginate(5)->withQueryString(),
+            'kuks' => $kuks,
+            'kukLists' => Kuk::select('name')->get(),
         ]);
     }
 
@@ -35,13 +40,13 @@ class KukController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => ['required'],
+            'name' => ['string', 'required'],
             'element_id' => ['required', 'exists:elements,id'],
         ]);
 
         Kuk::create($validatedData);
-
-        return redirect(route('kuks.index'))->with('success', 'KUK berhasilt ditambahkan!');
+        alert()->success('KUK berhasil ditambahkan!');
+        return to_route('kuks.index');
     }
 
     /**
@@ -69,13 +74,13 @@ class KukController extends Controller
     public function update(Request $request, Kuk $kuk)
     {
         $validatedData = $request->validate([
-            'name' => ['required'],
+            'name' => ['string', 'required'],
             'element_id' => ['required', 'exists:elements,id'],
         ]);
 
         $kuk->update($validatedData);
-
-        return redirect(route('kuks.index'))->with('success', 'KUK berhasil diperbarui!');
+        alert()->success('KUK berhasil diubah!');
+        return to_route('kuks.index');
     }
 
     /**
@@ -84,7 +89,7 @@ class KukController extends Controller
     public function destroy(Kuk $kuk)
     {
         $kuk->delete();
-
-        return redirect(route('kuks.index'))->with('success', 'KUK berhasil dihapus!');
+        alert()->success('KUK berhasil dihapus!');
+        return to_route('kuks.index');
     }
 }

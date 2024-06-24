@@ -1,13 +1,18 @@
 @extends('layouts.app', ['title' => 'Skema'])
 
 @section('content')
+  {{-- <a href="{{ url()->previous() }}"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+      stroke-width="1.5" stroke="currentColor" class="absolute mt-1 h-6 w-6 dark:text-white">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
+    </svg></a> --}}
+
   <h1 class="text-center text-xl font-bold text-gray-900 dark:text-white sm:text-xl">
     Tambah Skema
   </h1>
 
   <hr class="my-5 h-px border-0 bg-gray-400 dark:bg-gray-700">
 
-  <form class="max-w-sm" action="{{ route('schemes.store') }}" method="POST">
+  <form action="{{ route('schemes.store') }}" method="POST">
     @csrf
     <div class="mb-5">
       <label for="code" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Kode
@@ -18,7 +23,8 @@
           @else 
           border-gray-300  dark:border-gray-600 
           @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500"
-        placeholder="Type here" required maxlength="13" />
+        placeholder="Type here" required />
+
       @error('code')
         <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
       @enderror
@@ -33,6 +39,20 @@
           @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500"
         placeholder="Type here" required />
       @error('name')
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+      @enderror
+    </div>
+    <div class="mb-5">
+      <label for="licenseNumber" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Nomor
+        Lisensi</label>
+      <input type="text" id="licenseNumber" name="licenseNumber" value="{{ old('licenseNumber') }}"
+        class="@error('name') 
+          border-red-500 dark:border-red-500 
+          @else 
+          border-gray-300 dark:border-gray-600 
+          @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500"
+        placeholder="Type here" required />
+      @error('licenseNumber')
         <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
       @enderror
     </div>
@@ -87,14 +107,14 @@
       </div>
     </div>
     <div class="mb-5">
-      <label for="skkni" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Nomor SKKNI</label>
-      <input type="text" id="skkni" name="skkni" value="{{ old('skkni') }}" maxlength="8"
+      <label for="skkni" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">SKKNI</label>
+      <textarea id="message" rows="4" name="skkni" required
         class="@error('skkni') 
-          border-red-500 dark:border-red-500 
-          @else 
-          border-gray-300  dark:border-gray-600 
-          @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500"
-        placeholder="Type here" required />
+        border-red-500 dark:border-red-500 
+        @else 
+        border-gray-300  dark:border-gray-600 
+        @enderror block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500"
+        placeholder="Write your thoughts here...">{{ old('skkni') }}</textarea>
       @error('skkni')
         <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
       @enderror
@@ -148,16 +168,34 @@
         <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
       @enderror
     </div>
-    <div class="mb-5">
-      <label for="basicRequirement" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Persyaratan
-        dasar</label>
-      <textarea id="basicRequirement" rows="4" name="basicRequirement" required
-        class="@error('basicRequirement') 
-          border-red-500 dark:border-red-500 
-          @else 
-          border-gray-300  dark:border-gray-600 
-          @enderror block w-full resize-none rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500"
-        placeholder="Write here...">{{ old('basicRequirement') }}</textarea>
+    <div id="basicRequirementDiv" class="relative mb-5">
+      <button type="button" id="basicRequirementBtn"
+        class="absolute -bottom-4 left-1/2 z-[1] -translate-x-1/2 transform"><svg
+          class="h-8 w-8 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+          width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd"
+            d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4.243a1 1 0 1 0-2 0V11H7.757a1 1 0 1 0 0 2H11v3.243a1 1 0 1 0 2 0V13h3.243a1 1 0 1 0 0-2H13V7.757Z"
+            clip-rule="evenodd" />
+        </svg></button>
+      <label for="basicRequirement" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Prasyarat
+        Dasar</label>
+      <div class="relative" id="textAreaDiv">
+        <button type="button" id="basicRequirementRemoveBtn" class="absolute -right-3 -top-3"><svg
+            class="h-8 w-8 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <path fill-rule="evenodd"
+              d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm7.707-3.707a1 1 0 0 0-1.414 1.414L10.586 12l-2.293 2.293a1 1 0 1 0 1.414 1.414L12 13.414l2.293 2.293a1 1 0 0 0 1.414-1.414L13.414 12l2.293-2.293a1 1 0 0 0-1.414-1.414L12 10.586 9.707 8.293Z"
+              clip-rule="evenodd" />
+          </svg>
+        </button>
+        <textarea id="basicRequirement" rows="4" name="basicRequirements[]" required
+          class="@error('basicRequirement') 
+        border-red-500 dark:border-red-500 
+        @else 
+        border-gray-300  dark:border-gray-600 
+        @enderror mb-3 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500"
+          placeholder="Write your thoughts here..."></textarea>
+      </div>
       @error('basicRequirement')
         <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
       @enderror
@@ -170,3 +208,40 @@
     </div>
   </form>
 @endsection
+
+@push('scripts')
+  <script type="module">
+    $(document).ready(function() {
+      $('#basicRequirementDiv').on('click', '#basicRequirementRemoveBtn', function(e) {
+        e.preventDefault();
+        $(this).parent().remove();
+        e.stopPropagation();
+      });
+
+      $('#basicRequirementBtn').click(function(e) {
+        $('#basicRequirementDiv').append(`<div class="relative" id="textAreaDiv">
+        <button type="button" id="basicRequirementRemoveBtn" class="absolute -right-3 -top-3"><svg
+            class="h-8 w-8 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <path fill-rule="evenodd"
+              d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm7.707-3.707a1 1 0 0 0-1.414 1.414L10.586 12l-2.293 2.293a1 1 0 1 0 1.414 1.414L12 13.414l2.293 2.293a1 1 0 0 0 1.414-1.414L13.414 12l2.293-2.293a1 1 0 0 0-1.414-1.414L12 10.586 9.707 8.293Z"
+              clip-rule="evenodd" />
+          </svg>
+        </button>
+        <textarea id="basicRequirement" rows="4" name="basicRequirements[]" required
+          class="@error('basicRequirement') 
+        border-red-500 dark:border-red-500 
+        @else 
+        border-gray-300  dark:border-gray-600 
+        @enderror mb-3 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500"
+          placeholder="Write your thoughts here...">{{ old('basicRequirement') }} </textarea>
+      </div>`);
+      });
+
+      // $('[id=basicRequirementRemoveBtn]').click(function(e) {
+      //   e.preventDefault();
+      //   $(this).parent().remove();
+      // });
+    });
+  </script>
+@endpush

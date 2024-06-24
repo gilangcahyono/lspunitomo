@@ -2,68 +2,167 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accession;
+use App\Models\Assessor;
+use App\Models\ErrorReg;
 use App\Models\Scheme;
-use App\Models\SelfAssessment;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class SelfAssessmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function candidates(Request $request)
     {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        // return Scheme::inRandomOrder()->first();
-        return view('self-assesment.create', [
-            'scheme' => Scheme::inRandomOrder()->with('unit.element.kuk')->first(),
+        if (!Gate::allows('admin')) {
+            $assessor =  Assessor::firstWhere('nidn', auth()->user()->username);
+            if ($request->scheme_id != null) {
+                $candidates = Accession::where('scheme_id', $request->scheme_id)
+                    ->where('assessor_id', $assessor->id)
+                    ->orderBy('assessor_id')
+                    ->with('assessor')
+                    ->paginate($request->show ?? 10)
+                    ->withQueryString();
+            } else {
+                $candidates = Accession::where('assessor_id', $assessor->id)
+                    ->orderBy('assessor_id')
+                    ->with('assessor')
+                    ->paginate($request->show ?? 10)
+                    ->withQueryString();
+            }
+        } else {
+            if ($request->scheme_id != null) {
+                $candidates = Accession::where('scheme_id', $request->scheme_id)
+                    ->where('assessor_id', '!=', null)
+                    ->orderBy('assessor_id')
+                    ->with('assessor')
+                    ->paginate($request->show ?? 10)
+                    ->withQueryString();
+            } else {
+                $candidates = Accession::where('assessor_id', '!=', null)
+                    ->orderBy('assessor_id')
+                    ->with('assessor')
+                    ->paginate($request->show ?? 10)
+                    ->withQueryString();
+            }
+        }
+
+        return view('apl-02.candidates', [
+            'candidates' => $candidates,
+            'schemes' => Scheme::select('id', 'code', 'name')->without('units')->get(),
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    public function candidate(Accession $accession)
+    {
+        // $assessors = Assessor::where('scheme_id', $accession->scheme->id)->get();
+        // return $accession;
+        return view('apl-02.candidate', [
+            'candidate' => $accession,
+            // 'assessors' => $assessors
+        ]);
+    }
+
+    public function process(Accession $accession)
+    {
+        // return lateSchedule($accession->selfAssessmentSchedule);
+
+        if (lateSchedule($accession->selfAssessmentSchedule)) {
+            abort(404);
+        }
+
+        // return json_decode($accession->elementValue);
+
+        $accession->load('scheme.units.elements.kuks');
+        return view('apl-02.process', [
+            'candidate' => $accession,
+            'elements' => collect(json_decode($accession->elementValue))->toArray(),
+        ]);
+    }
+
     public function store(Request $request)
     {
-        //
+        // return $request->all();
+
+        $errorReg = ErrorReg::firstWhere('nim', $request->nim);
+
+        if ($errorReg) {
+            $errorReg->delete();
+        }
+
+        $validatedData = $request->validate([
+            'registrationNumber' => ['required', 'string', 'exists:accessions,registrationNumber'],
+        ]);
+
+        $validatedData['elementValue'] = json_encode($request->all());
+
+        $accession = Accession::firstWhere('registrationNumber', $validatedData['registrationNumber']);
+
+        if (lateSchedule($accession->selfAssessmentSchedule)) {
+            abort(404);
+        }
+
+        $accession->update([
+            'processed' => true,
+            'elementValue' => $validatedData['elementValue']
+        ]);
+
+        alert()->success('Berkas anda telah tersimpan!', 'Selalu cek dashboard anda untuk mengetahui informasi selanjutnya.')->persistent(false, false);
+        return to_route('dashboard');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(SelfAssessment $selfAssessment)
+    public function result(Accession $accession)
     {
-        //
+        $accession->load('scheme.units.elements.kuks');
+        $accession->elementValue = json_decode($accession->elementValue);
+        $elementValues = collect($accession->elementValue)->toArray();
+
+        return view('apl-02.result', [
+            'candidate' => $accession,
+            'elementValues' => $elementValues,
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(SelfAssessment $selfAssessment)
+    public function review(Request $request, Accession $accession)
     {
-        //
+        // return $request->all();
+
+        if ($request->recommended === "0") {
+            ErrorReg::create([
+                'nim' => $request->nim,
+                'type' => 'self-assessment',
+                // 'errors' => json_encode($request->elements),
+            ]);
+
+            $accession->update([
+                'selfAssessmentSchedule' => Carbon::now()->addDays(2)->setTime(00, 00, 00),
+                // 'elementValue' => null
+            ]);
+
+            alert()->success('Calon asesi akan merevisi asesmen mandiri!');
+
+            return to_route('accession.candidates');
+        }
+
+        $accession->update([
+            'recommended' => $request->recommended,
+            'recommendedAt' => $request->recommended ? now() : null,
+        ]);
+
+        alert()->success('Data berhasil disimpan!');
+
+        return to_route('accession.candidates');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, SelfAssessment $selfAssessment)
+    public function reschedule(Request $request, Accession $accession)
     {
-        //
-    }
+        $accession->update([
+            'selfAssessmentSchedule' => $request->selfAssessmentSchedule,
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(SelfAssessment $selfAssessment)
-    {
-        //
+        alert()->success('Jadwal berhasil diubah!');
+
+        return to_route('accession.candidates');
     }
 }

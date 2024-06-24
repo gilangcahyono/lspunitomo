@@ -12,20 +12,36 @@ class UnitController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->scheme_id != null) {
+            $units = Unit::where('scheme_id', "$request->scheme_id")
+                ->orderBy('scheme_id')
+                ->with('elements')
+                ->paginate($request->show ?? 10)
+                ->withQueryString();
+        } else {
+            $units = Unit::with('elements')
+                ->orderBy('scheme_id')
+                ->paginate($request->show ?? 10)
+                ->withQueryString();
+        }
+
         return view('master.unit.index', [
-            'units' => Unit::latest()->paginate(5)->withQueryString(),
+            'units' => $units,
+            // 'unitLists' => Unit::select('code', 'name')->without('elements')->get(),
+            'schemes' => Scheme::select('id', 'code', 'name')->without('units')->get(),
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create()
     {
+        // return Scheme::select('id', 'name')->get();
         return view('master.unit.create', [
-            'schemes' => Scheme::select('code', 'name')->get(),
+            'schemes' => Scheme::select('id', 'name')->get(),
         ]);
     }
 
@@ -34,15 +50,22 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request->all();
+        // $scheme_id = trim(explode('-', $request->scheme_id)[0]);
+        // $request->scheme_id = $scheme_id;
+
         $validatedData =  $request->validate([
-            'code' => ['required', 'unique:units,code', 'max:13'],
-            'name' => ['required'],
-            'scheme_code' => ['required', 'exists:schemes,code'],
+            'code' => ['required', 'string', 'max:13'],
+            'name' => ['string', 'required'],
+            // 'scheme_id' => $scheme_id,
+            'scheme_id' => ['required', 'exists:schemes,id',],
         ]);
 
-        Unit::create($validatedData);
+        // $validatedData['scheme_id'] = $scheme_id;
 
-        return redirect(route('units.index'))->with('success', 'Unit berhasil ditambahkan!');
+        Unit::create($validatedData);
+        alert()->success('Unit berhasil ditambahkan!');
+        return redirect(route('units.index'));
     }
 
     /**
@@ -60,7 +83,7 @@ class UnitController extends Controller
     {
         return view('master.unit.edit', [
             'unit' => $unit,
-            'schemes' => Scheme::select('code', 'name')->get(),
+            'schemes' => Scheme::select('id', 'name')->get(),
         ]);
     }
 
@@ -70,14 +93,14 @@ class UnitController extends Controller
     public function update(Request $request, Unit $unit)
     {
         $validatedData =  $request->validate([
-            'code' => ['required', 'max:13'],
-            'name' => ['required'],
-            'scheme_code' => ['required', 'exists:schemes,code'],
+            'code' => ['string', 'required', 'max:13'],
+            'name' => ['string', 'required'],
+            'scheme_id' => ['string', 'required', 'exists:schemes,id'],
         ]);
 
         $unit->update($validatedData);
-
-        return redirect(route('units.index'))->with('success', 'Unit berhasil diperbarui!');
+        alert()->success('Unit berhasil diubah!');
+        return to_route('units.index');
     }
 
     /**
@@ -86,7 +109,7 @@ class UnitController extends Controller
     public function destroy(Unit $unit)
     {
         $unit->delete();
-
-        return redirect(route('units.index'))->with('success', 'Unit berhasil dihapus!');
+        alert()->success('Unit berhasil dihapus!');
+        return to_route('units.index');
     }
 }

@@ -13,13 +13,10 @@ class SchemeController extends Controller
      */
     public function index(Request $request)
     {
+        $schemes =  Scheme::with('units')->get();
         return view('master.scheme.index', [
-            'schemes' => Scheme::latest()
-                ->where('code', 'like', "%$request->search%")
-                ->with('unit')
-                ->paginate(5)
-                ->withQueryString(),
-            'schemeLists' => Scheme::select('code', 'name')->without('unit')->get(),
+            'schemes' =>   $schemes,
+            'schemeLists' => Scheme::select('code', 'name')->without('units')->get(),
         ]);
     }
 
@@ -34,24 +31,32 @@ class SchemeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
+        // return $request->all();
+
+        $request->merge([
+            'basicRequirements' => implode(' zzz ', $request->input('basicRequirements'))
+        ]);
+
         $validatedData = $request->validate(
             [
-                'code' => ['required', 'unique:schemes,code', 'max:13'],
-                'name' => ['required'],
-                'type' => ['required'],
-                'skkni' => ['required', 'unique:schemes,skkni', 'max:8'],
-                'faculty' => ['required'],
-                'department' => ['required'],
-                'status' => ['required'],
-                'basicRequirement' => ['required'],
+                'code' => ['required', 'unique:schemes,code'],
+                'name' => ['string', 'required'],
+                'type' => ['string', 'required'],
+                'licenseNumber' => ['string', 'required'],
+                'faculty' => ['string', 'required'],
+                'department' => ['string', 'required'],
+                'status' => ['string', 'required'],
+                'skkni' => ['string', 'required'],
+                'basicRequirements' => ['string', 'required'],
             ]
         );
 
         Scheme::create($validatedData);
 
-        return to_route('schemes.index')->with('success', 'Skema berhasil ditambahkan!');
+        alert()->success('Skema berhasil ditambahkan!');
+        return to_route('schemes.index');
     }
 
     /**
@@ -59,7 +64,9 @@ class SchemeController extends Controller
      */
     public function show(Scheme $scheme)
     {
-        //
+        return view('master.scheme.show', [
+            'scheme' => $scheme
+        ]);
     }
 
     /**
@@ -67,6 +74,7 @@ class SchemeController extends Controller
      */
     public function edit(Scheme $scheme)
     {
+        // return explode(' zzz ', $scheme->basicRequirements);
         return view('master.scheme.edit', [
             'scheme' => $scheme
         ]);
@@ -77,22 +85,34 @@ class SchemeController extends Controller
      */
     public function update(Request $request, Scheme $scheme)
     {
+        // return $request->all();
+
+        $request->merge([
+            'basicRequirements' => implode(' zzz ', $request->input('basicRequirements'))
+        ]);
+
         $validatedData = $request->validate(
             [
-                'code' => ['required', 'exists:schemes,code', 'max:13'],
-                'name' => ['required'],
-                'type' => ['required'],
-                'skkni' => ['required', 'max:8'],
-                'faculty' => ['required'],
-                'department' => ['required'],
-                'status' => ['required'],
-                'basicRequirement' => ['required'],
+                'code' => ['string', 'required'],
+                'name' => ['string', 'required'],
+                'type' => ['string', 'required'],
+                'licenseNumber' => ['string', 'required'],
+                'faculty' => ['string', 'required'],
+                'department' => ['string', 'required'],
+                'status' => ['string', 'required'],
+                'skkni' => ['string', 'required'],
+                'basicRequirements' => ['string', 'required'],
             ]
         );
 
-        $scheme->update($validatedData);
-
-        return to_route('schemes.index')->with('success', 'Skema berhasil diperbarui!');
+        try {
+            $scheme->update($validatedData);
+            alert()->success('Skema berhasil diubah!');
+        } catch (\Throwable $th) {
+            alert()->error('Oops...', 'Something went wrong!');
+        } finally {
+            return to_route('schemes.index');
+        }
     }
 
     /**
@@ -101,8 +121,8 @@ class SchemeController extends Controller
     public function destroy(Scheme $scheme)
     {
         $scheme->delete();
-
-        return to_route('schemes.index')->with('success', 'Skema berhasil dihapus!');
+        alert()->success('Skema berhasil dihapus!');
+        return to_route('schemes.index');
     }
 
     public function search(Request $request)

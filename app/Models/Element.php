@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,13 +14,15 @@ class Element extends Model
 
     protected $guarded = ['id'];
     // protected $with = ['kuk'];
+    public $timestamps = false;
+    // public $incrementing = false;
 
     public function unit(): BelongsTo
     {
         return $this->belongsTo(Unit::class);
     }
 
-    public function kuk(): HasMany
+    public function kuks(): HasMany
     {
         return $this->hasMany(Kuk::class);
     }

@@ -11,16 +11,22 @@ class Unit extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
-    protected $primaryKey = 'code';
-    // protected $with = ['element'];
+    protected $guarded = ['id'];
+    // protected $primaryKey = 'code';
+    public $timestamps = false;
+    // public $incrementing = false;
 
     public function scheme(): BelongsTo
     {
         return $this->belongsTo(Scheme::class);
     }
 
-    public function element(): HasMany
+    public function jobGroup(): BelongsTo
+    {
+        return $this->belongsTo(JobGroup::class);
+    }
+
+    public function elements(): HasMany
     {
         return $this->hasMany(Element::class);
     }

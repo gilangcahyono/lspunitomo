@@ -1,8 +1,4 @@
-@extends('layouts.app')
-
-@section('title')
-  {{ 'KUK' }}
-@endsection
+@extends('layouts.app', ['title' => 'KUK'])
 
 @section('content')
   <h1 class="text-center text-xl font-bold text-gray-900 dark:text-white sm:text-xl">
@@ -11,7 +7,7 @@
 
   <hr class="my-5 h-px border-0 bg-gray-400 dark:bg-gray-700">
 
-  <form class="max-w-sm" action="{{ route('kuks.store') }}" method="POST">
+  <form class="w-full" action="{{ route('kuks.store') }}" method="POST">
     @csrf
     <div class="mb-5">
       <label for="name" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Nama KUK</label>
@@ -27,22 +23,21 @@
       @enderror
     </div>
     <div class="mb-5">
-      <label for="element_id" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Kode element</label>
-      <input type="text" id="element_id" name="element_id" value="{{ old('element_id') }}" list="elements"
+      <label for="element_id" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Elemen</label>
+      <select id="element_id" name="element_id" required
         class="@error('element_id') 
           border-red-500 dark:border-red-500 
           @else 
-          border-gray-300 dark:border-gray-600 
-          @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500"
-        placeholder="Type here" required />
-      @error('element_id')
-        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-      @enderror
-      <datalist id="elements">
+          border-gray-300  dark:border-gray-600 
+          @enderror block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500">
+        <option selected hidden value="">Pilih Elemen</option>
         @foreach ($elements as $element)
           <option value="{{ $element->id }}">{{ $element->name }}</option>
         @endforeach
-      </datalist>
+      </select>
+      @error('element_id')
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+      @enderror
     </div>
     <div class="mb-5">
       <button type="submit"

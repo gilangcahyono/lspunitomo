@@ -15,27 +15,61 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        upsertUser();
-
-        $credentials = $request->validate([
-            'username' => ['required'],
-            'password' => ['required'],
+        $request->merge([
+            'username' => trim($request->input('username')),
+            'password' => trim($request->input('password')),
         ]);
 
-        $user = User::where('username', $credentials['username'])->where('password', $credentials['password'])->first();
+        $credentials = $request->validate([
+            'username' => ['required', 'string'],
+            'password' => ['required', 'string'],
+        ]);
 
-        if ($user) {
+        $userFromDb = User::where('username', $credentials['username'])->where('password', $credentials['password'])->first();
 
-            Auth::login($user);
+        if ($userFromDb) {
+
+            Auth::login($userFromDb);
 
             $request->session()->regenerate();
 
             return redirect()->intended('dashboard');
+        } else {
+
+            // $userFromApi = getStudents()->where('nim', $credentials['username'])->where('pin', $credentials['password'])->first();
+
+            $userFromApi = getAccounts()->where('username', $credentials['username'])->where('password', $credentials['password'])->first();
+
+            // $userFromApi = userMapping(getUsers())->where('username', $credentials['username'])->where('password', $credentials['password'])->first();
+
+            // $userFromApi = userMapping(getUsers())->filter(function (array $user) use ($credentials) {
+            //     return $user['email'] == $credentials['identity'] || $user['username'] == $credentials['identity'] && $user['password'] == $credentials['password'];
+            // })->first();
+
+            if ($userFromApi) {
+
+                $createdUser = User::create([
+                    'username' => $userFromApi['username'],
+                    'password' => $userFromApi['password'],
+                    'type' => 'internal',
+                ]);
+
+                // UserRole::create([
+                //     'role_id' => 3,
+                //     'user_id' => $createdUser['id'],
+                // ]);
+
+                Auth::login($createdUser);
+
+                $request->session()->regenerate();
+
+                return redirect()->intended('dashboard');
+            }
         }
 
-        return back()->with('loginError', 'The provided credentials do not match our records.');
+        return back()->with('loginError', 'Username tersebut tidak ada atau tidak aktif');
     }
 
     public function destroy(Request $request): RedirectResponse

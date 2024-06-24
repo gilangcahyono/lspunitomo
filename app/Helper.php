@@ -1,15 +1,36 @@
 <?php
 
-use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 
+function userMapping($users)
+{
+  return collect($users)->map(fn ($user) => ([
+    'person' => !Arr::exists($user, 'nim') ? 'lecturer' : 'student',
+    'username' => !Arr::exists($user, 'nim') ? $user['nidn'] : $user['nim'],
+    'email' => $user['email'],
+    'password' => $user['pin'],
+    'type' => 'internal',
+  ]));
+}
+
+function getAccounts()
+{
+  $students = getStudents();
+  $lecturers = getLecturers();
+  $users = collect([...$students, ...$lecturers])->map(fn ($user) => ([
+    'username' => !Arr::exists($user, 'nim') ? $user['nidn'] : $user['nim'],
+    'password' => $user['pin'],
+  ]));
+  return $users;
+}
+
 function getUsers()
 {
-  $res1 = Http::get(url('http://localhost:2002/students'))->json();
-  $res2 = Http::get(url('http://localhost:2002/lecturers'))->json();
-  $users = [...$res1, ...$res2];
-  return collect($users);
+  $students = getStudents();
+  $lecturers = getLecturers();
+  return collect([...$students, ...$lecturers]);
 }
 
 function getUserActive()
@@ -18,24 +39,36 @@ function getUserActive()
   return $user ? $user : getUsers()->firstWhere('nidn', auth()->user()->username);
 }
 
-function upsertUser()
+function getStudents()
 {
-  $users = getUsers()->map(fn ($user) => ([
-    'username' => !Arr::exists($user, 'nim') ? $user['nidn'] : $user['nim'],
-    'password' => $user['pin'],
-    'type' => 'internal',
-  ]));
+  $students = Http::get(url('http://localhost:2002/students'))->json();
+  return collect($students);
+}
 
-  foreach ($users as $user) {
-    User::updateOrCreate(
-      [
-        'username' => $user['username'],
-      ],
-      [
-        'username' => $user['username'],
-        'password' => $user['password'],
-        'type' => $user['type'],
-      ]
-    );
-  }
+function getLecturers()
+{
+  $lecturers = Http::get(url('http://localhost:2002/lecturers'))->json();
+  return collect($lecturers);
+}
+
+// function checkUserRole(array $roles = [])
+// {
+//   return  auth()->user()->role->whereIn('level', $roles)->first();
+// }
+
+function lateSchedule($scheduleDateTime)
+{
+  // Konversi string tanggal jadwal menjadi objek Carbon
+  $scheduleTime = Carbon::parse($scheduleDateTime);
+
+  // Mendapatkan waktu sekarang
+  $currentTime = Carbon::now();
+
+  // Memeriksa apakah waktu sekarang telah melewati jadwal yang ditentukan
+  return $currentTime->gt($scheduleTime);
+}
+
+function downloadFile($file)
+{
+  return response()->download($file)->deleteFileAfterSend(true);
 }

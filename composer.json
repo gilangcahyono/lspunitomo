@@ -13,7 +13,11 @@
         "itsgoingd/clockwork": "^5.1",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "mpdf/mpdf": "^8.2",
+        "phpoffice/phpword": "^1.2",
+        "realrashid/sweet-alert": "^7.1",
+        "vish4395/laravel-file-viewer": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
