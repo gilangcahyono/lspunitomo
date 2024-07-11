@@ -87,6 +87,7 @@ Route::get('/coeg/{filename?}', function (?string $filename = null) {
 
     return response()->download($pathToSave)->deleteFileAfterSend(true);
   }
+
   return apl02();
 
   // function apl01()
@@ -135,8 +136,6 @@ Route::get('/coeg/{filename?}', function (?string $filename = null) {
 
   //   return response()->download($pathToSave)->deleteFileAfterSend(true);
   // }
-
-
 
   // $filepath = 'muk/' . $filename;
   // $file_url = url('storage/muk/' . $filename);

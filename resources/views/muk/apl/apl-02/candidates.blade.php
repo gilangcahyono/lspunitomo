@@ -2,10 +2,12 @@
 
 @section('content')
   <h1 class="text-center text-xl font-bold text-gray-900 dark:text-white sm:text-xl">
-    APL 01 <br> PERMOHONAN SERTIFIKASI KOMPETENSI
+    APL 02 <br> ASESMEN MANDIRI
   </h1>
 
   <hr class="mt-5 h-px border-0 bg-gray-400 dark:bg-gray-700">
+
+  @include('muk.apl-01.nav')
 
   <div
     class="block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex lg:mt-1.5">
@@ -30,29 +32,19 @@
                 </svg>
                 <span class="sr-only">Search</span>
               </button>
-              {{-- <a href="{{ route('assessment.registrants.export') }}" --}}
-              <a href="#"
-                class="focus:ring-primary-300 inline-flex w-1/2 items-center justify-center rounded-lg border border-gray-300 bg-white px-3 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto">
-                <svg class="-ml-1 mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd"
-                    d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z"
-                    clip-rule="evenodd"></path>
-                </svg>
-                Export
-              </a>
             </div>
-            @if (request('scheme_id') && $registrants[0])
+            @if (request('scheme_id') && $candidates[0])
               <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                Ditemukan Skema : {{ $registrants[0]->scheme->name }}
+                Ditemukan Skema : {{ $candidates[0]->scheme->name }}
               </p>
             @endif
+
           </form>
         </div>
-
-        <button id="plotingBtn" type="button" disabled
+        <button id="plotingBtn" type="button" disabled data-modal-target="set-schedule-modal"
+          data-modal-toggle="set-schedule-modal"
           class="cursor-not-allowed rounded-lg bg-emerald-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
-          Plot Asesor
+          Buat Jadwal Asesmen
         </button>
       </div>
     </div>
@@ -72,9 +64,6 @@
                   <input type="checkbox" checked disabled
                     class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-slate-600 focus:ring-2 focus:ring-slate-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-slate-600">
                 </td>
-                {{-- <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
-                  No. Pendaftaran
-                </th> --}}
                 <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
                   NIM
                 </th>
@@ -84,59 +73,109 @@
                 <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
                   Skema
                 </th>
-                <th scope="col" class="p-4 text-start text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                  Asesor
+                </th>
+                {{-- <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                  Jadwal Asesmen Mandiri
+                </th> --}}
+                <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
                   Aksi
                 </th>
               </tr>
             </thead>
             <tbody id="schemeList" class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
-              <form id="plotingForm" action="{{ route('assessment.registrants.ploting') }}" method="GET">
-                @foreach ($registrants as $registrant)
+              <form id="setScheduleForm" action="{{ route('assessment-schedules.store') }}" method="POST">
+                @csrf
+                @foreach ($candidates as $candidate)
                   <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
                     <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      {{ $loop->iteration + ($registrants->currentPage() - 1) * $registrants->perPage() }}</td>
+                      {{ $loop->iteration + ($candidates->currentPage() - 1) * $candidates->perPage() }}</td>
                     <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      <input id="check-{{ $registrant->id }}" type="checkbox" name="registrants[]"
-                        value="{{ $registrant->id }}"
-                        class="{{ $registrant->assessor_id !== null ? 'text-gray-600' : 'text-emerald-600' }} h-4 w-4 rounded border-gray-300 bg-gray-100 focus:ring-2 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-emerald-600"
-                        {{ $registrant->assessor_id !== null ? 'checked disabled' : '' }}>
-                      <input type="hidden" name="scheme_id" value="{{ $registrant->scheme->id }}">
+                      <input id="check-{{ $candidate->id }}" type="checkbox" name="candidates[]"
+                        value="{{ $candidate->id }}"
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-emerald-600 focus:ring-2 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-emerald-600"
+                        {{ $candidate->assessment_schedule_id ? 'checked disabled' : '' }}
+                        {{ $candidate->elementValue === null ? 'disabled' : '' }}>
+                    <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+                      {{ $candidate->nim }}
                     </td>
                     <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      {{ $registrant->nim }}
-                    </td>
+                      {{ $candidate->name }}</td>
                     <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      {{ $registrant->name }}</td>
+                      {{ $candidate->scheme->name }}</td>
                     <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      {{ $registrant->scheme->name }}</td>
+                      {{ $candidate->assessor->name }}</td>
+                    {{-- <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+                    @if ((!$candidate->recommended || $candidate->recommended) && $candidate->processed && !lateSchedule($candidate->selfAssessmentSchedule))
+                      Selesai
+                    @elseif (lateSchedule($candidate->selfAssessmentSchedule))
+                      Telat
+                    @elseif (!$candidate->processed)
+                      {{ $candidate->selfAssessmentSchedule }} s/d
+                      {{ date('Y-m-d H:i:s', strtotime('+1 day', strtotime($candidate->selfAssessmentSchedule))) }}
+                    @endif
+                  </td> --}}
                     <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      @if (
-                          $registrant->ijazah === null ||
-                              $registrant->transkrip === null ||
-                              $registrant->ktp === null ||
-                              $registrant->ktm === null ||
-                              $registrant->proofPayment === null ||
-                              $registrant->cv === null ||
-                              $registrant->foto === null)
-                        <span
-                          class="mb-2 me-2 flex items-center justify-center gap-1 rounded-lg border border-yellow-700 px-2 py-2 text-center text-sm font-medium text-yellow-700 hover:bg-yellow-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-yellow-300 dark:border-yellow-500 dark:text-yellow-500 dark:hover:bg-yellow-600 dark:hover:text-white dark:focus:ring-yellow-800">Perbaikan
-                        </span>
-                      @else
-                        <a class="mb-2 me-2 flex items-center justify-center gap-1 rounded-lg border border-yellow-700 px-2 py-2 text-center text-sm font-medium text-yellow-700 hover:bg-yellow-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-yellow-300 dark:border-yellow-500 dark:text-yellow-500 dark:hover:bg-yellow-600 dark:hover:text-white dark:focus:ring-yellow-800"
-                          href="{{ route('assessment.registrants.detail', ['accession' => $registrant]) }}">
-                          <span>View</span>
-                          <svg class="{{ !$registrant->verified ? 'hidden' : '' }} h-4 w-4 text-gray-800 dark:text-white"
-                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path fill-rule="evenodd"
-                              d="M12 2c-.791 0-1.55.314-2.11.874l-.893.893a.985.985 0 0 1-.696.288H7.04A2.984 2.984 0 0 0 4.055 7.04v1.262a.986.986 0 0 1-.288.696l-.893.893a2.984 2.984 0 0 0 0 4.22l.893.893a.985.985 0 0 1 .288.696v1.262a2.984 2.984 0 0 0 2.984 2.984h1.262c.261 0 .512.104.696.288l.893.893a2.984 2.984 0 0 0 4.22 0l.893-.893a.985.985 0 0 1 .696-.288h1.262a2.984 2.984 0 0 0 2.984-2.984V15.7c0-.261.104-.512.288-.696l.893-.893a2.984 2.984 0 0 0 0-4.22l-.893-.893a.985.985 0 0 1-.288-.696V7.04a2.984 2.984 0 0 0-2.984-2.984h-1.262a.985.985 0 0 1-.696-.288l-.893-.893A2.984 2.984 0 0 0 12 2Zm3.683 7.73a1 1 0 1 0-1.414-1.413l-4.253 4.253-1.277-1.277a1 1 0 0 0-1.415 1.414l1.985 1.984a1 1 0 0 0 1.414 0l4.96-4.96Z"
-                              clip-rule="evenodd" />
-                          </svg>
+                      @if (!lateSchedule($candidate->selfAssessmentSchedule) && $candidate->elementValue === null)
+                        <button type="button" disabled
+                          class="rounded-lg border border-yellow-400 px-3 py-2 text-center text-xs font-medium text-yellow-400 hover:bg-yellow-500 hover:text-white focus:outline-none focus:ring-4 focus:ring-yellow-300 dark:border-yellow-300 dark:text-yellow-300 dark:hover:bg-yellow-400 dark:hover:text-white dark:focus:ring-yellow-900">
+                          Belum Mengerjakan
+                        </button>
+                      @elseif (lateSchedule($candidate->selfAssessmentSchedule) &&
+                              ($candidate->elementValue !== null || $candidate->elementValue === null) &&
+                              $candidate->recommended === null)
+                        <button type="button" data-modal-target="edit-schedule-modal-{{ $candidate->id }}"
+                          data-modal-toggle="edit-schedule-modal-{{ $candidate->id }}"
+                          class="rounded-lg border border-yellow-400 px-3 py-2 text-center text-xs font-medium text-yellow-400 hover:bg-yellow-500 hover:text-white focus:outline-none focus:ring-4 focus:ring-yellow-300 dark:border-yellow-300 dark:text-yellow-300 dark:hover:bg-yellow-400 dark:hover:text-white dark:focus:ring-yellow-900">
+                          Tidak Mengerjakan / Telat
+                        </button>
+                        @include('apl-02.edit-schedule-modal')
+                      @elseif ($candidate->elementValue !== null && $candidate->recommended === null)
+                        <a href="{{ route('self-assessments.result', ['accession' => $candidate]) }}"
+                          class="rounded-lg border border-yellow-400 px-3 py-2 text-center text-xs font-medium text-yellow-400 hover:bg-yellow-500 hover:text-white focus:outline-none focus:ring-4 focus:ring-yellow-300 dark:border-yellow-300 dark:text-yellow-300 dark:hover:bg-yellow-400 dark:hover:text-white dark:focus:ring-yellow-900">
+                          Tinjau Hasil
                         </a>
+                      @elseif ($candidate->recommended)
+                        <button disabled href="{{ route('self-assessments.result', ['accession' => $candidate]) }}"
+                          class="rounded-lg border border-yellow-400 px-3 py-2 text-center text-xs font-medium text-yellow-400 hover:bg-yellow-500 hover:text-white focus:outline-none focus:ring-4 focus:ring-yellow-300 dark:border-yellow-300 dark:text-yellow-300 dark:hover:bg-yellow-400 dark:hover:text-white dark:focus:ring-yellow-900">
+                          Direkomendasikan
+                        </button>
+                      @elseif (!$candidate->recommended)
+                        <button disabled href="{{ route('self-assessments.result', ['accession' => $candidate]) }}"
+                          class="rounded-lg border border-yellow-400 px-3 py-2 text-center text-xs font-medium text-yellow-400 hover:bg-yellow-500 hover:text-white focus:outline-none focus:ring-4 focus:ring-yellow-300 dark:border-yellow-300 dark:text-yellow-300 dark:hover:bg-yellow-400 dark:hover:text-white dark:focus:ring-yellow-900">
+                          Tidak Direkomendasikan
+                        </button>
                       @endif
-
+                    </td>
+                    {{-- <td class="whitespace-nowrap p-4 text-center">
+                    @if ($candidate->verified)
+                      <button
+                        class="inline-flex items-center rounded-lg bg-emerald-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
+                        Verified
+                        <svg class="ms-2 h-4 w-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                          width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                          <path fill-rule="evenodd"
+                            d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z"
+                            clip-rule="evenodd" />
+                        </svg>
+                      </button>
+                    @else
+                      <button disabled
+                        class="inline-flex items-center rounded-lg bg-yellow-700 px-3 py-2 text-center text-sm font-medium text-white dark:bg-yellow-600">
+                        Pending
+                        <svg class="ms-2 h-4 w-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                          width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                          <path fill-rule="evenodd"
+                            d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0V8Zm-1 7a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H12Z"
+                            clip-rule="evenodd" />
+                        </svg>
+                      </button>
+                    @endif
+                  </td> --}}
                   </tr>
                 @endforeach
+                @include('master.accession.set-schedule-modal')
               </form>
             </tbody>
           </table>
@@ -155,17 +194,17 @@
         <option value="10" {{ request('show') == 10 ? 'selected' : '' }}>10</option>
         <option value="25" {{ request('show') == 25 ? 'selected' : '' }}>25</option>
         <option value="50" {{ request('show') == 50 ? 'selected' : '' }}>50</option>
-        <option value="{{ $registrants->total() }}" {{ request('show') == $registrants->total() ? 'selected' : '' }}>
+        <option value="{{ $candidates->total() }}" {{ request('show') == $candidates->total() ? 'selected' : '' }}>
           All</option>
       </select>
     </div>
     <div class="mb-4 flex items-center sm:mb-0">
       <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span
-          class="font-semibold text-gray-900 dark:text-white">{{ $registrants->firstItem() ?? $registrants->total() }}-{{ $registrants->lastItem() ?? $registrants->total() }}</span>
-        of <span class="font-semibold text-gray-900 dark:text-white">{{ $registrants->total() }}</span></span>
+          class="font-semibold text-gray-900 dark:text-white">{{ $candidates->firstItem() ?? $candidates->total() }}-{{ $candidates->lastItem() ?? $candidates->total() }}</span>
+        of <span class="font-semibold text-gray-900 dark:text-white">{{ $candidates->total() }}</span></span>
     </div>
     <div class="flex items-center space-x-3">
-      <a href="{{ $registrants->toArray()['first_page_url'] }}"
+      <a href="{{ $candidates->toArray()['first_page_url'] }}"
         class="inline-flex cursor-pointer justify-center rounded p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-white">
         <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd"
@@ -173,7 +212,7 @@
             clip-rule="evenodd"></path>
         </svg>
       </a>
-      <a href="{{ $registrants->previousPageUrl() }}"
+      <a href="{{ $candidates->previousPageUrl() }}"
         class="inline-flex flex-1 items-center justify-center rounded-lg bg-emerald-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
         <svg class="-ml-1 mr-1 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd"
@@ -182,7 +221,7 @@
         </svg>
         Prev
       </a>
-      <a href="{{ $registrants->nextPageUrl() }}"
+      <a href="{{ $candidates->nextPageUrl() }}"
         class="inline-flex flex-1 items-center justify-center rounded-lg bg-emerald-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
         Next
         <svg class="-mr-1 ml-1 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -191,7 +230,7 @@
             clip-rule="evenodd"></path>
         </svg>
       </a>
-      <a href="{{ $registrants->toArray()['last_page_url'] }}"
+      <a href="{{ $candidates->toArray()['last_page_url'] }}"
         class="mr-2 inline-flex cursor-pointer justify-center rounded p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-white">
         <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd"
@@ -201,10 +240,6 @@
       </a>
     </div>
   </div>
-
-  @include('apl-01.plot-assessor-modal')
-  {{-- @include('apl-01.open-registration-modal')
-  @include('apl-01.close-registration-modal') --}}
 @endsection
 
 @push('scripts')
@@ -213,7 +248,7 @@
 
       $('#show').on('change', (e) => {
         window.location.href =
-          `{{ route('assessment.registrants') }}?show=${e.target.value}&scheme_id={{ request('scheme_id') }}&page={{ request('page') }}`;
+          `{{ route('accession.candidates') }}?show=${e.target.value}&page={{ request('page') }}`;
       });
 
       $('input').click(function() {

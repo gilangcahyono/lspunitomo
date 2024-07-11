@@ -49,7 +49,7 @@
         <table class="mb-3 w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
           <thead class="bg-emerald-700 text-xs uppercase text-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" class="px-6 py-3" colspan="3">
+              <th scope="col" class="px-6 py-3" colspan="4">
                 Unit Kompetensi - {{ $unit->name }}
               </th>
             </tr>
@@ -64,6 +64,9 @@
               </th>
               <th class="border-r px-6 py-4 text-center dark:border-gray-700">
                 BK
+              </th>
+              <th class="border-r px-6 py-4 text-center dark:border-gray-700">
+                Bukti yang relevan
               </th>
             </tr>
             @foreach ($unit->elements as $element)
@@ -86,6 +89,11 @@
                 <td class="border-e px-6 py-4 text-center dark:border-gray-700">
                   <input type="radio" name="{{ $element->id }}" id="incompetent" class="text-red-600"
                     value="Belum Kompeten" required
+                    {{ $elements && $elements[$element->id] == 'Belum Kompeten' ? 'checked' : '' }}>
+                  <label for="incompetent" class="hidden">Belum Kompeten</label>
+                </td>
+                <td class="border-e px-6 py-4 text-center dark:border-gray-700">
+                  <input type="text" name="{{ $element->id }}" id="incompetent" required
                     {{ $elements && $elements[$element->id] == 'Belum Kompeten' ? 'checked' : '' }}>
                   <label for="incompetent" class="hidden">Belum Kompeten</label>
                 </td>

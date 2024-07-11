@@ -48,7 +48,7 @@ class SelfAssessmentController extends Controller
             }
         }
 
-        return view('apl-02.candidates', [
+        return view('muk.apl.apl-02.candidates', [
             'candidates' => $candidates,
             'schemes' => Scheme::select('id', 'code', 'name')->without('units')->get(),
         ]);
@@ -58,7 +58,7 @@ class SelfAssessmentController extends Controller
     {
         // $assessors = Assessor::where('scheme_id', $accession->scheme->id)->get();
         // return $accession;
-        return view('apl-02.candidate', [
+        return view('muk.apl.apl-02.candidate', [
             'candidate' => $accession,
             // 'assessors' => $assessors
         ]);
@@ -75,7 +75,7 @@ class SelfAssessmentController extends Controller
         // return json_decode($accession->elementValue);
 
         $accession->load('scheme.units.elements.kuks');
-        return view('apl-02.process', [
+        return view('muk.apl.apl-02.process', [
             'candidate' => $accession,
             'elements' => collect(json_decode($accession->elementValue))->toArray(),
         ]);
@@ -118,7 +118,7 @@ class SelfAssessmentController extends Controller
         $accession->elementValue = json_decode($accession->elementValue);
         $elementValues = collect($accession->elementValue)->toArray();
 
-        return view('apl-02.result', [
+        return view('muk.apl.apl-02.result', [
             'candidate' => $accession,
             'elementValues' => $elementValues,
         ]);

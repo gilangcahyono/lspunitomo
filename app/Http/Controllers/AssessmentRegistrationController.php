@@ -22,7 +22,7 @@ class AssessmentRegistrationController extends Controller
 
         return !$registration
             ? abort(404)
-            : view('apl-01.registration', [
+            : view('muk.apl-01.registration', [
                 'schemes' => Scheme::select('id', 'name', 'department')
                     ->where('department', getUserActive()['department'])
                     ->without('units.elements.kuks')
@@ -204,7 +204,7 @@ class AssessmentRegistrationController extends Controller
             ->orderBy('accessions_count')
             ->get();
 
-        return view('apl-01.registrants', [
+        return view('muk.apl-01.registrants', [
             'registrants' => $registrants,
             'registration' => Registration::firstWhere('isOpen', true),
             'schemes' => Scheme::select('id', 'code', 'name')->without('units')->get(),
@@ -272,7 +272,7 @@ class AssessmentRegistrationController extends Controller
 
         $assessors = Assessor::where('scheme_id', $accession->scheme_id)->get();
 
-        return view('apl-01.registrant', [
+        return view('muk.apl-01.registrant', [
             'registrant' => $accession,
             'assessors' => $assessors
         ]);

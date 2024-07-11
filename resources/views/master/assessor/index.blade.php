@@ -2,7 +2,7 @@
 
 @section('content')
   <h1 class="text-center text-xl font-bold text-gray-900 dark:text-white sm:text-xl">
-    Data Asesor
+    Asesor
   </h1>
 
   <hr class="my-5 h-px border-0 bg-gray-400 dark:bg-gray-700">

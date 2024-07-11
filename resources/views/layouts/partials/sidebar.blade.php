@@ -20,15 +20,18 @@
 
       @can('admin')
         <li>
+          <a href="{{ route('schemes.index') }}"
+            class="{{ url()->current() === route('schemes.index') ? 'sidebar-active' : '' }} group flex items-center rounded-lg p-2 text-white hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">
+            <span class="ms-3">Skema</span>
+          </a>
+        </li>
+      @endcan
+
+      {{-- @can('admin')
+        <li>
           <button type="button"
             class="{{ request()->is('master/*') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 text-base text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700"
             aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-            {{-- <svg
-              class="{{ request()->is('master/*') ? 'sidebar-active' : '' }} h-5 w-5 flex-shrink-0 text-white transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-              aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
-              <path
-                d="M8 5.625c4.418 0 8-1.063 8-2.375S12.418.875 8 .875 0 1.938 0 3.25s3.582 2.375 8 2.375Zm0 13.5c4.963 0 8-1.538 8-2.375v-4.019c-.052.029-.112.054-.165.082a8.08 8.08 0 0 1-.745.353c-.193.081-.394.158-.6.231l-.189.067c-2.04.628-4.165.936-6.3.911a20.601 20.601 0 0 1-6.3-.911l-.189-.067a10.719 10.719 0 0 1-.852-.34 8.08 8.08 0 0 1-.493-.244c-.053-.028-.113-.053-.165-.082v4.019C0 17.587 3.037 19.125 8 19.125Zm7.09-12.709c-.193.081-.394.158-.6.231l-.189.067a20.6 20.6 0 0 1-6.3.911 20.6 20.6 0 0 1-6.3-.911l-.189-.067a10.719 10.719 0 0 1-.852-.34 8.08 8.08 0 0 1-.493-.244C.112 6.035.052 6.01 0 5.981V10c0 .837 3.037 2.375 8 2.375s8-1.538 8-2.375V5.981c-.052.029-.112.054-.165.082a8.08 8.08 0 0 1-.745.353Z" />
-            </svg> --}}
             <span class="ms-3 flex-1 whitespace-nowrap text-left rtl:text-right">Data Master</span>
             <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -57,17 +60,9 @@
               <a href="{{ route('kuks.index') }}"
                 class="{{ request()->is('master/kuks') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">KUK</a>
             </li>
-            {{-- <li>
-              <a href="{{ route('assessors.index') }}"
-                class="{{ request()->is('master/assessors*') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">Asesor</a>
-            </li>
-            <li>
-              <a href="{{ route('accessions.index') }}"
-                class="{{ request()->is('master/accessions*') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">Asesi</a>
-            </li> --}}
           </ul>
         </li>
-      @endcan
+      @endcan --}}
 
       <li>
         <button type="button"
@@ -82,23 +77,19 @@
         <ul id="dropdown-muk" class="hidden space-y-2 py-2">
           <li>
             <a href="{{ route('assessment.registrants') }}"
-              class="{{ request()->is('assesment-registrants') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">APL
-              01</a>
+              class="{{ request()->is('assesment-registrants') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">APL</a>
           </li>
           <li>
-            <a href="{{ route('accession.candidates') }}"
-              class="{{ request()->is('candidate-accessions') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">APL
-              02</a>
+            <a href="/mapa-01"
+              class="{{ request()->is('mapa-01') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">MAPA</a>
           </li>
           <li>
-            <a href="{{ route('units.index') }}"
-              class="{{ request()->is('master/units') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">MAPA
-              01</a>
+            <a href="/ak-01"
+              class="{{ request()->is('ak-01') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">AK</a>
           </li>
           <li>
-            <a href="{{ route('elements.index') }}"
-              class="{{ request()->is('master/elements') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">MAPA
-              02</a>
+            <a href="/ia-01"
+              class="{{ request()->is('master/elements') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">IA</a>
           </li>
         </ul>
       </li>

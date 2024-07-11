@@ -339,8 +339,8 @@
     @endif
   @endcan
 
-  @include('apl-01.open-registration-modal')
-  @include('apl-01.close-registration-modal')
+  @include('muk.apl.apl-01.open-registration-modal')
+  @include('muk.apl.apl-01.close-registration-modal')
 @endsection
 
 @push('scripts')
