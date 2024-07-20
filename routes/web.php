@@ -5,7 +5,11 @@ use App\Http\Controllers\AccessionController;
 use App\Http\Controllers\AssessmentScheduleController;
 use App\Http\Controllers\AssessorController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PetaController;
 use App\Models\Scheme;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use Illuminate\Support\Facades\Storage;
 
 Route::middleware('auth')->group(function () {
 
@@ -22,48 +26,11 @@ Route::middleware('auth')->group(function () {
 
   require __DIR__ . '/master-route.php';
   require __DIR__ . '/assessment-registration-route.php';
-
   require __DIR__ . '/self-assessment-route.php';
 
-  Route::get('/mapa-01', function () {
-    $scheme = Scheme::with(['jobGroups' => function ($query) {
-      $query->with('units');
-    }])->first();
+  require __DIR__ . '/mapa-route.php';
+  require __DIR__ . '/ak-route.php';
 
-    return view('muk.mapa.mapa-01.index', ['scheme' => $scheme]);
-  });
-
-  Route::get('/mapa-02', function () {
-    $scheme = Scheme::with(['assessors', 'jobGroups' => function ($query) {
-      $query->with('units');
-    }])->first();
-
-    return view('muk.mapa.mapa-02.index', ['scheme' => $scheme]);
-  });
-
-  Route::get('/ak-01', function () {
-    $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
-      $query->with('units');
-    }])->first();
-
-    return view('muk.ak.ak-01.index', ['scheme' => $scheme]);
-  });
-
-  Route::get('/ak-04', function () {
-    $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
-      $query->with('units');
-    }])->first();
-
-    return view('muk.ak.ak-04.index', ['scheme' => $scheme]);
-  });
-
-  Route::get('/ak-07', function () {
-    $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
-      $query->with('units');
-    }])->first();
-
-    return view('muk.ak.ak-07.index', ['scheme' => $scheme]);
-  });
 
   Route::get('/ia-01', function () {
     $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
@@ -184,6 +151,8 @@ Route::middleware('auth')->group(function () {
 
     return view('muk.ia.ia-10.index', ['scheme' => $scheme]);
   });
+
+  require __DIR__ . '/peta-route.php';
 });
 
 require __DIR__ . '/login-route.php';

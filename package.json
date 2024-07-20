@@ -4,12 +4,15 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "api": "json-server --watch data-api.json --port 2002"
+        "api": "json-server --watch data-api.json --port 2002",
+        "server": "php artisan serve",
+        "start": "concurrently \"npm run dev\" \"npm run api\" \"npm run server\""
     },
     "devDependencies": {
         "@shufo/prettier-plugin-blade": "^1.13.4",
         "autoprefixer": "^10.4.16",
         "axios": "^1.6.1",
+        "concurrently": "^8.2.2",
         "flowbite": "^2.2.0",
         "jquery": "^3.7.1",
         "laravel-vite-plugin": "^0.8.0",

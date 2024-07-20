@@ -3,7 +3,7 @@
 @section('content')
 
   @can('nobody')
-    @if ($candidate)
+    @if ($candidate && !$candidate->assessed)
       @if ($candidate->recommended && $candidate->assessment_schedule_id !== null)
         <div
           class="mb-4 flex flex-col items-center rounded-lg border border-yellow-300 bg-yellow-50 p-4 text-sm text-yellow-800 dark:border-yellow-800 dark:bg-gray-800 dark:text-yellow-400 sm:flex-row sm:items-start"

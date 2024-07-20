@@ -31,37 +31,11 @@ class AccessionController extends Controller
         ]);
     }
 
-    public function create(Request $request)
-    {
-
-        // return AssesmentRegistration::firstWhere('id', $request->registrar);
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
     public function show(Accession $accession)
     {
         return view('accession.show', [
             'accession' => $accession
         ]);
-    }
-
-    public function edit(Accession $accession)
-    {
-        //
-    }
-
-    public function update(Request $request, Accession $accession)
-    {
-        //
-    }
-
-    public function destroy(Accession $accession)
-    {
-        //
     }
 
     public function recommend(Request $request)

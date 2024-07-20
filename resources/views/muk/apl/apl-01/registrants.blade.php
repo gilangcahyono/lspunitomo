@@ -7,7 +7,7 @@
 
   <hr class="mt-5 h-px border-0 bg-gray-400 dark:bg-gray-700">
 
-  @include('muk.apl-01.nav')
+  @include('muk.apl.apl-01.nav')
 
   <div
     class="block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex lg:mt-1.5">
@@ -33,7 +33,7 @@
                 <span class="sr-only">Search</span>
               </button>
               {{-- <a href="{{ route('assessment.registrants.export') }}" --}}
-              <a href="#"
+              {{-- <a href="#"
                 class="focus:ring-primary-300 inline-flex w-1/2 items-center justify-center rounded-lg border border-gray-300 bg-white px-3 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto">
                 <svg class="-ml-1 mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +42,7 @@
                     clip-rule="evenodd"></path>
                 </svg>
                 Export
-              </a>
+              </a> --}}
             </div>
             @if (request('scheme_id') && $registrants[0])
               <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">
@@ -204,7 +204,7 @@
     </div>
   </div>
 
-  @include('muk.apl-01.plot-assessor-modal')
+  @include('muk.apl.apl-01.plot-assessor-modal')
   {{-- @include('apl-01.open-registration-modal')
   @include('apl-01.close-registration-modal') --}}
 @endsection

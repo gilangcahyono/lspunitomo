@@ -24,71 +24,79 @@ Route::get('/coeg/{filename?}', function (?string $filename = null) {
   // $htmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($file, 'HTML');
   // $htmlWriter->save('test.html');
 
+  $wordFilePath = storage_path('app/files/templates/6. FR.MAPA 02. Peta Instrumen Asesmen.docx');
 
-  function apl02()
-  {
-    $accession = Accession::where('nim', '472552224972')->first();
+  $phpWord = IOFactory::load($wordFilePath);
 
-    $skemaId = $accession->scheme_id;
+  // Menyimpan dokumen sebagai HTML
+  $htmlFilePath = storage_path('app/public/html/GeneratedDocument.html');
+  $htmlWriter = IOFactory::createWriter($phpWord, 'HTML');
+  $htmlWriter->save($htmlFilePath);
 
-    $units = Unit::where('scheme_id', 1)->get();
 
-    $registration = Registration::first();
+  // function apl02()
+  // {
+  //   $accession = Accession::where('nim', '472552224972')->first();
 
-    $templateProcessor = new TemplateProcessor(storage_path('app/files/templates/2. FR.APL 02. Asesmen Mandiri.docx'));
+  //   $skemaId = $accession->scheme_id;
 
-    $templateProcessor->setValues([
-      'schemeName' => $accession->scheme->name,
-      'schemeCode' => $accession->scheme->code,
-      'accessionName' => $accession->name,
-      'assessorName' => $accession->assessor->name,
-      'assessorReg' => $accession->assessor->metRegistrationNumber,
-    ]);
+  //   $units = Unit::where('scheme_id', 1)->get();
 
-    $newUnits = $units->map(fn ($unit, $index) => [
-      'unitNum' => $index + 1,
-      'unitCode' => $unit->code,
-      'unitName' => $unit->name,
-    ]);
+  //   $registration = Registration::first();
 
-    $templateProcessor->cloneBlock('unitBlock', 0, true, false, $newUnits->toArray());
+  //   $templateProcessor = new TemplateProcessor(storage_path('app/files/templates/2. FR.APL 02. Asesmen Mandiri.docx'));
 
-    foreach ($units as $unit) {
-      $elements = Element::whereHas('unit.scheme', function ($query) {
-        $query->where('schemes.id', 1);
-      })->where('unit_id', $unit->id)->get();
+  //   $templateProcessor->setValues([
+  //     'schemeName' => $accession->scheme->name,
+  //     'schemeCode' => $accession->scheme->code,
+  //     'accessionName' => $accession->name,
+  //     'assessorName' => $accession->assessor->name,
+  //     'assessorReg' => $accession->assessor->metRegistrationNumber,
+  //   ]);
 
-      foreach ($elements as $element) {
-        $kuks = Kuk::whereHas('element.unit.scheme', function ($query) {
-          $query->where('schemes.id', 1);
-        })->where('element_id', $element->id)->get();
+  //   $newUnits = $units->map(fn ($unit, $index) => [
+  //     'unitNum' => $index + 1,
+  //     'unitCode' => $unit->code,
+  //     'unitName' => $unit->name,
+  //   ]);
 
-        $newKuks = $kuks->map(fn ($kuk, $index) => [
-          'kukNum' => $index + 1,
-          'kukName' => $kuk->name,
-        ]);
+  //   $templateProcessor->cloneBlock('unitBlock', 0, true, false, $newUnits->toArray());
 
-        $templateProcessor->cloneBlock('kukBlock', 0, true, false, $newKuks->toArray());
-      }
+  //   foreach ($units as $unit) {
+  //     $elements = Element::whereHas('unit.scheme', function ($query) {
+  //       $query->where('schemes.id', 1);
+  //     })->where('unit_id', $unit->id)->get();
 
-      $newElements = $elements->map(fn ($element, $index) => [
-        'elementNum' => $index + 1,
-        'elementName' => $element->name,
-      ]);
+  //     foreach ($elements as $element) {
+  //       $kuks = Kuk::whereHas('element.unit.scheme', function ($query) {
+  //         $query->where('schemes.id', 1);
+  //       })->where('element_id', $element->id)->get();
 
-      $templateProcessor->cloneRowAndSetValues('elementName', $newElements);
-    }
+  //       $newKuks = $kuks->map(fn ($kuk, $index) => [
+  //         'kukNum' => $index + 1,
+  //         'kukName' => $kuk->name,
+  //       ]);
 
-    $nim = $accession->nim;
-    $ta =  Str::replace('/', '-', $registration->periode);
-    $smt = $registration->semester;
-    $pathToSave = "2. FR.APL 02. Asesmen Mandiri - $nim - $ta - $smt.docx";
-    $templateProcessor->saveAs($pathToSave);
+  //       $templateProcessor->cloneBlock('kukBlock', 0, true, false, $newKuks->toArray());
+  //     }
 
-    return response()->download($pathToSave)->deleteFileAfterSend(true);
-  }
+  //     $newElements = $elements->map(fn ($element, $index) => [
+  //       'elementNum' => $index + 1,
+  //       'elementName' => $element->name,
+  //     ]);
 
-  return apl02();
+  //     $templateProcessor->cloneRowAndSetValues('elementName', $newElements);
+  //   }
+
+  //   $nim = $accession->nim;
+  //   $ta =  Str::replace('/', '-', $registration->periode);
+  //   $smt = $registration->semester;
+  //   $pathToSave = "2. FR.APL 02. Asesmen Mandiri - $nim - $ta - $smt.docx";
+  //   $templateProcessor->saveAs($pathToSave);
+
+  //   return response()->download($pathToSave)->deleteFileAfterSend(true);
+  // }
+
 
   // function apl01()
   // {

@@ -20,9 +20,13 @@ class AssessmentRegistrationController extends Controller
 
         $registration = Registration::firstWhere('isOpen', true);
 
+        if ($registrant && $registrant->verified) {
+            abort(403);
+        }
+
         return !$registration
             ? abort(404)
-            : view('muk.apl-01.registration', [
+            : view('muk.apl.apl-01.registration', [
                 'schemes' => Scheme::select('id', 'name', 'department')
                     ->where('department', getUserActive()['department'])
                     ->without('units.elements.kuks')
@@ -198,72 +202,19 @@ class AssessmentRegistrationController extends Controller
 
         $assessors = Assessor::select('id', 'name', 'scheme_id')
             ->where('scheme_id', $request->scheme_id)
+            ->where('statusMet', 'Berlaku')
             ->withCount(['accessions' => function ($query) {
                 $query->where('assessed', true);
             }])
             ->orderBy('accessions_count')
             ->get();
 
-        return view('muk.apl-01.registrants', [
+        return view('muk.apl.apl-01.registrants', [
             'registrants' => $registrants,
             'registration' => Registration::firstWhere('isOpen', true),
             'schemes' => Scheme::select('id', 'code', 'name')->without('units')->get(),
             'assessors' => $assessors
         ]);
-    }
-
-    public function export()
-    {
-
-        $registrants = Accession::orderBy('scheme_id')
-            ->orderBy('registeredAt', 'desc')
-            ->get();
-
-        $registration = Registration::first();
-
-        foreach ($registrants as $registrant) {
-            $templateProcessor = new TemplateProcessor(storage_path('app/files/templates/1. FR.APL 01. Permohonan Sertifikasi Kompetensi.docx'));
-
-            $templateProcessor->setValues([
-                'name' =>  $registrant->name,
-                'nik' => $registrant->nik,
-                'birthPlace' => $registrant->birthPlace,
-                'birthDate' => $registrant->birthDate,
-                'gender' => $registrant->gender,
-                'address' => $registrant->address,
-                'mobile' => $registrant->mobile,
-                'email' => $registrant->email,
-                'lastEducation' => $registrant->lastEducation,
-                'schemeName' => $registrant->scheme->name,
-                'schemeCode' => $registrant->scheme->code
-            ]);
-
-            $units = $registrant->scheme->units->map(fn ($unit, $index) => [
-                'no' => $index + 1,
-                'unitCode' => $unit->code,
-                'unitName' => $unit->name
-            ]);
-
-            $schemeBasicRequirements = collect(explode(' zzz', $registrant->scheme->basicRequirements));
-
-            $basicRequirements = $schemeBasicRequirements->map(fn ($basicRequirement, $index) => [
-                'no' => $index + 1,
-                'basicRequirement' => $basicRequirement
-            ]);
-
-            $templateProcessor->cloneRowAndSetValues('no', $units);
-            $templateProcessor->cloneRowAndSetValues('no', $basicRequirements);
-
-            $nim = $registrant->nim;
-            $ta =  Str::replace('/', '-', $registration->periode);
-            $smt = $registration->semester;
-            $pathToSave = "1. FR.APL 01. Permohonan Sertifikasi Kompetensi - $nim - $ta - $smt.docx";
-            $templateProcessor->saveAs($pathToSave);
-
-            downloadFile($pathToSave);
-        }
-
-        return to_route('assessment.registrants');
     }
 
     public function registrant(Accession $accession)
@@ -272,7 +223,7 @@ class AssessmentRegistrationController extends Controller
 
         $assessors = Assessor::where('scheme_id', $accession->scheme_id)->get();
 
-        return view('muk.apl-01.registrant', [
+        return view('muk.apl.apl-01.registrant', [
             'registrant' => $accession,
             'assessors' => $assessors
         ]);
@@ -340,5 +291,58 @@ class AssessmentRegistrationController extends Controller
         alert()->success('Pendaftaran berhasil ditutup')->persistent(true, false);
 
         return to_route('assesment.registrants');
+    }
+
+    public function export(Accession $accession)
+    {
+        $registration = Registration::first();
+
+        $filename = '1. FR.APL 01. Permohonan Sertifikasi Kompetensi';
+        $templateProcessor = new TemplateProcessor(storage_path('app/files/templates/' . $filename . '.docx'));
+
+        $templateProcessor->setValues([
+            'name' =>  $accession->name,
+            'nik' => $accession->nik,
+            'birthPlace' => $accession->birthPlace,
+            'birthDate' => $accession->birthDate,
+            'gender' => $accession->gender,
+            'address' => $accession->address,
+            'mobile' => $accession->mobile,
+            'email' => $accession->email,
+            'lastEducation' => $accession->lastEducation,
+            'schemeName' => $accession->scheme->name,
+            'schemeCode' => $accession->scheme->code
+        ]);
+
+        $units = $accession->scheme->units->map(fn ($unit, $index) => [
+            'no' => $index + 1,
+            'unitCode' => $unit->code,
+            'unitName' => $unit->name
+        ]);
+
+        $schemeBasicRequirements = collect(explode(' zzz', $accession->scheme->basicRequirements));
+
+        $basicRequirements = $schemeBasicRequirements->map(fn ($basicRequirement, $index) => [
+            'no' => $index + 1,
+            'basicRequirement' => $basicRequirement
+        ]);
+
+        $templateProcessor->cloneRowAndSetValues('no', $units);
+        $templateProcessor->cloneRowAndSetValues('no', $basicRequirements);
+
+        $nim = $accession->nim;
+        $ta =  Str::replace('/', '-', $registration->periode);
+        $smt = $registration->semester;
+        $savedFilename = "$filename - $nim - $ta - $smt.docx";
+        $pathToSave = storage_path("app/public/muk/$savedFilename");
+        $templateProcessor->saveAs($pathToSave);
+
+        // echo "<script>
+        //     window.open('https://docs.google.com/viewerng/viewer?url=http://tugas-akhir.test/storage/muk/$savedFilename', '_blank');
+        // </script>";
+
+        return redirect("https://docs.google.com/viewerng/viewer?url=" . env('APP_URL') . "/storage/muk/$savedFilename");
+
+        return redirect()->back();
     }
 }

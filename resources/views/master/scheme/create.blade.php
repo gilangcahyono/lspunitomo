@@ -237,11 +237,6 @@
           placeholder="Write your thoughts here...">{{ old('basicRequirement') }} </textarea>
       </div>`);
       });
-
-      // $('[id=basicRequirementRemoveBtn]').click(function(e) {
-      //   e.preventDefault();
-      //   $(this).parent().remove();
-      // });
     });
   </script>
 @endpush

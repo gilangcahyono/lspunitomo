@@ -28,7 +28,14 @@
         <td> &nbsp; :
           {{ $candidate->recommended === null ? 'Belum ditinjau 🤔' : (!$candidate->recommended ? 'Tidak direkomendasikan 😥' : 'Direkomendasikan 🥰') }}
         </td>
-        {{-- <td> &nbsp; : {{ $candidate->recommended ? 'Direkomendasikan 🥰' : 'Tidak direkomendasikan 😥' }}</td> --}}
+      </tr>
+      <tr>
+        <td>
+          <a href="{{ route('apl-02.export', ['accession' => $candidate->id]) }}" target="_blank"
+            class="focus:ring-primary-300 mt-3 inline-flex w-1/2 items-center justify-center rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto">
+            Cetak
+          </a>
+        </td>
       </tr>
     </table>
   </div>

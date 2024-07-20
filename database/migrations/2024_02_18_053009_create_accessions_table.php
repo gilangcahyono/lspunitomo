@@ -73,6 +73,8 @@ return new class extends Migration
             $table->foreignId('assessment_schedule_id')->nullable();
 
             $table->unique('nim', 'periodYear', 'periodSemester');
+
+            $table->text('collectedEvidence')->nullable();
         });
     }
 

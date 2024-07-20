@@ -7,7 +7,7 @@
 
   <hr class="mt-5 h-px border-0 bg-gray-400 dark:bg-gray-700">
 
-  @include('muk.apl-01.nav')
+  @include('muk.apl.apl-01.nav')
 
   <div
     class="block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex lg:mt-1.5">
@@ -93,12 +93,13 @@
                       {{ $loop->iteration + ($candidates->currentPage() - 1) * $candidates->perPage() }}</td>
                     <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
                       <input id="check-{{ $candidate->id }}" type="checkbox" name="candidates[]"
-                        value="{{ $candidate->id }}"
+                        value="{{ $candidate->id }}" {{ $candidate->recommended === null ? 'disabled' : '' }}
                         class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-emerald-600 focus:ring-2 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-emerald-600"
                         {{ $candidate->assessment_schedule_id ? 'checked disabled' : '' }}
                         {{ $candidate->elementValue === null ? 'disabled' : '' }}>
                     <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      {{ $candidate->nim }}
+                      <a class="hover:underline"
+                        href="{{ route('self-assessments.result', $candidate) }}">{{ $candidate->nim }}</a>
                     </td>
                     <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
                       {{ $candidate->name }}</td>

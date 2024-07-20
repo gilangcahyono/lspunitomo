@@ -13,5 +13,5 @@ Route::controller(AssessmentRegistrationController::class)->group(function () {
   Route::put('/review-registrant/{accession}', 'review')->name('assessment.registrants.review');
   Route::post('/assesment-registrants', 'plotAssessor')->name('assessment.registrants.ploting');
   Route::get('/assesment-registrants/{accession}', 'registrant')->name('assessment.registrants.detail');
-  Route::get('/export-assesment-registrants', 'export')->name('assessment.registrants.export');
+  Route::get('/apl-01/export/{accession}', 'export')->name('apl-01.export');
 });

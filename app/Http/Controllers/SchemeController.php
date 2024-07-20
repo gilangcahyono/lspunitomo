@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mapa;
 use App\Models\Scheme;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

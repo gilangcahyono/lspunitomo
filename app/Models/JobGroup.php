@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class JobGroup extends Model
 {
@@ -14,7 +15,6 @@ class JobGroup extends Model
 
     protected $guarded = ['id'];
     public $timestamps = false;
-    // public $incrementing = false;
 
     public function scheme(): BelongsTo
     {
@@ -25,4 +25,9 @@ class JobGroup extends Model
     {
         return $this->hasMany(Unit::class);
     }
+
+    // public function directEvidence(): HasOne
+    // {
+    //     return $this->hasOne(DirectEvidence::class);
+    // }
 }

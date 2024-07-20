@@ -8,6 +8,11 @@
   <title>{{ $title }} - {{ config('app.name') }}</title>
   <script src="{{ asset('assets/js/checkTheme.js') }}"></script>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
+  <style>
+    textarea {
+      field-sizing: content;
+    }
+  </style>
   <script src="{{ asset('assets/js/showLoader.js') }}" type="module"></script>
 </head>
 

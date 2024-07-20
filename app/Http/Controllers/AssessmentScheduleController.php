@@ -82,6 +82,7 @@ class AssessmentScheduleController extends Controller
      */
     public function update(Request $request, AssessmentSchedule $assessmentSchedule)
     {
+        // return $request->all();
         $assessmentSchedule->update([
             'schedule' => $request->schedule,
             'tuk' => $request->tuk,

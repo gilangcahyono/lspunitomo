@@ -35,6 +35,7 @@ class LoginController extends Controller
 
             $request->session()->regenerate();
 
+            // return to_route('dashboard');
             return redirect()->intended('dashboard');
         } else {
 
@@ -64,6 +65,8 @@ class LoginController extends Controller
                 Auth::login($createdUser);
 
                 $request->session()->regenerate();
+
+                // return to_route('dashboard');
 
                 return redirect()->intended('dashboard');
             }

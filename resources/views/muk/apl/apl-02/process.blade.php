@@ -93,9 +93,9 @@
                   <label for="incompetent" class="hidden">Belum Kompeten</label>
                 </td>
                 <td class="border-e px-6 py-4 text-center dark:border-gray-700">
-                  <input type="text" name="{{ $element->id }}" id="incompetent" required
+                  {{-- <input type="text" name="{{ $element->id }}" id="incompetent" required
                     {{ $elements && $elements[$element->id] == 'Belum Kompeten' ? 'checked' : '' }}>
-                  <label for="incompetent" class="hidden">Belum Kompeten</label>
+                  <label for="incompetent" class="hidden">Belum Kompeten</label> --}}
                 </td>
               </tr>
             @endforeach
