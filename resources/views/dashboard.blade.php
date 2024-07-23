@@ -295,7 +295,7 @@
       @else
         <marquee class="mb-3 bg-blue-700 py-1 text-lg text-white dark:bg-blue-800" behavior="scroll" direction="left">
           {!! $registration
-              ? '<a href="/assessment-registration"><span>Pendaftaran Sertifikasi Uji Kompetensi Telah Dibuka, </span><strong>Klik Untuk Mendaftar!</strong></a>'
+              ? '<a href="/muk/assessment-registration"><span>Pendaftaran Sertifikasi Uji Kompetensi Telah Dibuka, </span><strong>Klik Untuk Mendaftar!</strong></a>'
               : '<span>Sertifikasi Uji Kompetensi Belum Dibuka, </span><strong>Tunggu Informasi Selanjutnya!</strong>' !!}
         </marquee>
       @endif

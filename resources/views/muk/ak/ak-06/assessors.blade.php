@@ -1,8 +1,8 @@
-@extends('layouts.app', ['title' => 'AK 05'])
+@extends('layouts.app', ['title' => 'AK 06'])
 
 @section('content')
   <h1 class="text-center text-xl font-bold text-gray-900 dark:text-white sm:text-xl">
-    AK 05 <br> LAPORAN ASESMEN <br> <span class="uppercase">SKEMA {{ $scheme->name }}</span>
+    AK 06 <br> MENINJAU PROSES ASESMEN <br> <span class="uppercase">SKEMA {{ $scheme->name }}</span>
   </h1>
 
   <hr class="mt-5 h-px border-0 bg-gray-400 dark:bg-gray-700">
@@ -21,7 +21,7 @@
             No MET
           </th>
           <th class="border px-6 py-4 dark:border-gray-700">
-            Nama
+            Nama Asesor
           </th>
         </tr>
       </thead>
@@ -32,7 +32,7 @@
           </td>
           <td class="border px-6 py-4 dark:border-gray-700">
             <a class="hover:underline"
-              href="{{ route('ak-05.assessors', ['schemeId' => $scheme->id]) }}/assessors/{{ $assessor->id }}">{{ $assessor->metRegistrationNumber }}</a>
+              href="{{ route('ak-06.assessors', ['schemeId' => $scheme->id]) }}/assessors/{{ $assessor->id }}">{{ $assessor->metRegistrationNumber }}</a>
           </td>
           <td class="border px-6 py-4 dark:border-gray-700">
             {{ $assessor->name }}

@@ -456,7 +456,7 @@
                           class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
                       </td>
                       <td class="border px-6 py-4 dark:border-gray-700">
-                        <input name="units[{{ $unit->id }}][indirect]" type="checkbox"
+                        <input disabled name="units[{{ $unit->id }}][indirect]" type="checkbox"
                           value="{{ true }}"
                           class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
                       </td>
@@ -776,17 +776,17 @@
     $(document).ready(function() {
 
       if (`{{ $mapa }}`) {
-      $(document).keydown(function(e) {
-        if (e.ctrlKey && e.key === 's') {
-          e.preventDefault();
-          $('#mapaForm').submit();
-        }
-        if (e.ctrlKey && e.key === 'p') {
-          e.preventDefault();
-          window.open(`{{ $mapa ? route('mapa-01.export', ['schemeId' => $mapa->id]) : '' }}`);
+        $(document).keydown(function(e) {
+          if (e.ctrlKey && e.key === 's') {
+            e.preventDefault();
+            $('#mapaForm').submit();
+          }
+          if (e.ctrlKey && e.key === 'p') {
+            e.preventDefault();
+            window.open(`{{ $mapa ? route('mapa-01.export', ['schemeId' => $mapa->id]) : '' }}`);
 
-        }
-      });
+          }
+        });
       }
 
       $('#makerDiv').on('click', '#makerRemoveBtn', function(e) {

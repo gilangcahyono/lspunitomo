@@ -15,7 +15,7 @@
       <table class="mb-3 w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
         <tr class="rounded-lg border bg-white dark:border-gray-700 dark:bg-gray-800">
           <th class="border px-6 py-4 dark:border-gray-700">
-            <a href="/mapa-02/{{ $scheme->id }}">Skema {{ $scheme->name }}</a>
+            <a href="{{ route('mapa-02.show', ['schemeId' => $scheme->id]) }}">Skema {{ $scheme->name }}</a>
           </th>
         </tr>
       </table>

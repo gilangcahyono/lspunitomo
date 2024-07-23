@@ -66,7 +66,7 @@
 
       <li>
         <button type="button"
-          class="group flex w-full items-center rounded-lg p-2 text-base text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700"
+          class="{{ request()->is('muk/*') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 text-base text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700"
           aria-controls="dropdown-muk" data-collapse-toggle="dropdown-muk">
           <span class="ms-3 flex-1 whitespace-nowrap text-left rtl:text-right">Materi Uji Kompetensi</span>
           <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -76,25 +76,29 @@
         </button>
         <ul id="dropdown-muk" class="hidden space-y-2 py-2">
           <li>
-            <a href="/peta"
-              class="{{ request()->is('peta') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">Peta
+            <a href="muk/peta"
+              class="{{ request()->is('muk/peta*') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">Peta
               Kelompok</a>
           </li>
           <li>
             <a href="{{ route('assessment.registrants') }}"
-              class="{{ request()->is('assesment-registrants') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">APL</a>
+              class="{{ request()->is('muk/assesment-registrants') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">APL</a>
           </li>
           <li>
             <a href="{{ route('mapa-01.index') }}"
-              class="{{ request()->is('mapa-01') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">MAPA</a>
+              class="{{ request()->is('muk/mapa*') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">MAPA</a>
           </li>
           <li>
             <a href="{{ route('ak-01.index') }}"
-              class="{{ request()->is('ak-01') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">AK</a>
+              class="{{ request()->is('muk/ak*') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">AK</a>
           </li>
           <li>
-            <a href="/ia-01"
-              class="{{ request()->is('master/elements') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">IA</a>
+            <a href="{{ route('ia-01.index') }}"
+              class="{{ request()->is('muk/ia*') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">IA</a>
+          </li>
+          <li>
+            <a href="{{ route('va.index') }}"
+              class="{{ request()->is('muk/va*') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">VA</a>
           </li>
         </ul>
       </li>

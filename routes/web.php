@@ -25,134 +25,136 @@ Route::middleware('auth')->group(function () {
   Route::put('/recommend-accession', [AccessionController::class, 'recommend'])->name('accessions.recommend');
 
   require __DIR__ . '/master-route.php';
-  require __DIR__ . '/assessment-registration-route.php';
-  require __DIR__ . '/self-assessment-route.php';
 
-  require __DIR__ . '/mapa-route.php';
-  require __DIR__ . '/ak-route.php';
+  Route::prefix('/muk')->group(function () {
+    require __DIR__ . '/assessment-registration-route.php';
+    require __DIR__ . '/self-assessment-route.php';
+    require __DIR__ . '/mapa-route.php';
+    require __DIR__ . '/ak-route.php';
+    require __DIR__ . '/ia-route.php';
 
+    // Route::get('/ia-01', function () {
+    //   $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
+    //     $query->with('units.elements.kuks');
+    //   }])->first();
 
-  Route::get('/ia-01', function () {
-    $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
-      $query->with('units.elements.kuks');
-    }])->first();
+    //   return view('muk.ia.ia-01.index', ['scheme' => $scheme]);
+    // });
 
-    return view('muk.ia.ia-01.index', ['scheme' => $scheme]);
+    // Route::get('/ia-02', function () {
+    //   $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
+    //     $query->with('units.elements.kuks');
+    //   }])->first();
+
+    //   return view('muk.ia.ia-02.index', ['scheme' => $scheme]);
+    // });
+
+    // Route::get('/ia-03', function () {
+    //   $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
+    //     $query->with('units.elements.kuks');
+    //   }])->first();
+
+    //   return view('muk.ia.ia-03.index', ['scheme' => $scheme]);
+    // });
+
+    // Route::get('/ia-04a', function () {
+    //   $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
+    //     $query->with('units.elements.kuks');
+    //   }])->first();
+
+    //   return view('muk.ia.ia-04a.index', ['scheme' => $scheme]);
+    // });
+
+    // Route::get('/ia-04b', function () {
+    //   $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
+    //     $query->with('units.elements.kuks');
+    //   }])->first();
+
+    //   return view('muk.ia.ia-04b.index', ['scheme' => $scheme]);
+    // });
+
+    // Route::get('/ia-05a', function () {
+    //   $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
+    //     $query->with('units.elements.kuks');
+    //   }])->first();
+
+    //   return view('muk.ia.ia-05a.index', ['scheme' => $scheme]);
+    // });
+
+    // Route::get('/ia-05b', function () {
+    //   $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
+    //     $query->with('units.elements.kuks');
+    //   }])->first();
+
+    //   return view('muk.ia.ia-05b.index', ['scheme' => $scheme]);
+    // });
+
+    // Route::get('/ia-05c', function () {
+    //   $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
+    //     $query->with('units.elements.kuks');
+    //   }])->first();
+
+    //   return view('muk.ia.ia-05c.index', ['scheme' => $scheme]);
+    // });
+
+    // Route::get('/ia-06a', function () {
+    //   $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
+    //     $query->with('units.elements.kuks');
+    //   }])->first();
+
+    //   return view('muk.ia.ia-06a.index', ['scheme' => $scheme]);
+    // });
+
+    // Route::get('/ia-06b', function () {
+    //   $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
+    //     $query->with('units.elements.kuks');
+    //   }])->first();
+
+    //   return view('muk.ia.ia-06b.index', ['scheme' => $scheme]);
+    // });
+
+    // Route::get('/ia-06c', function () {
+    //   $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
+    //     $query->with('units.elements.kuks');
+    //   }])->first();
+
+    //   return view('muk.ia.ia-06c.index', ['scheme' => $scheme]);
+    // });
+
+    // Route::get('/ia-07', function () {
+    //   $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
+    //     $query->with('units.elements.kuks');
+    //   }])->first();
+
+    //   return view('muk.ia.ia-07.index', ['scheme' => $scheme]);
+    // });
+
+    // Route::get('/ia-08', function () {
+    //   $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
+    //     $query->with('units.elements.kuks');
+    //   }])->first();
+
+    //   return view('muk.ia.ia-08.index', ['scheme' => $scheme]);
+    // });
+
+    // Route::get('/ia-09', function () {
+    //   $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
+    //     $query->with('units.elements.kuks');
+    //   }])->first();
+
+    //   return view('muk.ia.ia-09.index', ['scheme' => $scheme]);
+    // });
+
+    // Route::get('/ia-10', function () {
+    //   $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
+    //     $query->with('units.elements.kuks');
+    //   }])->first();
+
+    //   return view('muk.ia.ia-10.index', ['scheme' => $scheme]);
+    // });
+
+    require __DIR__ . '/peta-route.php';
   });
-
-  Route::get('/ia-02', function () {
-    $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
-      $query->with('units.elements.kuks');
-    }])->first();
-
-    return view('muk.ia.ia-02.index', ['scheme' => $scheme]);
-  });
-
-  Route::get('/ia-03', function () {
-    $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
-      $query->with('units.elements.kuks');
-    }])->first();
-
-    return view('muk.ia.ia-03.index', ['scheme' => $scheme]);
-  });
-
-  Route::get('/ia-04a', function () {
-    $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
-      $query->with('units.elements.kuks');
-    }])->first();
-
-    return view('muk.ia.ia-04a.index', ['scheme' => $scheme]);
-  });
-
-  Route::get('/ia-04b', function () {
-    $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
-      $query->with('units.elements.kuks');
-    }])->first();
-
-    return view('muk.ia.ia-04b.index', ['scheme' => $scheme]);
-  });
-
-  Route::get('/ia-05a', function () {
-    $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
-      $query->with('units.elements.kuks');
-    }])->first();
-
-    return view('muk.ia.ia-05a.index', ['scheme' => $scheme]);
-  });
-
-  Route::get('/ia-05b', function () {
-    $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
-      $query->with('units.elements.kuks');
-    }])->first();
-
-    return view('muk.ia.ia-05b.index', ['scheme' => $scheme]);
-  });
-
-  Route::get('/ia-05c', function () {
-    $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
-      $query->with('units.elements.kuks');
-    }])->first();
-
-    return view('muk.ia.ia-05c.index', ['scheme' => $scheme]);
-  });
-
-  Route::get('/ia-06a', function () {
-    $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
-      $query->with('units.elements.kuks');
-    }])->first();
-
-    return view('muk.ia.ia-06a.index', ['scheme' => $scheme]);
-  });
-
-  Route::get('/ia-06b', function () {
-    $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
-      $query->with('units.elements.kuks');
-    }])->first();
-
-    return view('muk.ia.ia-06b.index', ['scheme' => $scheme]);
-  });
-
-  Route::get('/ia-06c', function () {
-    $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
-      $query->with('units.elements.kuks');
-    }])->first();
-
-    return view('muk.ia.ia-06c.index', ['scheme' => $scheme]);
-  });
-
-  Route::get('/ia-07', function () {
-    $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
-      $query->with('units.elements.kuks');
-    }])->first();
-
-    return view('muk.ia.ia-07.index', ['scheme' => $scheme]);
-  });
-
-  Route::get('/ia-08', function () {
-    $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
-      $query->with('units.elements.kuks');
-    }])->first();
-
-    return view('muk.ia.ia-08.index', ['scheme' => $scheme]);
-  });
-
-  Route::get('/ia-09', function () {
-    $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
-      $query->with('units.elements.kuks');
-    }])->first();
-
-    return view('muk.ia.ia-09.index', ['scheme' => $scheme]);
-  });
-
-  Route::get('/ia-10', function () {
-    $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups' => function ($query) {
-      $query->with('units.elements.kuks');
-    }])->first();
-
-    return view('muk.ia.ia-10.index', ['scheme' => $scheme]);
-  });
-
-  require __DIR__ . '/peta-route.php';
 });
 
 require __DIR__ . '/login-route.php';

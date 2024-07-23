@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accession;
+use App\Models\Assessor;
 use App\Models\JobGroup;
 use App\Models\Mapa;
 use App\Models\Registration;
@@ -29,6 +30,7 @@ class MapaController extends Controller
         $scheme = Scheme::where('id', $schemeId)->with(['jobGroups.units' => function ($query) {
             $query->orderBy('units.id');
         }, 'assessors'])->first();
+
         $mapa = Mapa::firstWhere('id', $scheme->id);
         // return explode(' zzz ', $mapa->approachAccessions);
 
@@ -196,8 +198,6 @@ class MapaController extends Controller
         // </script>";
 
         return redirect("https://docs.google.com/viewerng/viewer?url=" . env('APP_URL') . "/storage/muk/$savedFilename");
-
-        return redirect()->back();
     }
 
     public function getMapa02()
@@ -213,7 +213,6 @@ class MapaController extends Controller
             $query->orderBy('units.id');
         }, 'assessors'])->first();
         $mapa = Mapa::firstWhere('id', $scheme->id);
-        // return explode(' zzz ', $mapa->approachAccessions);
 
         return view('muk.mapa.mapa-02.show', [
             'scheme' => $scheme,
@@ -367,7 +366,5 @@ class MapaController extends Controller
         // </script>";
 
         return redirect("https://docs.google.com/viewerng/viewer?url=" . env('APP_URL') . "/storage/muk/$savedFilename");
-
-        return redirect()->back();
     }
 }

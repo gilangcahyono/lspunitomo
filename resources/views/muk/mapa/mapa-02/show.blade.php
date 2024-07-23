@@ -10,7 +10,7 @@
 
   <div class="relative overflow-x-auto">
 
-    <form id="mapaForm" action="{{ route('mapa02.store') }}" method="POST">
+    <form id="mapaForm" action="{{ route('mapa-02.store') }}" method="POST">
       @csrf
 
       <input type="hidden" name="schemeId" value="{{ $scheme->id }}">
@@ -590,14 +590,14 @@
           </td>
         </tr>
 
-        <tr class="mb-3 border bg-white dark:border-gray-700 dark:bg-gray-800">
+        {{-- <tr class="mb-3 border bg-white dark:border-gray-700 dark:bg-gray-800">
           <th class="border px-6 py-4 dark:border-gray-700">
             No. Reg
           </th>
           <td class="border px-6 py-4 dark:border-gray-700">
             :
           </td>
-        </tr>
+        </tr> --}}
 
         <tr class="mb-3 border bg-white dark:border-gray-700 dark:bg-gray-800">
           <th class="border px-6 py-4 dark:border-gray-700">
@@ -608,14 +608,14 @@
           </td>
         </tr>
 
-        <tr class="mb-3 border bg-white dark:border-gray-700 dark:bg-gray-800">
+        {{-- <tr class="mb-3 border bg-white dark:border-gray-700 dark:bg-gray-800">
           <th class="border px-6 py-4 dark:border-gray-700">
             No. Reg
           </th>
           <td class="border px-6 py-4 dark:border-gray-700">
             :
           </td>
-        </tr>
+        </tr> --}}
 
       </table>
 

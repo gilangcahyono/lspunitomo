@@ -7,7 +7,7 @@
 
   <hr class="mt-5 h-px border-0 bg-gray-400 dark:bg-gray-700">
 
-  @include('muk.apl.apl-01.nav')
+  @include('muk.apl.nav')
 
   <div
     class="block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex lg:mt-1.5">

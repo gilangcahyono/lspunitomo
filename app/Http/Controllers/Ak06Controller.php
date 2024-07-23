@@ -33,59 +33,49 @@ class Ak06Controller extends Controller
         ]);
     }
 
-    // public function show(string $schemeId, string $assessorId)
-    // {
-    //     $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups', 'units'])->first();
+    public function show(string $schemeId, string $assessorId)
+    {
+        $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups', 'units'])->first();
 
-    //     $assessor = $scheme->assessors->find($assessorId);
+        $assessor = $scheme->assessors->find($assessorId);
 
-    //     if (!$assessor) {
-    //         abort(404);
-    //     }
+        if (!$assessor) {
+            abort(404);
+        }
 
-    //     return view('muk.ak.ak-05.show', [
-    //         'scheme' => $scheme,
-    //         'assessor' => $assessor,
-    //         'accessions' => $assessor->accessions,
-    //     ]);
-    // }
+        return view('muk.ak.ak-06.show', [
+            'scheme' => $scheme,
+            'assessor' => $assessor,
+            'accessions' => $assessor->accessions,
+        ]);
+    }
 
-    // public function export(string $assessorId)
-    // {
-    //     $registration = Registration::first();
-    //     $assessor = Assessor::where('id', $assessorId)->with('accessions')->first();
-    //     $scheme = Scheme::firstWhere('id', request('schemeId'));
-    //     $accessions = $assessor->accessions;
+    public function export(string $assessorId)
+    {
+        $registration = Registration::first();
+        $assessor = Assessor::where('id', $assessorId)->with('accessions')->first();
+        $scheme = Scheme::firstWhere('id', request('schemeId'));
 
-    //     $filename = '23. FR.AK.05. Laporan Asesmen';
-    //     $templateProcessor = new TemplateProcessor(storage_path('app/files/templates/' . $filename . '.docx'));
+        $filename = '24. FR.AK.06 Meninjau Proses Asesmen';
+        $templateProcessor = new TemplateProcessor(storage_path('app/files/templates/' . $filename . '.docx'));
 
-    //     $templateProcessor->setValues([
-    //         'schemeName' => $scheme->name,
-    //         'schemeCode' => $scheme->code,
-    //         'assessor' => $assessor->name,
-    //         'accessions' =>  $accessions,
-    //         'met' => $assessor->metRegistrationNumber,
-    //     ]);
+        $templateProcessor->setValues([
+            'schemeName' => $scheme->name,
+            'schemeCode' => $scheme->code,
+            'assessor' => $assessor->name,
+        ]);
 
-    //     $newAccessions = $accessions->map(fn ($accession, $index) => [
-    //         'no' => $index + 1,
-    //         'accession' => $accession->name,
-    //     ]);
+        $nidn = $assessor->nidn;
+        $ta =  Str::replace('/', '-', $registration->periode);
+        $smt = $registration->semester;
+        $savedFilename = "$filename - $nidn - $ta - $smt.docx";
+        $pathToSave = storage_path("app/public/muk/$savedFilename");
+        $templateProcessor->saveAs($pathToSave);
 
-    //     $templateProcessor->cloneRowAndSetValues('no', $newAccessions);
+        // return response()->download($pathToSave)->deleteFileAfterSend(true);
 
-    //     $nidn = $assessor->nidn;
-    //     $ta =  Str::replace('/', '-', $registration->periode);
-    //     $smt = $registration->semester;
-    //     $savedFilename = "$filename - $nidn - $ta - $smt.docx";
-    //     $pathToSave = storage_path("app/public/muk/$savedFilename");
-    //     $templateProcessor->saveAs($pathToSave);
+        return redirect("https://docs.google.com/viewerng/viewer?url=" . env('APP_URL') . "/storage/muk/$savedFilename");
 
-    //     // return response()->download($pathToSave)->deleteFileAfterSend(true);
-
-    //     return redirect("https://docs.google.com/viewerng/viewer?url=" . env('APP_URL') . "/storage/muk/$savedFilename");
-
-    //     return redirect()->back();
-    // }
+        return redirect()->back();
+    }
 }
