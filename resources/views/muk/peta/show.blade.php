@@ -17,7 +17,7 @@
 
   <div class="relative overflow-x-auto">
 
-    <form action="/peta" method="POST">
+    <form action="{{ route('peta.store') }}" method="POST">
       @csrf
 
       @foreach ($scheme->jobGroups as $jobGroup)
@@ -79,12 +79,12 @@
             <th class="border px-6 py-4 dark:border-gray-700" rowspan="3">
               Elemen Kompetensi & KUK
             </th>
-            <th class="border px-6 py-4 dark:border-gray-700" colspan="4">
+            <th class="border px-6 py-4 text-center dark:border-gray-700" colspan="4">
               Jenis Bukti Tambahan
             </th>
-            <th class="border px-6 py-4 dark:border-gray-700" colspan="3">
+            {{-- <th class="border px-6 py-4 dark:border-gray-700" colspan="3">
               Jenis Bukti Tidak Langsung
-            </th>
+            </th> --}}
           </tr>
           <tr class="border bg-white dark:border-gray-700 dark:bg-gray-800">
             <th class="border px-6 py-4 dark:border-gray-700" rowspan="2">
@@ -99,23 +99,23 @@
             <th class="border px-6 py-4 dark:border-gray-700" rowspan="2">
               VPK
             </th>
-            <th class="border px-6 py-4 dark:border-gray-700" colspan="2">
+            {{-- <th class="border px-6 py-4 dark:border-gray-700" colspan="2">
               Portofolio
             </th>
             <th class="border px-6 py-4 dark:border-gray-700">
               CRP
-            </th>
+            </th> --}}
           </tr>
           <tr class="border bg-white dark:border-gray-700 dark:bg-gray-800">
-            <th class="border px-6 py-4 dark:border-gray-700">
+            {{-- <th class="border px-6 py-4 dark:border-gray-700">
               No
-            </th>
-            <th class="border px-6 py-4 dark:border-gray-700">
+            </th> --}}
+            {{-- <th class="border px-6 py-4 dark:border-gray-700">
               Nama Dokumen
-            </th>
-            <th class="border px-6 py-4 dark:border-gray-700">
+            </th> --}}
+            {{-- <th class="border px-6 py-4 dark:border-gray-700">
               Nama Dokumen
-            </th>
+            </th> --}}
           </tr>
 
           @foreach ($jobGroup->units as $unit)
@@ -153,7 +153,7 @@
                   {{ $unit->vpk ? 'checked' : '' }}
                   class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
               </td>
-              <td class="border px-6 py-4 dark:border-gray-700">
+              {{-- <td class="border px-6 py-4 dark:border-gray-700">
 
               </td>
               <td class="border px-6 py-4 dark:border-gray-700">
@@ -161,7 +161,7 @@
               </td>
               <td class="border px-6 py-4 dark:border-gray-700">
 
-              </td>
+              </td> --}}
             </tr>
           @endforeach
 

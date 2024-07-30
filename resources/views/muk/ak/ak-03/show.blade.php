@@ -1,8 +1,8 @@
-@extends('layouts.app', ['title' => 'AK 04'])
+@extends('layouts.app', ['title' => 'AK 03'])
 
 @section('content')
   <h1 class="text-center text-xl font-bold text-gray-900 dark:text-white sm:text-xl">
-    AK 02 <br> REKAMAN ASESMEN KOMPETENSI
+    AK 03 <br> UMPAN BALIK DAN CATATAN ASESMEN
   </h1>
 
   <hr class="mt-5 h-px border-0 bg-gray-400 dark:bg-gray-700">

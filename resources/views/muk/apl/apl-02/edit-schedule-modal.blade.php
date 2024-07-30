@@ -17,17 +17,36 @@
         </button>
       </div>
       <div class="p-4 md:p-5">
-        <form class="space-y-4" method="POST"
-          action="{{ route('self-assessments.reschedule', ['accession' => $candidate]) }}">
-          @method('PUT')
-          @csrf
-          <input type="date" name="selfAssessmentSchedule"
-            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400"
+        <fieldset>
+          <input type="hidden" name="accession" id="accession" value="{{ $candidate->id }}">
+          <input type="date" name="selfAssessmentSchedule" id="selfAssessmentSchedule"
+            class="mb-3 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400"
             required />
-          <button type="submit"
+          <button type="button" id="rescheduleBtn"
             class="w-full rounded-lg bg-emerald-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Simpan</button>
-        </form>
+        </fieldset>
       </div>
     </div>
   </div>
 </div>
+
+<script type="module">
+  $('#rescheduleBtn').on('click', function() {
+    const accession = $('#accession').val();
+    const schedule = $('#selfAssessmentSchedule').val();
+    axios({
+      method: 'post',
+      url: `/muk/reschedule-self-assessments`,
+      data: {
+        id: accession,
+        selfAssessmentSchedule: schedule,
+      }
+    }).then((result) => {
+      // console.log(result);
+      alert('Jadwal ujian berhasil diperbarui!');
+      window.location.reload();
+    }).catch((error) => {
+      console.log(error);
+    })
+  });
+</script>

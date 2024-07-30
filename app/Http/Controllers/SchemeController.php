@@ -9,11 +9,10 @@ use Illuminate\Http\Request;
 
 class SchemeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
+        $this->authorize('admin');
+
         $schemes =  Scheme::with('units')->get();
         return view('master.scheme.index', [
             'schemes' =>   $schemes,
@@ -21,19 +20,17 @@ class SchemeController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
+        $this->authorize('admin');
+
         return view('master.scheme.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
+        $this->authorize('admin');
+
         // return $request->all();
 
         $request->merge([
@@ -60,32 +57,27 @@ class SchemeController extends Controller
         return to_route('schemes.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Scheme $scheme)
     {
+        $this->authorize('admin');
+
         return view('master.scheme.show', [
             'scheme' => $scheme
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Scheme $scheme)
     {
+        $this->authorize('admin');
         // return explode(' zzz ', $scheme->basicRequirements);
         return view('master.scheme.edit', [
             'scheme' => $scheme
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Scheme $scheme)
     {
+        $this->authorize('admin');
         // return $request->all();
 
         $request->merge([
@@ -116,11 +108,10 @@ class SchemeController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Scheme $scheme)
     {
+        $this->authorize('admin');
+
         $scheme->delete();
         alert()->success('Skema berhasil dihapus!');
         return to_route('schemes.index');
@@ -128,6 +119,7 @@ class SchemeController extends Controller
 
     public function search(Request $request)
     {
+        $this->authorize('admin');
         // try {
         return Scheme::latest()
             ->where('name', 'like', "%$request->keyword%")

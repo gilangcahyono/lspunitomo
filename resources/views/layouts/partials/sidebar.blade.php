@@ -76,12 +76,14 @@
         </button>
         <ul id="dropdown-muk" class="hidden space-y-2 py-2">
           <li>
-            <a href="muk/peta"
+            <a href="{{ route('peta.index') }}"
               class="{{ request()->is('muk/peta*') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">Peta
               Kelompok</a>
           </li>
           <li>
-            <a href="{{ route('assessment.registrants') }}"
+            @can('admin')
+            <a href="{{ route('assessment.registrants') }}" @endcan
+              @can('assessor') <a href="{{ route('accession.candidates') }}" @endcan
               class="{{ request()->is('muk/assesment-registrants') ? 'sidebar-active' : '' }} group flex w-full items-center rounded-lg p-2 pl-11 text-white transition duration-75 hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">APL</a>
           </li>
           <li>
@@ -131,12 +133,14 @@
         </a>
       </li> --}}
 
-      <li>
-        <a href="{{ route('assessors.index') }}"
-          class="{{ url()->current() === route('assessors.index') ? 'sidebar-active' : '' }} group flex items-center rounded-lg p-2 text-white hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">
-          <span class="ms-3">Asesor</span>
-        </a>
-      </li>
+      @can('admin')
+        <li>
+          <a href="{{ route('assessors.index') }}"
+            class="{{ url()->current() === route('assessors.index') ? 'sidebar-active' : '' }} group flex items-center rounded-lg p-2 text-white hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">
+            <span class="ms-3">Asesor</span>
+          </a>
+        </li>
+      @endcan
 
       <li>
         <a href="{{ route('accessions.index') }}"
@@ -240,12 +244,14 @@
         </a>
       </li> --}}
 
-      <li>
-        <a href="#" target="_blank"
-          class="group flex items-center rounded-lg p-2 text-white hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">
-          <span class="ms-3 flex-1 whitespace-nowrap">Analisa Asesor</span>
-        </a>
-      </li>
+      @can('admin')
+        <li>
+          <a href="{{ route('assessor.analysis') }}"
+            class="{{ url()->current() === route('assessor.analysis') ? 'sidebar-active' : '' }} group flex items-center rounded-lg p-2 text-white hover:bg-gray-100 hover:text-gray-900 dark:text-white dark:hover:bg-gray-700">
+            <span class="ms-3 flex-1 whitespace-nowrap">Analisa Asesor</span>
+          </a>
+        </li>
+      @endcan
 
       {{-- <li>
         <a href="/coeg" target="_blank"

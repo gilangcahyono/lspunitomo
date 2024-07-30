@@ -10,12 +10,11 @@ use Illuminate\Http\Request;
 
 class AssessorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
-        $assessors =  Assessor::where('name', 'like', "%$request->search%")->without('accessions')->paginate($request->show ?? 5)->withQueryString();
+        $this->authorize('admin');
+
+        $assessors =  Assessor::where('name', 'like', "%$request->search%")->without('accessions')->paginate($request->show ?? 10)->withQueryString();
 
         return view('master.assessor.index', [
             'assessors' => $assessors,
@@ -23,11 +22,10 @@ class AssessorController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(Request $request)
     {
+        $this->authorize('admin');
+
         $lecture = getLecturers()->where('nidn', $request->nidn)->first();
         return view('master.assessor.create', [
             'lecture' => $lecture,
@@ -35,11 +33,10 @@ class AssessorController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
+        $this->authorize('admin');
+
         try {
             $validatedData = $request->validate([
                 'nidn' => ['required', 'string', 'unique:assessors,nidn'],
@@ -113,22 +110,19 @@ class AssessorController extends Controller
         return to_route('assessors.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Assessor $assessor)
     {
+        $this->authorize('admin');
+
         $assessor->account = User::find($assessor->user_id);
         return view('master.assessor.show', [
             'assessor' => $assessor,
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Assessor $assessor)
     {
+        $this->authorize('admin');
         // return $assessor;
         return view('master.assessor.edit', [
             'assessor' => $assessor,
@@ -138,11 +132,10 @@ class AssessorController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Assessor $assessor)
     {
+        $this->authorize('admin');
+
         $validatedData = $request->validate([
             'nidn' => ['required', 'string'],
             'name' => ['required', 'string',],
@@ -179,13 +172,28 @@ class AssessorController extends Controller
         return to_route('assessors.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Assessor $assessor)
     {
+        $this->authorize('admin');
+
         $assessor->delete();
         alert()->success('Asesor berhasil dihapus!');
         return to_route('assessors.index');
+    }
+
+    public function analysis()
+    {
+        $this->authorize('admin');
+
+        $assessors = Assessor::withCount(['accessions' => function ($query) {
+            $query->where('assessed', true);
+        }])
+            ->orderBy('scheme_id')
+            ->get();
+
+
+        return view('master.assessor.analysis', [
+            'assessors' => $assessors
+        ]);
     }
 }

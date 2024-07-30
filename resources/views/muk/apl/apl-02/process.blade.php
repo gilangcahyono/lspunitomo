@@ -65,9 +65,9 @@
               <th class="border-r px-6 py-4 text-center dark:border-gray-700">
                 BK
               </th>
-              <th class="border-r px-6 py-4 text-center dark:border-gray-700">
+              {{-- <th class="border-r px-6 py-4 text-center dark:border-gray-700">
                 Bukti yang relevan
-              </th>
+              </th> --}}
             </tr>
             @foreach ($unit->elements as $element)
               <tr
@@ -92,11 +92,11 @@
                     {{ $elements && $elements[$element->id] == 'Belum Kompeten' ? 'checked' : '' }}>
                   <label for="incompetent" class="hidden">Belum Kompeten</label>
                 </td>
-                <td class="border-e px-6 py-4 text-center dark:border-gray-700">
-                  {{-- <input type="text" name="{{ $element->id }}" id="incompetent" required
+                {{-- <td class="border-e px-6 py-4 text-center dark:border-gray-700">
+                  <input type="text" name="{{ $element->id }}" id="incompetent" required
                     {{ $elements && $elements[$element->id] == 'Belum Kompeten' ? 'checked' : '' }}>
-                  <label for="incompetent" class="hidden">Belum Kompeten</label> --}}
-                </td>
+                  <label for="incompetent" class="hidden">Belum Kompeten</label>
+                </td> --}}
               </tr>
             @endforeach
           </tbody>

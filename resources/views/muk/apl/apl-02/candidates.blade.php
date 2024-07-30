@@ -131,7 +131,7 @@
                           class="rounded-lg border border-yellow-400 px-3 py-2 text-center text-xs font-medium text-yellow-400 hover:bg-yellow-500 hover:text-white focus:outline-none focus:ring-4 focus:ring-yellow-300 dark:border-yellow-300 dark:text-yellow-300 dark:hover:bg-yellow-400 dark:hover:text-white dark:focus:ring-yellow-900">
                           Tidak Mengerjakan / Telat
                         </button>
-                        @include('apl-02.edit-schedule-modal')
+                        @include('muk.apl.apl-02.edit-schedule-modal')
                       @elseif ($candidate->elementValue !== null && $candidate->recommended === null)
                         <a href="{{ route('self-assessments.result', ['accession' => $candidate]) }}"
                           class="rounded-lg border border-yellow-400 px-3 py-2 text-center text-xs font-medium text-yellow-400 hover:bg-yellow-500 hover:text-white focus:outline-none focus:ring-4 focus:ring-yellow-300 dark:border-yellow-300 dark:text-yellow-300 dark:hover:bg-yellow-400 dark:hover:text-white dark:focus:ring-yellow-900">

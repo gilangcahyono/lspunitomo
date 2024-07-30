@@ -7,40 +7,42 @@
 
   <hr class="my-5 h-px border-0 bg-gray-400 dark:bg-gray-700">
 
-  <div
-    class="block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex lg:mt-1.5">
-    <div class="mb-1 w-full">
-      <div class="block items-center justify-between dark:divide-gray-700 sm:flex md:divide-x md:divide-gray-100">
-        <div class="mb-4 flex items-center sm:mb-0">
-          <form class="w-full sm:pr-3" method="GET">
-            <div class="flex gap-2">
-              <select name="scheme_id"
-                class="block w-64 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500">
-                <option selected value="" disabled>Cari Skema</option>
-                @foreach ($schemes as $scheme)
-                  <option value="{{ $scheme->id }}">{{ $scheme->name }}</option>
-                @endforeach
-              </select>
-              <button type="submit"
-                class="rounded-lg border border-emerald-700 bg-emerald-700 p-2.5 text-sm font-medium text-white hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
-                <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                  viewBox="0 0 20 20">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                </svg>
-                <span class="sr-only">Search</span>
-              </button>
-            </div>
-            @if (request('scheme_id') && $schedules->count() > 0)
-              <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                Ditemukan Skema : {{ $schedules[0]->accessions[0]->scheme->name }}
-              </p>
-            @endif
-          </form>
+  @can('admin')
+    <div
+      class="block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex lg:mt-1.5">
+      <div class="mb-1 w-full">
+        <div class="block items-center justify-between dark:divide-gray-700 sm:flex md:divide-x md:divide-gray-100">
+          <div class="mb-4 flex items-center sm:mb-0">
+            <form class="w-full sm:pr-3" method="GET">
+              <div class="flex gap-2">
+                <select name="scheme_id"
+                  class="block w-64 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500">
+                  <option selected value="" disabled>Cari Skema</option>
+                  @foreach ($schemes as $scheme)
+                    <option value="{{ $scheme->id }}">{{ $scheme->name }}</option>
+                  @endforeach
+                </select>
+                <button type="submit"
+                  class="rounded-lg border border-emerald-700 bg-emerald-700 p-2.5 text-sm font-medium text-white hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
+                  <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                  </svg>
+                  <span class="sr-only">Search</span>
+                </button>
+              </div>
+              @if (request('scheme_id') && $schedules->count() > 0)
+                <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                  Ditemukan Skema : {{ $schedules[0]->accessions[0]->scheme->name }}
+                </p>
+              @endif
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  @endcan
 
   @if ($schedules->count() > 0)
     <div class="mt-1 flex flex-col">
@@ -62,9 +64,11 @@
                   <th scope="col" class="px-6 py-3">
                     Ruangan
                   </th>
-                  <th scope="col" class="px-6 py-3">
-                    Asesor
-                  </th>
+                  @can('admin')
+                    <th scope="col" class="px-6 py-3">
+                      Asesor
+                    </th>
+                  @endcan
                   <th scope="col" class="px-6 py-3">
                     Aksi
                   </th>
@@ -72,6 +76,9 @@
               </thead>
               <tbody>
                 @foreach ($schedules as $schedule)
+                  @if (count($schedule->accessions) == 0)
+                    @continue
+                  @endif
                   <tr
                     class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
                     <td class="px-6 py-4">
@@ -86,9 +93,11 @@
                     <td class="px-6 py-4">
                       {{ $schedule->tuk }}
                     </td>
-                    <td class="px-6 py-4">
-                      {{ $schedule->accessions[0]->assessor->name }}
-                    </td>
+                    @can('admin')
+                      <td class="px-6 py-4">
+                        {{ $schedule->accessions[0]->assessor->name }}
+                      </td>
+                    @endcan
                     <td class="px-6 py-4">
                       <button type="button" data-modal-target="edit-schedule-modal-{{ $schedule->id }}"
                         data-modal-toggle="edit-schedule-modal-{{ $schedule->id }}"

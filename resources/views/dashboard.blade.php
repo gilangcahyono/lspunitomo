@@ -306,41 +306,43 @@
           ? '<button data-modal-target="close-registration-modal" data-modal-toggle="close-registration-modal">Pendaftaran Sertifikasi Uji Kompetensi Sedang Dibuka, <strong>Klik Untuk Menutup Pendaftaran!</strong></button>'
           : '<button data-modal-target="open-registration-modal" data-modal-toggle="open-registration-modal">Sertifikasi Uji Kompetensi Sedang Tutup, <strong>Klik Untuk Membuka Pendaftaran!</strong></button>' !!}
     </marquee>
+    @include('muk.apl.apl-01.open-registration-modal')
+    @include('muk.apl.apl-01.close-registration-modal')
   @elsecan('assessor')
-    @if ($candidate && $candidate->assessed)
-      @if ($candidate->recommended && $candidate->assessment_schedule_id !== null)
-        <div
-          class="mb-4 flex flex-col items-center rounded-lg border border-yellow-300 bg-yellow-50 p-4 text-sm text-yellow-800 dark:border-yellow-800 dark:bg-gray-800 dark:text-yellow-400 sm:flex-row sm:items-start"
-          role="alert">
-          <svg class="mb-2 me-3 inline h-4 w-4 flex-shrink-0 sm:mt-0.5" aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-          </svg>
-          <span class="sr-only">Info</span>
-          <div>
-            <span class="font-medium">Informasi Penting!</span> Asesmen akan dilaksanakan pada:
-            <div class="mb-4 mt-2 text-sm">
-              <ul class="mt-2 max-w-md list-inside list-disc space-y-1 text-gray-500 dark:text-gray-400">
-                <li>
-                  Tanggal : {{ date('d-m-Y', strtotime($candidate->assessmentSchedule->schedule)) }}
-                </li>
-                <li>
-                  Pukul : {{ date('H:i', strtotime($candidate->assessmentSchedule->schedule)) }} - Selesai
-                </li>
-                <li>
-                  Ruangan : {{ $candidate->assessmentSchedule->tuk }}
-                </li>
-              </ul>
-            </div>
+    <marquee class="bg-blue-700 py-1 text-lg text-white dark:bg-blue-800" behavior="scroll" direction="left">
+      {!! $registration
+          ? '<span>Pendaftaran Sertifikasi Uji Kompetensi Sedang Dibuka!</span>'
+          : '<span>Sertifikasi Uji Kompetensi Sedang Tutup!' !!}
+    </marquee>
+    @if ($schedule)
+      <div
+        class="mb-4 mt-2 flex flex-col items-center rounded-lg border border-yellow-300 bg-yellow-50 p-4 text-sm text-yellow-800 dark:border-yellow-800 dark:bg-gray-800 dark:text-yellow-400 sm:flex-row sm:items-start"
+        role="alert">
+        <svg class="mb-2 me-3 inline h-4 w-4 flex-shrink-0 sm:mt-0.5" aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+          <span class="font-medium">Informasi Penting!</span> Asesmen akan dilaksanakan pada:
+          <div class="mb-4 mt-2 text-sm">
+            <ul class="mt-2 max-w-md list-inside list-disc space-y-1 text-gray-500 dark:text-gray-400">
+              <li>
+                Tanggal : {{ date('d-m-Y', strtotime($schedule->schedule)) }}
+              </li>
+              <li>
+                Pukul : {{ date('H:i', strtotime($schedule->schedule)) }} - Selesai
+              </li>
+              <li>
+                Ruangan : {{ $schedule->tuk }}
+              </li>
+            </ul>
           </div>
         </div>
-      @endif
+      </div>
     @endif
   @endcan
-
-  @include('muk.apl.apl-01.open-registration-modal')
-  @include('muk.apl.apl-01.close-registration-modal')
 @endsection
 
 @push('scripts')

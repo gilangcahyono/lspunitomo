@@ -128,7 +128,7 @@
         <label class="text-sm font-medium text-gray-900 dark:text-white">Show</label>
         <select id="show" name="show"
           class="rounded-lg border border-gray-300 bg-gray-50 p-1 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500">
-          <option value="5" {{ request('show') == 5 ? 'selected' : '' }}>5</option>
+          {{-- <option value="5" {{ request('show') == 5 ? 'selected' : '' }}>5</option> --}}
           <option value="10" {{ request('show') == 10 ? 'selected' : '' }}>10</option>
           <option value="25" {{ request('show') == 25 ? 'selected' : '' }}>25</option>
           <option value="50" {{ request('show') == 50 ? 'selected' : '' }}>50</option>

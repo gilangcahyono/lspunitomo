@@ -120,6 +120,10 @@ class SelfAssessmentController extends Controller
 
     public function result(Accession $accession)
     {
+        if ($accession->elementValue === null) {
+            abort(404);
+        }
+
         $accession->load('scheme.units.elements.kuks');
         $accession->elementValue = json_decode($accession->elementValue);
         $elementValues = collect($accession->elementValue)->toArray();
@@ -161,9 +165,12 @@ class SelfAssessmentController extends Controller
         return to_route('accession.candidates');
     }
 
-    public function reschedule(Request $request, Accession $accession)
+    public function reschedule(Request $request)
     {
-        $accession->update([
+        // return $request->all();
+
+        Accession::where('id', $request->id)->update([
+            'id' => $request->id,
             'selfAssessmentSchedule' => $request->selfAssessmentSchedule,
         ]);
 

@@ -416,7 +416,7 @@
       @enderror
     </div>
     <div class="mb-5">
-      <label for="expiredRcc" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Expired expiredRcc
+      <label for="expiredRcc" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Expired RCC
         <span class="text-red-500 dark:text-pink-500">*</span>
       </label>
       <input type="date" id="expiredRcc" name="expiredRcc" value="{{ old('expiredRcc') }}"

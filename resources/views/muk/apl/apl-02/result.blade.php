@@ -67,9 +67,11 @@
               <th class="border-r px-6 py-4 text-center dark:border-gray-700">
                 BK
               </th>
-              <th class="border-r px-6 py-4 text-center dark:border-gray-700">
-                Revisi
-              </th>
+              @if ($candidate->recommended === null)
+                <th class="border-r px-6 py-4 text-center dark:border-gray-700">
+                  Revisi
+                </th>
+              @endif
             </tr>
             @foreach ($unit->elements as $element)
               <tr class="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -95,10 +97,12 @@
                     required>
                   <label for="incompetent" class="hidden">Belum Kompeten</label>
                 </td>
-                <td class="px-6 py-4 text-center">
-                  <input type="checkbox" name="elements[]" value="{{ $element->id }}"
-                    class="h-4 w-4 border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
-                </td>
+                @if ($candidate->recommended === null)
+                  <td class="px-6 py-4 text-center">
+                    <input type="checkbox" name="elements[]" value="{{ $element->id }}"
+                      class="h-4 w-4 border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                  </td>
+                @endif
               </tr>
             @endforeach
           </tbody>

@@ -173,6 +173,7 @@ class AssessmentRegistrationController extends Controller
 
     public function registrants(Request $request)
     {
+        $this->authorize('admin');
         // return $request->all();
 
         $registration = Registration::first();
@@ -257,6 +258,7 @@ class AssessmentRegistrationController extends Controller
 
     public function plotAssessor(Request $request)
     {
+        $this->authorize('admin');
         // return $request->all();
 
         foreach ($request->registrants as $registrant) {
@@ -273,6 +275,8 @@ class AssessmentRegistrationController extends Controller
 
     public function openRegistration(Request $request)
     {
+        $this->authorize('admin');
+
         Registration::create([
             'periode' => $request->periode,
             'semester' => $request->semester,
@@ -286,6 +290,8 @@ class AssessmentRegistrationController extends Controller
 
     public function closeRegistration(string $id)
     {
+        $this->authorize('admin');
+
         Registration::where('id', "$id")->update(['isOpen' => false]);
 
         alert()->success('Pendaftaran berhasil ditutup')->persistent(true, false);
@@ -295,6 +301,8 @@ class AssessmentRegistrationController extends Controller
 
     public function export(Accession $accession)
     {
+        $this->authorize('admin');
+
         $registration = Registration::first();
 
         $filename = '1. FR.APL 01. Permohonan Sertifikasi Kompetensi';

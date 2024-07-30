@@ -34,7 +34,7 @@ class Ia06aController extends Controller
 
     public function show(string $schemeId, string $accessionId)
     {
-        $scheme = Scheme::where('id', $schemeId)->first();
+        $scheme = Scheme::with('units')->where('id', $schemeId)->first();
 
         $accession = $scheme->accessions->find($accessionId);
 
@@ -52,6 +52,7 @@ class Ia06aController extends Controller
     {
         $registration = Registration::first();
         $accession = Accession::firstWhere('id', $accessionId);
+        $scheme = Scheme::firstWhere('id', $accession->scheme_id);
 
         $filename = '15. FR.IA.06.A.  Pertanyaan Tertulis Esai';
         $templateProcessor = new TemplateProcessor(storage_path('app/files/templates/' . $filename . '.docx'));
@@ -65,6 +66,13 @@ class Ia06aController extends Controller
             'time' => explode(' ', $accession->assessmentSchedule->schedule)[1],
         ]);
 
+        $units = $scheme->units;
+        $newUnits = $units->map(fn ($unit, $index) => [
+            'row' => $index + 1,
+            'task' => $unit->criticalAspect,
+        ]);
+
+        $templateProcessor->cloneRowAndSetValues('row', $newUnits->toArray());
 
         $nim = $accession->nim;
         $ta =  Str::replace('/', '-', $registration->periode);

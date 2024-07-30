@@ -9,20 +9,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use PhpOffice\PhpWord\TemplateProcessor;
 
-class Ia05bController extends Controller
+class VaController extends Controller
 {
     public function index()
     {
         $schemes = Scheme::all();
 
-        return view('muk.ia.ia-05b.index', ['schemes' => $schemes]);
+        return view('muk.va.index', ['schemes' => $schemes]);
     }
 
     public function show(string $schemeId)
     {
         $scheme = Scheme::where('id', $schemeId)->first();
 
-        return view('muk.ia.ia-05b.show', [
+        return view('muk.va.show', [
             'scheme' => $scheme,
         ]);
     }
@@ -32,7 +32,7 @@ class Ia05bController extends Controller
         $registration = Registration::first();
         $scheme = Scheme::firstWhere('id', $schemeId);
 
-        $filename = '14. FR.IA.05.B. Lembar Kunci Jawaban Pertanyaan Pilihan Ganda';
+        $filename = '25_FR.VA  MEMBERIKAN KONTRIBUSI DALAM VALIDASI ASESMEN';
         $templateProcessor = new TemplateProcessor(storage_path('app/files/templates/' . $filename . '.docx'));
 
         $templateProcessor->setValues([
@@ -47,7 +47,7 @@ class Ia05bController extends Controller
         $pathToSave = storage_path("app/public/muk/$savedFilename");
         $templateProcessor->saveAs($pathToSave);
 
-        // return response()->download($pathToSave)->deleteFileAfterSend(true);
+        return response()->download($pathToSave)->deleteFileAfterSend(true);
 
         return redirect("https://docs.google.com/viewerng/viewer?url=" . env('APP_URL') . "/storage/muk/$savedFilename");
     }

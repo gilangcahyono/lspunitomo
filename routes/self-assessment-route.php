@@ -10,6 +10,6 @@ Route::controller(SelfAssessmentController::class)->group(function () {
   Route::post('/self-assessments', 'store')->name('self-assessments.store');
   Route::get('/self-assessments/{accession}', 'result')->name('self-assessments.result');
   Route::put('/self-assessments/{accession}', 'review')->name('self-assessments.review');
-  Route::put('/reschedule-self-assessments/{accession}', 'reschedule')->name('self-assessments.reschedule');
+  Route::post('/reschedule-self-assessments', 'reschedule')->name('self-assessments.reschedule');
   Route::get('/apl-02/export/{accession}', 'export')->name('apl-02.export');
 });

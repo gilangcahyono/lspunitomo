@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SchemeController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('schemes', [SchemeController::class, 'search'])->name('schemes.search');
+// Route::post('schemes', [SchemeController::class, 'search'])->name('schemes.search');
 
-Route::get('users', [UserController::class, 'index']);
+Route::get('users', function () {
+  return User::with('roles')->get();
+});

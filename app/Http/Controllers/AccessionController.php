@@ -3,26 +3,52 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accession;
+use App\Models\Assessor;
 use App\Models\Scheme;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class AccessionController extends Controller
 {
     public function index(Request $request)
     {
         if ($request->scheme_id != null) {
-            $accessions = Accession::where('recommended', true)
-                ->where('scheme_id', $request->scheme_id)
-                ->orderBy('scheme_id')
-                ->orderBy('registeredAt', 'desc')
-                ->paginate($request->show ?? 10)
-                ->withQueryString();
+            if (Gate::allows('assessor')) {
+                $accessions = Accession::where('recommended', true)
+                    ->where('assessor_id', auth())
+                    ->where('scheme_id', $request->scheme_id)
+                    ->orderBy('scheme_id')
+                    ->orderBy('registeredAt', 'desc')
+                    ->paginate($request->show ?? 10)
+                    ->withQueryString();
+            }
+
+            if (Gate::allows('admin')) {
+                $accessions = Accession::where('recommended', true)
+                    ->where('scheme_id', $request->scheme_id)
+                    ->orderBy('scheme_id')
+                    ->orderBy('registeredAt', 'desc')
+                    ->paginate($request->show ?? 10)
+                    ->withQueryString();
+            }
         } else {
-            $accessions = Accession::where('recommended', true)
-                ->orderBy('scheme_id')
-                ->orderBy('registeredAt', 'desc')
-                ->paginate($request->show ?? 10)
-                ->withQueryString();
+            if (Gate::allows('assessor')) {
+                $assessor = Assessor::firstWhere('nidn', auth()->user()->username);
+                $accessions = Accession::where('recommended', true)
+                    ->where('assessor_id', $assessor->id)
+                    ->orderBy('scheme_id')
+                    ->orderBy('registeredAt', 'desc')
+                    ->paginate($request->show ?? 10)
+                    ->withQueryString();
+            }
+
+            if (Gate::allows('admin')) {
+                $accessions = Accession::where('recommended', true)
+                    ->orderBy('scheme_id')
+                    ->orderBy('registeredAt', 'desc')
+                    ->paginate($request->show ?? 10)
+                    ->withQueryString();
+            }
         }
 
         return view('master.accession.index', [
@@ -31,15 +57,10 @@ class AccessionController extends Controller
         ]);
     }
 
-    public function show(Accession $accession)
-    {
-        return view('accession.show', [
-            'accession' => $accession
-        ]);
-    }
-
     public function recommend(Request $request)
     {
+        $this->authorize('aadmin');
+
         foreach ($request->accessions as $accession) {
             Accession::where('id', $accession)->update(['assessed' => true]);
         }

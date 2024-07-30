@@ -7,46 +7,48 @@
 
   <hr class="my-5 h-px border-0 bg-gray-400 dark:bg-gray-700">
 
-  <div
-    class="block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex lg:mt-1.5">
-    <div class="mb-1 w-full">
-      <div class="block items-center justify-between dark:divide-gray-700 sm:flex md:divide-x md:divide-gray-100">
-        <div class="mb-4 flex items-center sm:mb-0">
-          <form class="w-full sm:pr-3" method="GET">
-            <div class="flex gap-2">
-              <select name="scheme_id"
-                class="block w-64 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500">
-                <option selected value="" disabled>Cari Skema</option>
-                @foreach ($schemes as $scheme)
-                  <option value="{{ $scheme->id }}">{{ $scheme->name }}</option>
-                @endforeach
-              </select>
-              <button type="submit"
-                class="rounded-lg border border-emerald-700 bg-emerald-700 p-2.5 text-sm font-medium text-white hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
-                <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                  viewBox="0 0 20 20">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                </svg>
-                <span class="sr-only">Search</span>
-              </button>
-            </div>
-            @if (request('scheme_id') && $accessions[0])
-              <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                Ditemukan Skema : {{ $accessions[0]->scheme->name }}
-              </p>
-            @endif
+  @can('admin')
+    <div
+      class="block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex lg:mt-1.5">
+      <div class="mb-1 w-full">
+        <div class="block items-center justify-between dark:divide-gray-700 sm:flex md:divide-x md:divide-gray-100">
+          <div class="mb-4 flex items-center sm:mb-0">
+            <form class="w-full sm:pr-3" method="GET">
+              <div class="flex gap-2">
+                <select name="scheme_id"
+                  class="block w-64 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500">
+                  <option selected value="" disabled>Cari Skema</option>
+                  @foreach ($schemes as $scheme)
+                    <option value="{{ $scheme->id }}">{{ $scheme->name }}</option>
+                  @endforeach
+                </select>
+                <button type="submit"
+                  class="rounded-lg border border-emerald-700 bg-emerald-700 p-2.5 text-sm font-medium text-white hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
+                  <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                  </svg>
+                  <span class="sr-only">Search</span>
+                </button>
+              </div>
+              @if (request('scheme_id') && $accessions[0])
+                <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                  Ditemukan Skema : {{ $accessions[0]->scheme->name }}
+                </p>
+              @endif
 
-          </form>
+            </form>
+          </div>
+          <button id="recommend-btn" type="button" disabled data-modal-target="set-schedule-modal"
+            data-modal-toggle="set-schedule-modal"
+            class="cursor-not-allowed rounded-lg bg-emerald-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
+            Rekomendasikan
+          </button>
         </div>
-        <button id="recommend-btn" type="button" disabled data-modal-target="set-schedule-modal"
-          data-modal-toggle="set-schedule-modal"
-          class="cursor-not-allowed rounded-lg bg-emerald-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
-          Rekomendasikan
-        </button>
       </div>
     </div>
-  </div>
+  @endcan
 
   <div class="flex flex-col">
     <div class="overflow-x-auto">
@@ -58,10 +60,12 @@
                 <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
                   #
                 </th>
-                <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                  <input type="checkbox" checked disabled
-                    class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-slate-600 focus:ring-2 focus:ring-slate-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-slate-600">
-                </td>
+                @can('admin')
+                  <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+                    <input type="checkbox" checked disabled
+                      class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-slate-600 focus:ring-2 focus:ring-slate-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-slate-600">
+                  </td>
+                @endcan
                 <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
                   NIM
                 </th>
@@ -71,9 +75,11 @@
                 <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
                   Skema
                 </th>
-                <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
-                  Asesor
-                </th>
+                @can('admin')
+                  <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                    Asesor
+                  </th>
+                @endcan
               </tr>
             </thead>
             <tbody id="schemeList" class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
@@ -85,20 +91,24 @@
                     <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
                       {{ $loop->iteration + ($accessions->currentPage() - 1) * $accessions->perPage() }}
                     </td>
-                    <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      <input id="check-{{ $accession->id }}" type="checkbox" name="accessions[]"
-                        value="{{ $accession->id }}"
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-emerald-600 focus:ring-2 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-emerald-600"
-                        {{ $accession->assessed ? 'checked disabled' : '' }}>
-                    </td>
+                    @can('admin')
+                      <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+                        <input id="check-{{ $accession->id }}" type="checkbox" name="accessions[]"
+                          value="{{ $accession->id }}"
+                          class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-emerald-600 focus:ring-2 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-emerald-600"
+                          {{ $accession->assessed ? 'checked disabled' : '' }}>
+                      </td>
+                    @endcan
                     <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
                       {{ $accession->nim }}</td>
                     <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
                       {{ $accession->name }}</td>
                     <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
                       {{ $accession->scheme->name }}</td>
-                    <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      {{ $accession->assessor->name }}</td>
+                    @can('admin')
+                      <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+                        {{ $accession->assessor->name }}</td>
+                    @endcan
 
                     {{-- <td class="whitespace-nowrap p-4 text-center">
                     @if ($accession->verified)

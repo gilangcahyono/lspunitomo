@@ -41,13 +41,13 @@ function getUserActive()
 
 function getStudents()
 {
-  $students = Http::get(url('http://localhost:2002/students'))->json();
+  $students = Http::get(url(env('API_URL') . '/students'))->json();
   return collect($students);
 }
 
 function getLecturers()
 {
-  $lecturers = Http::get(url('http://localhost:2002/lecturers'))->json();
+  $lecturers = Http::get(url(env('API_URL') . '/lecturers'))->json();
   return collect($lecturers);
 }
 
