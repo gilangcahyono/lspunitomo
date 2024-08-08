@@ -55,7 +55,7 @@ class UnitController extends Controller
         // $request->scheme_id = $scheme_id;
 
         $validatedData =  $request->validate([
-            'code' => ['required', 'string', 'max:13'],
+            'code' => ['required', 'string'],
             'name' => ['string', 'required'],
             // 'scheme_id' => $scheme_id,
             'scheme_id' => ['required', 'exists:schemes,id',],
@@ -93,7 +93,7 @@ class UnitController extends Controller
     public function update(Request $request, Unit $unit)
     {
         $validatedData =  $request->validate([
-            'code' => ['string', 'required', 'max:13'],
+            'code' => ['string', 'required'],
             'name' => ['string', 'required'],
             'scheme_id' => ['string', 'required', 'exists:schemes,id'],
         ]);

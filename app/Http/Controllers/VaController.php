@@ -47,6 +47,8 @@ class VaController extends Controller
         $pathToSave = storage_path("app/public/muk/$savedFilename");
         $templateProcessor->saveAs($pathToSave);
 
+        return redirect("https://view.officeapps.live.com/op/view.aspx?src=" . env('APP_URL') . "/storage/muk/$savedFilename&wdOrigin=BROWSELINK");
+
         return response()->download($pathToSave)->deleteFileAfterSend(true);
 
         return redirect("https://docs.google.com/viewerng/viewer?url=" . env('APP_URL') . "/storage/muk/$savedFilename");

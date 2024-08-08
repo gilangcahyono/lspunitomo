@@ -75,7 +75,6 @@ class DatabaseSeeder extends Seeder
         //     'user_id' => $user1['id'],
         // ]);
 
-
         Scheme::factory(10)
             ->has(
                 Unit::factory(10)
@@ -88,7 +87,7 @@ class DatabaseSeeder extends Seeder
             )
             ->create();
 
-        Accession::factory(100)->create();
-        Assessor::factory(40)->create();
+        // Accession::factory(100)->create();
+        // Assessor::factory(40)->create();
     }
 }

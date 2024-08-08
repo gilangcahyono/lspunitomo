@@ -162,14 +162,14 @@
                   </th>
                   {{-- <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
                     Nomor Lisensi
-                  </th>
+                  </th> --}}
                   <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
                     Fakultas / Prodi
                   </th>
-                  <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                  {{-- <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
                     Status
-                  </th>
-                  <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                  </th> --}}
+                  {{-- <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
                     Jenis
                   </th>
                   <th scope="col" class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
@@ -198,12 +198,12 @@
                     <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
                       {{ $scheme->name }}</td>
                     {{-- <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      {{ $scheme->licenseNumber }}</td>
+                      {{ $scheme->licenseNumber }}</td> --}}
                     <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
                       {{ $scheme->faculty }} / {{ $scheme->department }}</td>
-                    <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
-                      {{ $scheme->status }}</td>
-                    <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+                    {{-- <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
+                      {{ $scheme->status }}</td> --}}
+                    {{-- <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
                       {{ $scheme->type }}</td>
                     <td class="whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white">
                       {{ $scheme->skkni }}

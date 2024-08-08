@@ -285,7 +285,7 @@ class AssessmentRegistrationController extends Controller
 
         alert()->success('Pendaftaran berhasil dibuka')->persistent(true, false);
 
-        return to_route('assessment.registrants');
+        return to_route('dashboard');
     }
 
     public function closeRegistration(string $id)
@@ -296,7 +296,7 @@ class AssessmentRegistrationController extends Controller
 
         alert()->success('Pendaftaran berhasil ditutup')->persistent(true, false);
 
-        return to_route('assesment.registrants');
+        return to_route('dashboard');
     }
 
     public function export(Accession $accession)

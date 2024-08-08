@@ -23,6 +23,9 @@
           <th class="border px-6 py-4 dark:border-gray-700">
             Nama
           </th>
+          <th class="border px-6 py-4 dark:border-gray-700">
+            Aksi
+          </th>
         </tr>
       </thead>
       @foreach ($accessions as $accession)
@@ -36,6 +39,9 @@
           </td>
           <td class="border px-6 py-4 dark:border-gray-700">
             {{ $accession->name }}
+          </td>
+          <td class="border px-6 py-4 dark:border-gray-700">
+            <a href="{{ route('ia-06b.export', ['accessionId' => $accession->id]) }}" target="_blank">Cetak</a>
           </td>
         </tr>
       @endforeach

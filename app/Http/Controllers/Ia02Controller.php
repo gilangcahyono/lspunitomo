@@ -66,6 +66,7 @@ class Ia02Controller extends Controller
             'schemeName' => $accession->scheme->name,
             'schemeCode' => $accession->scheme->code,
             'assessor' => $accession->assessor->name,
+            'met' => $accession->assessor->metRegistrationNumber,
             'accession' =>  $accession->name,
             'date' => explode(' ', $accession->assessmentSchedule->schedule)[0],
             'tuk' => $accession->assessmentSchedule->tuk,
@@ -98,8 +99,6 @@ class Ia02Controller extends Controller
 
         // return response()->download($pathToSave)->deleteFileAfterSend(true);
 
-        return redirect("https://docs.google.com/viewerng/viewer?url=" . env('APP_URL') . "/storage/muk/$savedFilename");
-
-        return redirect()->back();
+        return redirect("https://view.officeapps.live.com/op/view.aspx?src=" . env('APP_URL') . "/storage/muk/$savedFilename&wdOrigin=BROWSELINK");
     }
 }

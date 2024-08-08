@@ -10,7 +10,7 @@
 
   <div class="relative overflow-x-auto">
 
-    <form id="mapaForm" action="{{ route('mapa-02.store') }}" method="POST">
+    <div id="mapaForm" action="{{ route('mapa-02.store') }}" method="POST">
       @csrf
 
       <input type="hidden" name="schemeId" value="{{ $scheme->id }}">
@@ -41,9 +41,24 @@
 
       <table class="mb-3 w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
         @foreach ($scheme->jobGroups as $jobGroup)
-          <input type="hidden" value="{{ $jobGroup->id }}" name="jobGroups[{{ $jobGroup->id }}][id]"
-            class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
-
+          {{-- <input type="hidden" value="{{ $jobGroup->id }}" name="jobGroups[{{ $jobGroup->id }}][id]"
+            class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
+          <tr class="border bg-white dark:border-gray-700 dark:bg-gray-800">
+            <td class="border px-6 py-4 dark:border-gray-700" colspan="4">
+              <b>Kelompok Pekerjaan {{ $jobGroup->name }}</b>
+            </td>
+          </tr>
+          <tr class="border bg-white dark:border-gray-700 dark:bg-gray-800">
+            <td class="border px-6 py-4 dark:border-gray-700">
+              No
+            </td>
+            <td class="border px-6 py-4 dark:border-gray-700">
+              Kode Unit
+            </td>
+            <td class="border px-6 py-4 dark:border-gray-700">
+              Nama Unit
+            </td>
+          </tr>
           @foreach ($jobGroup->units as $unit)
             <tr class="border bg-white dark:border-gray-700 dark:bg-gray-800">
               <td class="border px-6 py-4 dark:border-gray-700">
@@ -102,34 +117,34 @@
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
 
-                      <input id="1" type="checkbox" value="1"
+                      {{-- <input id="1" type="checkbox" value="1"
                         name="jobGroups[{{ $jobGroup->id }}][instrument1][]"
                         {{ in_array('1', explode(' zzz ', $jobGroup->instrument1)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="2" type="checkbox" value="2"
+                      {{-- <input id="2" type="checkbox" value="2"
                         name="jobGroups[{{ $jobGroup->id }}][instrument1][]"
                         {{ in_array('2', explode(' zzz ', $jobGroup->instrument1)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="3" type="checkbox" value="3"
+                      {{-- <input id="3" type="checkbox" value="3"
                         name="jobGroups[{{ $jobGroup->id }}][instrument1][]"
                         {{ in_array('3', explode(' zzz ', $jobGroup->instrument1)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="4" type="checkbox" value="4"
+                      {{-- <input id="4" type="checkbox" value="4"
                         name="jobGroups[{{ $jobGroup->id }}][instrument1][]"
                         {{ in_array('4', explode(' zzz ', $jobGroup->instrument1)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="5" type="checkbox" value="5"
+                      {{-- <input id="5" type="checkbox" value="5"
                         name="jobGroups[{{ $jobGroup->id }}][instrument1][]"
                         {{ in_array('5', explode(' zzz ', $jobGroup->instrument1)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                   </tr>
 
@@ -142,34 +157,34 @@
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
 
-                      <input id="1" type="checkbox" value="1"
+                      {{-- <input id="1" type="checkbox" value="1"
                         name="jobGroups[{{ $jobGroup->id }}][instrument2][]"
                         {{ in_array('1', explode(' zzz ', $jobGroup->instrument2)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="2" type="checkbox" value="2"
+                      {{-- <input id="2" type="checkbox" value="2"
                         name="jobGroups[{{ $jobGroup->id }}][instrument2][]"
                         {{ in_array('2', explode(' zzz ', $jobGroup->instrument2)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="3" type="checkbox" value="3"
+                      {{-- <input id="3" type="checkbox" value="3"
                         name="jobGroups[{{ $jobGroup->id }}][instrument2][]"
                         {{ in_array('3', explode(' zzz ', $jobGroup->instrument2)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="4" type="checkbox" value="4"
+                      {{-- <input id="4" type="checkbox" value="4"
                         name="jobGroups[{{ $jobGroup->id }}][instrument2][]"
                         {{ in_array('4', explode(' zzz ', $jobGroup->instrument2)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="5" type="checkbox" value="5"
+                      {{-- <input id="5" type="checkbox" value="5"
                         name="jobGroups[{{ $jobGroup->id }}][instrument2][]"
                         {{ in_array('5', explode(' zzz ', $jobGroup->instrument2)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                   </tr>
 
@@ -182,34 +197,34 @@
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
 
-                      <input id="1" type="checkbox" value="1"
+                      {{-- <input id="1" type="checkbox" value="1"
                         name="jobGroups[{{ $jobGroup->id }}][instrument3][]"
                         {{ in_array('1', explode(' zzz ', $jobGroup->instrument3)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="2" type="checkbox" value="2"
+                      {{-- <input id="2" type="checkbox" value="2"
                         name="jobGroups[{{ $jobGroup->id }}][instrument3][]"
                         {{ in_array('2', explode(' zzz ', $jobGroup->instrument3)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="3" type="checkbox" value="3"
+                      {{-- <input id="3" type="checkbox" value="3"
                         name="jobGroups[{{ $jobGroup->id }}][instrument3][]"
                         {{ in_array('3', explode(' zzz ', $jobGroup->instrument3)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="4" type="checkbox" value="4"
+                      {{-- <input id="4" type="checkbox" value="4"
                         name="jobGroups[{{ $jobGroup->id }}][instrument3][]"
                         {{ in_array('4', explode(' zzz ', $jobGroup->instrument3)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="5" type="checkbox" value="5"
+                      {{-- <input id="5" type="checkbox" value="5"
                         name="jobGroups[{{ $jobGroup->id }}][instrument3][]"
                         {{ in_array('5', explode(' zzz ', $jobGroup->instrument3)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                   </tr>
 
@@ -223,34 +238,34 @@
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
 
-                      <input id="1" type="checkbox" value="1"
+                      {{-- <input id="1" type="checkbox" value="1"
                         name="jobGroups[{{ $jobGroup->id }}][instrument4a][]"
                         {{ in_array('1', explode(' zzz ', $jobGroup->instrument4a)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="2" type="checkbox" value="2"
+                      {{-- <input id="2" type="checkbox" value="2"
                         name="jobGroups[{{ $jobGroup->id }}][instrument4a][]"
                         {{ in_array('2', explode(' zzz ', $jobGroup->instrument4a)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="3" type="checkbox" value="3"
+                      {{-- <input id="3" type="checkbox" value="3"
                         name="jobGroups[{{ $jobGroup->id }}][instrument4a][]"
                         {{ in_array('3', explode(' zzz ', $jobGroup->instrument4a)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="4" type="checkbox" value="4"
+                      {{-- <input id="4" type="checkbox" value="4"
                         name="jobGroups[{{ $jobGroup->id }}][instrument4a][]"
                         {{ in_array('4', explode(' zzz ', $jobGroup->instrument4a)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="5" type="checkbox" value="5"
+                      {{-- <input id="5" type="checkbox" value="5"
                         name="jobGroups[{{ $jobGroup->id }}][instrument4a][]"
                         {{ in_array('5', explode(' zzz ', $jobGroup->instrument4a)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                   </tr>
 
@@ -260,34 +275,34 @@
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
 
-                      <input id="1" type="checkbox" value="1"
+                      {{-- <input id="1" type="checkbox" value="1"
                         name="jobGroups[{{ $jobGroup->id }}][instrument4b][]"
                         {{ in_array('1', explode(' zzz ', $jobGroup->instrument4b)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="2" type="checkbox" value="2"
+                      {{-- <input id="2" type="checkbox" value="2"
                         name="jobGroups[{{ $jobGroup->id }}][instrument4b][]"
                         {{ in_array('2', explode(' zzz ', $jobGroup->instrument4b)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="3" type="checkbox" value="3"
+                      {{-- <input id="3" type="checkbox" value="3"
                         name="jobGroups[{{ $jobGroup->id }}][instrument4b][]"
                         {{ in_array('3', explode(' zzz ', $jobGroup->instrument4b)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="4" type="checkbox" value="4"
+                      {{-- <input id="4" type="checkbox" value="4"
                         name="jobGroups[{{ $jobGroup->id }}][instrument4b][]"
                         {{ in_array('4', explode(' zzz ', $jobGroup->instrument4b)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="5" type="checkbox" value="5"
+                      {{-- <input id="5" type="checkbox" value="5"
                         name="jobGroups[{{ $jobGroup->id }}][instrument4b][]"
                         {{ in_array('5', explode(' zzz ', $jobGroup->instrument4b)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                   </tr>
 
@@ -300,34 +315,34 @@
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
 
-                      <input id="1" type="checkbox" value="1"
+                      {{-- <input id="1" type="checkbox" value="1"
                         name="jobGroups[{{ $jobGroup->id }}][instrument5][]"
                         {{ in_array('1', explode(' zzz ', $jobGroup->instrument5)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="2" type="checkbox" value="2"
+                      {{-- <input id="2" type="checkbox" value="2"
                         name="jobGroups[{{ $jobGroup->id }}][instrument5][]"
                         {{ in_array('2', explode(' zzz ', $jobGroup->instrument5)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="3" type="checkbox" value="3"
+                      {{-- <input id="3" type="checkbox" value="3"
                         name="jobGroups[{{ $jobGroup->id }}][instrument5][]"
                         {{ in_array('3', explode(' zzz ', $jobGroup->instrument5)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="4" type="checkbox" value="4"
+                      {{-- <input id="4" type="checkbox" value="4"
                         name="jobGroups[{{ $jobGroup->id }}][instrument5][]"
                         {{ in_array('4', explode(' zzz ', $jobGroup->instrument5)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="5" type="checkbox" value="5"
+                      {{-- <input id="5" type="checkbox" value="5"
                         name="jobGroups[{{ $jobGroup->id }}][instrument5][]"
                         {{ in_array('5', explode(' zzz ', $jobGroup->instrument5)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                   </tr>
 
@@ -340,34 +355,34 @@
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
 
-                      <input id="1" type="checkbox" value="1"
+                      {{-- <input id="1" type="checkbox" value="1"
                         name="jobGroups[{{ $jobGroup->id }}][instrument6][]"
                         {{ in_array('1', explode(' zzz ', $jobGroup->instrument6)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="2" type="checkbox" value="2"
+                      {{-- <input id="2" type="checkbox" value="2"
                         name="jobGroups[{{ $jobGroup->id }}][instrument6][]"
                         {{ in_array('2', explode(' zzz ', $jobGroup->instrument6)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="3" type="checkbox" value="3"
+                      {{-- <input id="3" type="checkbox" value="3"
                         name="jobGroups[{{ $jobGroup->id }}][instrument6][]"
                         {{ in_array('3', explode(' zzz ', $jobGroup->instrument6)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="4" type="checkbox" value="4"
+                      {{-- <input id="4" type="checkbox" value="4"
                         name="jobGroups[{{ $jobGroup->id }}][instrument6][]"
                         {{ in_array('4', explode(' zzz ', $jobGroup->instrument6)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="5" type="checkbox" value="5"
+                      {{-- <input id="5" type="checkbox" value="5"
                         name="jobGroups[{{ $jobGroup->id }}][instrument6][]"
                         {{ in_array('5', explode(' zzz ', $jobGroup->instrument6)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                   </tr>
 
@@ -380,34 +395,34 @@
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
 
-                      <input id="1" type="checkbox" value="1"
+                      {{-- <input id="1" type="checkbox" value="1"
                         name="jobGroups[{{ $jobGroup->id }}][instrument7][]"
                         {{ in_array('1', explode(' zzz ', $jobGroup->instrument7)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="2" type="checkbox" value="2"
+                      {{-- <input id="2" type="checkbox" value="2"
                         name="jobGroups[{{ $jobGroup->id }}][instrument7][]"
                         {{ in_array('2', explode(' zzz ', $jobGroup->instrument7)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="3" type="checkbox" value="3"
+                      {{-- <input id="3" type="checkbox" value="3"
                         name="jobGroups[{{ $jobGroup->id }}][instrument7][]"
                         {{ in_array('3', explode(' zzz ', $jobGroup->instrument7)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="4" type="checkbox" value="4"
+                      {{-- <input id="4" type="checkbox" value="4"
                         name="jobGroups[{{ $jobGroup->id }}][instrument7][]"
                         {{ in_array('4', explode(' zzz ', $jobGroup->instrument7)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="5" type="checkbox" value="5"
+                      {{-- <input id="5" type="checkbox" value="5"
                         name="jobGroups[{{ $jobGroup->id }}][instrument7][]"
                         {{ in_array('5', explode(' zzz ', $jobGroup->instrument7)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                   </tr>
 
@@ -420,34 +435,34 @@
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
 
-                      <input id="1" type="checkbox" value="1"
+                      {{-- <input id="1" type="checkbox" value="1"
                         name="jobGroups[{{ $jobGroup->id }}][instrument8][]"
                         {{ in_array('1', explode(' zzz ', $jobGroup->instrument8)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="2" type="checkbox" value="2"
+                      {{-- <input id="2" type="checkbox" value="2"
                         name="jobGroups[{{ $jobGroup->id }}][instrument8][]"
                         {{ in_array('2', explode(' zzz ', $jobGroup->instrument8)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="3" type="checkbox" value="3"
+                      {{-- <input id="3" type="checkbox" value="3"
                         name="jobGroups[{{ $jobGroup->id }}][instrument8][]"
                         {{ in_array('3', explode(' zzz ', $jobGroup->instrument8)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="4" type="checkbox" value="4"
+                      {{-- <input id="4" type="checkbox" value="4"
                         name="jobGroups[{{ $jobGroup->id }}][instrument8][]"
                         {{ in_array('4', explode(' zzz ', $jobGroup->instrument8)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="5" type="checkbox" value="5"
+                      {{-- <input id="5" type="checkbox" value="5"
                         name="jobGroups[{{ $jobGroup->id }}][instrument8][]"
                         {{ in_array('5', explode(' zzz ', $jobGroup->instrument8)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                   </tr>
 
@@ -460,34 +475,34 @@
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
 
-                      <input id="1" type="checkbox" value="1"
+                      {{-- <input id="1" type="checkbox" value="1"
                         name="jobGroups[{{ $jobGroup->id }}][instrument9][]"
                         {{ in_array('1', explode(' zzz ', $jobGroup->instrument9)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="2" type="checkbox" value="2"
+                      {{-- <input id="2" type="checkbox" value="2"
                         name="jobGroups[{{ $jobGroup->id }}][instrument9][]"
                         {{ in_array('2', explode(' zzz ', $jobGroup->instrument9)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="3" type="checkbox" value="3"
+                      {{-- <input id="3" type="checkbox" value="3"
                         name="jobGroups[{{ $jobGroup->id }}][instrument9][]"
                         {{ in_array('3', explode(' zzz ', $jobGroup->instrument9)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="4" type="checkbox" value="4"
+                      {{-- <input id="4" type="checkbox" value="4"
                         name="jobGroups[{{ $jobGroup->id }}][instrument9][]"
                         {{ in_array('4', explode(' zzz ', $jobGroup->instrument9)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="5" type="checkbox" value="5"
+                      {{-- <input id="5" type="checkbox" value="5"
                         name="jobGroups[{{ $jobGroup->id }}][instrument9][]"
                         {{ in_array('5', explode(' zzz ', $jobGroup->instrument9)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                   </tr>
 
@@ -500,34 +515,34 @@
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
 
-                      <input id="1" type="checkbox" value="1"
+                      {{-- <input id="1" type="checkbox" value="1"
                         name="jobGroups[{{ $jobGroup->id }}][instrument10][]"
                         {{ in_array('1', explode(' zzz ', $jobGroup->instrument10)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="2" type="checkbox" value="2"
+                      {{-- <input id="2" type="checkbox" value="2"
                         name="jobGroups[{{ $jobGroup->id }}][instrument10][]"
                         {{ in_array('2', explode(' zzz ', $jobGroup->instrument10)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="3" type="checkbox" value="3"
+                      {{-- <input id="3" type="checkbox" value="3"
                         name="jobGroups[{{ $jobGroup->id }}][instrument10][]"
                         {{ in_array('3', explode(' zzz ', $jobGroup->instrument10)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="4" type="checkbox" value="4"
+                      {{-- <input id="4" type="checkbox" value="4"
                         name="jobGroups[{{ $jobGroup->id }}][instrument10][]"
                         {{ in_array('4', explode(' zzz ', $jobGroup->instrument10)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="5" type="checkbox" value="5"
+                      {{-- <input id="5" type="checkbox" value="5"
                         name="jobGroups[{{ $jobGroup->id }}][instrument11][]"
                         {{ in_array('5', explode(' zzz ', $jobGroup->instrument10)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                   </tr>
 
@@ -540,34 +555,34 @@
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
 
-                      <input id="1" type="checkbox" value="1"
+                      {{-- <input id="1" type="checkbox" value="1"
                         name="jobGroups[{{ $jobGroup->id }}][instrument11][]"
                         {{ in_array('1', explode(' zzz ', $jobGroup->instrument11)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="2" type="checkbox" value="2"
+                      {{-- <input id="2" type="checkbox" value="2"
                         name="jobGroups[{{ $jobGroup->id }}][instrument11][]"
                         {{ in_array('2', explode(' zzz ', $jobGroup->instrument11)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="3" type="checkbox" value="3"
+                      {{-- <input id="3" type="checkbox" value="3"
                         name="jobGroups[{{ $jobGroup->id }}][instrument11][]"
                         {{ in_array('3', explode(' zzz ', $jobGroup->instrument11)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="4" type="checkbox" value="4"
+                      {{-- <input id="4" type="checkbox" value="4"
                         name="jobGroups[{{ $jobGroup->id }}][instrument11][]"
                         {{ in_array('4', explode(' zzz ', $jobGroup->instrument11)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                     <td class="border px-6 py-4 dark:border-gray-700">
-                      <input id="5" type="checkbox" value="5"
+                      {{-- <input id="5" type="checkbox" value="5"
                         name="jobGroups[{{ $jobGroup->id }}][instrument11][]"
                         {{ in_array('5', explode(' zzz ', $jobGroup->instrument11)) ? 'checked' : '' }}
-                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-green-600"> --}}
                     </td>
                   </tr>
 
@@ -639,14 +654,14 @@
         <li>Pelatihan / belajar mandiri atau otodidak</li>
       </ol>
 
-      <button type="submit"
-        class="mb-2 me-2 rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Simpan</button>
+      {{-- <button type="submit"
+        class="mb-2 me-2 rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Simpan</button> --}}
       <a href="{{ route('mapa-02.export', ['schemeId' => $mapa->id]) }}" target="_blank"
         class="focus:ring-primary-300 inline-flex w-1/2 items-center justify-center rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto">
         Cetak
       </a>
 
-    </form>
+    </div>
 
   </div>
 @endsection

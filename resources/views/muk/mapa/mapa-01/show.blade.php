@@ -663,8 +663,8 @@
                             clip-rule="evenodd" />
                         </svg>
                       </button>
-                      <input type="text" list="assessors" name="makers[]" value="{{ $maker }}"
-                        autocomplete="off"
+                      <input type="text" list="assessors" autocomplete="off" name="makers[]"
+                        value="{{ $maker }}" autocomplete="off"
                         class="mb-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500" />
                       <datalist id="assessors">
                         @foreach ($scheme->assessors as $assessor)
@@ -684,7 +684,7 @@
                           clip-rule="evenodd" />
                       </svg>
                     </button>
-                    <input type="text" list="assessors" name="makers[]" autocomplete="off"
+                    <input type="text" list="assessors" autocomplete="off" name="makers[]" autocomplete="off"
                       class="mb-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500" />
                     <datalist id="assessors">
                       @foreach ($scheme->assessors as $assessor)
@@ -805,7 +805,7 @@
               clip-rule="evenodd" />
           </svg>
         </button>
-        <input type="text" list="assessors" name="makers[]"
+        <input type="text" list="assessors" autocomplete="off" name="makers[]"
           class="block w-full mb-2 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500" />
           <datalist id="assessors">
             <@foreach ($scheme->assessors as $assessor)
@@ -831,7 +831,7 @@
               clip-rule="evenodd" />
           </svg>
         </button>
-        <input type="text" list="assessors" name="validators[]"
+        <input type="text" list="assessors" autocomplete="off" name="validators[]"
           class="block w-full mb-2 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-emerald-500 focus:ring-emerald-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-400 dark:focus:border-emerald-500 dark:focus:ring-emerald-500" />
           <datalist id="assessors">
             <@foreach ($scheme->assessors as $assessor)

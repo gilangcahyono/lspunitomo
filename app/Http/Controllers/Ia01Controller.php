@@ -61,7 +61,7 @@ class Ia01Controller extends Controller
 
         $filename = '10. FR.IA.01.Ceklis Observasi Aktivitas Praktik';
         $templateProcessor = new TemplateProcessor(storage_path('app/files/templates/' . $filename . '.docx'));
-
+        // return $accession->assessor->metRegistrationNumber;
         $templateProcessor->setValues([
             'schemeName' => $accession->scheme->name,
             'schemeCode' => $accession->scheme->code,
@@ -69,6 +69,7 @@ class Ia01Controller extends Controller
             'accession' =>  $accession->name,
             'date' => explode(' ', $accession->assessmentSchedule->schedule)[0],
             'tuk' => $accession->assessmentSchedule->tuk,
+            'met' => $accession->assessor->metRegistrationNumber,
         ]);
 
         $newJobGroups = $jobGroups->map(fn ($jobGroup) => [
@@ -111,6 +112,8 @@ class Ia01Controller extends Controller
 
         // return response()->download($pathToSave)->deleteFileAfterSend(true);
 
-        return redirect("https://docs.google.com/viewerng/viewer?url=" . env('APP_URL') . "/storage/muk/$savedFilename");
+        return redirect("https://view.officeapps.live.com/op/view.aspx?src=" . env('APP_URL') . "/storage/muk/$savedFilename&wdOrigin=BROWSELINK");
+
+        // return redirect("https://docs.google.com/viewerng/viewer?url=" . env('APP_URL') . "/storage/muk/$savedFilename");
     }
 }

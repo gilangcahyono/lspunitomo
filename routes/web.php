@@ -29,11 +29,13 @@ Route::middleware('auth')->group(function () {
   Route::prefix('/muk')->group(function () {
     require __DIR__ . '/assessment-registration-route.php';
     require __DIR__ . '/self-assessment-route.php';
-    require __DIR__ . '/mapa-route.php';
-    require __DIR__ . '/ak-route.php';
-    require __DIR__ . '/ia-route.php';
-    require __DIR__ . '/va-route.php';
-    require __DIR__ . '/peta-route.php';
+    Route::middleware(['isAdmin'])->group(function () {
+      require __DIR__ . '/mapa-route.php';
+      require __DIR__ . '/ak-route.php';
+      require __DIR__ . '/ia-route.php';
+      require __DIR__ . '/va-route.php';
+      require __DIR__ . '/peta-route.php';
+    });
   });
 
   Route::get('assessor-analysis', [AssessorController::class, 'analysis'])->name('assessor.analysis');

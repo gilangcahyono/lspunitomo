@@ -145,10 +145,10 @@ class MapaController extends Controller
             'is5' => $templateProcessor->setCheckbox('is5', in_array('is5', explode(' zzz ', $mapa->industryStandards))),
             'manager' => $mapa->certificationManager,
             'masterAssessor' => $mapa->masterAssessor,
-            'makerName1' => explode(' zzz ', $mapa->makers)[0],
-            'makerName2' => explode(' zzz ', $mapa->makers)[1],
-            'validatorName1' => explode(' zzz ', $mapa->validators)[0],
-            'validatorName2' => explode(' zzz ', $mapa->validators)[1],
+            'maker1' => explode(' zzz ', $mapa->makers)[0],
+            'maker2' => explode(' zzz ', $mapa->makers)[1] ?? '',
+            'validator1' => explode(' zzz ', $mapa->validators)[0],
+            'validator2' => explode(' zzz ', $mapa->validators)[1] ?? '',
         ]);
 
         $newJobGroups = $jobGroups->map(fn ($jobGroup) => [
@@ -197,7 +197,11 @@ class MapaController extends Controller
         //     window.close();
         // </script>";
 
-        return redirect("https://docs.google.com/viewerng/viewer?url=" . env('APP_URL') . "/storage/muk/$savedFilename");
+        // return redirect("https://docs.google.com/viewerng/viewer?url=" . env('APP_URL') . "/storage/muk/$savedFilename");
+
+        // return redirect("https://docs.google.com/gview?url=" . env('APP_URL') . "/storage/muk/$savedFilename&embedded=true");
+
+        return redirect("https://view.officeapps.live.com/op/view.aspx?src=" . env('APP_URL') . "/storage/muk/$savedFilename&wdOrigin=BROWSELINK");
     }
 
     public function getMapa02()

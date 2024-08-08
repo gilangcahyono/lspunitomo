@@ -13,8 +13,9 @@ use App\Models\Unit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use PhpOffice\PhpWord\TemplateProcessor;
+// use PhpOffice\PhpWord\TemplateProcessor;
 use Illuminate\Support\Str;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class SelfAssessmentController extends Controller
 {
@@ -209,13 +210,13 @@ class SelfAssessmentController extends Controller
         $templateProcessor->cloneBlock('unitBlock', 0, true, false, $newUnits->toArray());
 
         foreach ($units as $unit) {
-            $elements = Element::whereHas('unit.scheme', function ($query) {
-                $query->where('schemes.id', 1);
+            $elements = Element::whereHas('unit.scheme', function ($query) use ($skemaId) {
+                $query->where('schemes.id', $skemaId);
             })->where('unit_id', $unit->id)->get();
 
             foreach ($elements as $element) {
-                $kuks = Kuk::whereHas('element.unit.scheme', function ($query) {
-                    $query->where('schemes.id', 1);
+                $kuks = Kuk::whereHas('element.unit.scheme', function ($query) use ($skemaId) {
+                    $query->where('schemes.id', $skemaId);
                 })->where('element_id', $element->id)->get();
 
                 $newKuks = $kuks->map(fn ($kuk, $index) => [
@@ -231,7 +232,7 @@ class SelfAssessmentController extends Controller
                 'elementName' => $element->name,
             ]);
 
-            $templateProcessor->cloneRowAndSetValues('elementName', $newElements);
+            $templateProcessor->cloneRowAndSetValues('elementNum', $newElements);
         }
 
         $nim = $accession->nim;
@@ -248,7 +249,5 @@ class SelfAssessmentController extends Controller
         // </script>";
 
         return redirect("https://docs.google.com/viewerng/viewer?url=" . env('APP_URL') . "/storage/muk/$savedFilename");
-
-        return redirect()->back();
     }
 }

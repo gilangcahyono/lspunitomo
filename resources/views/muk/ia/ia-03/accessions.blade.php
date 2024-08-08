@@ -23,6 +23,9 @@
           <th class="border px-6 py-4 dark:border-gray-700">
             Nama
           </th>
+          <th class="border px-6 py-4 dark:border-gray-700">
+            Aksi
+          </th>
         </tr>
       </thead>
       @foreach ($accessions as $accession)
@@ -31,11 +34,15 @@
             {{ $loop->iteration }}
           </td>
           <td class="border px-6 py-4 dark:border-gray-700">
-            <a class="hover:underline"
-              href="{{ route('ia-03.accessions', ['schemeId' => $scheme->id]) }}/accessions/{{ $accession->id }}">{{ $accession->nim }}</a>
+            {{-- <a class="hover:underline"
+              href="{{ route('ia-03.accessions', ['schemeId' => $scheme->id]) }}/accessions/{{ $accession->id }}">{{ $accession->nim }}</a> --}}
+            {{ $accession->nim }}
           </td>
           <td class="border px-6 py-4 dark:border-gray-700">
             {{ $accession->name }}
+          </td>
+          <td class="border px-6 py-4 dark:border-gray-700">
+            <a href="{{ route('ia-03.export', ['accessionId' => $accession->id]) }}" target="_blank">Cetak</a>
           </td>
         </tr>
       @endforeach

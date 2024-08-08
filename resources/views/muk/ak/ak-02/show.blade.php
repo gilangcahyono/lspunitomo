@@ -95,8 +95,8 @@
 
     </table>
 
-    <h2 class="mb-2 mt-5 font-bold text-gray-500 dark:text-gray-400">Beri tanda centang (√) di kolom yang sesuai untuk
-      mencerminkan bukti yang sesuai untuk setiap Unit Kompetensi.</h2>
+    {{-- <h2 class="mb-2 mt-5 font-bold text-gray-500 dark:text-gray-400">Beri tanda centang (√) di kolom yang sesuai untuk
+      mencerminkan bukti yang sesuai untuk setiap Unit Kompetensi.</h2> --}}
     <table class="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
       <thead>
         <tr class="border bg-white dark:border-gray-700 dark:bg-gray-800">

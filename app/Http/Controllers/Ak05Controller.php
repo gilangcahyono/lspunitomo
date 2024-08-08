@@ -19,12 +19,10 @@ class Ak05Controller extends Controller
         return view('muk.ak.ak-05.index', ['schemes' => $schemes]);
     }
 
-    public function assessors()
+    public function assessors(string $schemeId)
     {
-        $scheme = Scheme::with(['assessors' => function ($query) {
+        $scheme = Scheme::where('id', $schemeId)->with(['assessors' => function ($query) {
             $query->where('statusMet', 'Berlaku');
-        }, 'assessors', 'jobGroups' => function ($query) {
-            $query->with('units');
         }])->first();
 
         return view('muk.ak.ak-05.assessors', [
@@ -35,7 +33,7 @@ class Ak05Controller extends Controller
 
     public function show(string $schemeId, string $assessorId)
     {
-        $scheme = Scheme::with(['accessions', 'assessors', 'jobGroups', 'units'])->first();
+        $scheme = Scheme::where('id', $schemeId)->with(['accessions', 'assessors', 'jobGroups', 'units'])->first();
 
         $assessor = $scheme->assessors->find($assessorId);
 
@@ -84,8 +82,8 @@ class Ak05Controller extends Controller
 
         // return response()->download($pathToSave)->deleteFileAfterSend(true);
 
-        return redirect("https://docs.google.com/viewerng/viewer?url=" . env('APP_URL') . "/storage/muk/$savedFilename");
+        // return redirect("https://docs.google.com/viewerng/viewer?url=" . env('APP_URL') . "/storage/muk/$savedFilename");
 
-        return redirect()->back();
+        return redirect("https://view.officeapps.live.com/op/view.aspx?src=" . env('APP_URL') . "/storage/muk/$savedFilename&wdOrigin=BROWSELINK");
     }
 }

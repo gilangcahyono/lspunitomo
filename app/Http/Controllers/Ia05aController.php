@@ -76,7 +76,7 @@ class Ia05aController extends Controller
         $templateProcessor->saveAs($pathToSave);
 
         // return response()->download($pathToSave)->deleteFileAfterSend(true);
-
+        return redirect("https://view.officeapps.live.com/op/view.aspx?src=" . env('APP_URL') . "/storage/muk/$savedFilename&wdOrigin=BROWSELINK");
         return redirect("https://docs.google.com/viewerng/viewer?url=" . env('APP_URL') . "/storage/muk/$savedFilename");
     }
 }

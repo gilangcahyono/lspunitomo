@@ -59,7 +59,7 @@ class AccessionController extends Controller
 
     public function recommend(Request $request)
     {
-        $this->authorize('aadmin');
+        $this->authorize('admin');
 
         foreach ($request->accessions as $accession) {
             Accession::where('id', $accession)->update(['assessed' => true]);

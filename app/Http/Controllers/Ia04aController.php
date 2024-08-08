@@ -96,7 +96,7 @@ class Ia04aController extends Controller
         $pathToSave = storage_path("app/public/muk/$savedFilename");
         $templateProcessor->saveAs($pathToSave);
 
-        return response()->download($pathToSave)->deleteFileAfterSend(true);
+        // return response()->download($pathToSave)->deleteFileAfterSend(true);
 
         return redirect("https://docs.google.com/viewerng/viewer?url=" . env('APP_URL') . "/storage/muk/$savedFilename");
     }
